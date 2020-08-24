@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/bloc/registro_bloc.dart';
+export 'package:flutter_oso_test/src/bloc/registro_bloc.dart';
 
 class Provider extends InheritedWidget {
 
