@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 //Pages
 import 'src/page/login_page.dart';
 import 'src/page/registro_page.dart';
+import 'package:flutter_oso_test/src/page/home_page.dart';
 
 //Bloc 
 import 'package:flutter_oso_test/src/bloc/provider_bloc.dart';
@@ -21,11 +22,12 @@ class MyApp extends StatelessWidget {
     return Provider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Material App',
+        title: 'Oso test',
         initialRoute: 'login',
         routes: {
           'login'     :  ( BuildContext context ) => LoginPage(),
-          'registro'  :  ( BuildContext context ) => RegistroPage()
+          'registro'  :  ( BuildContext context ) => RegistroPage(),
+          'home'      :  ( BuildContext context ) => HomePage()
         },
         theme: ThemeData(
           primaryColor: Colors.deepPurple

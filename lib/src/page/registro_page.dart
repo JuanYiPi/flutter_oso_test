@@ -247,7 +247,7 @@ class _RegistroPageState extends State<RegistroPage> {
          return RaisedButton(
           child: Container(
             padding: EdgeInsets.symmetric( horizontal: 80.0, vertical: 15.0 ),
-            child: Text('Ingresar'),
+            child: Text('Registrar'),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0)
@@ -288,12 +288,21 @@ class _RegistroPageState extends State<RegistroPage> {
         context: context,
         builder: (_) => AlertDialog(
           title: Icon(Icons.done, size: 35.0, color: Colors.green,),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Aceptar'),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            )
+          ],
           content: RichText(
             text: TextSpan(
               style: TextStyle(color: Colors.black,),
               children: [
                 TextSpan(text: "Usuario creado exitosamente!\n"),
-                TextSpan(text: 'ID de Usuario: ${response.id}', style: TextStyle(fontWeight: FontWeight.w500)),
+                TextSpan(text: 'Se le ha enviado un correo electronico para verificar su cuenta', style: TextStyle(fontWeight: FontWeight.w500)),
               ]
             ),
             textAlign: TextAlign.center,
@@ -372,4 +381,5 @@ class _RegistroPageState extends State<RegistroPage> {
       ],
     );
   }
+
 }
