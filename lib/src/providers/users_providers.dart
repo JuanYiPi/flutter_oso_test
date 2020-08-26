@@ -79,23 +79,31 @@ class UsersProviders {
     }
   }
 
-  Future<User> updateUser({String id, String name, String email}) async {
+  Future<dynamic> updateUser({String id, String name, String email}) async {
 
-    Map <String, dynamic> body = {
+    final Map <String, dynamic> body = {
       'name'    : name,
       'email'   : email,
     };
 
+    final url = Uri.http(authority, 'api/users/$id');
+    final resp = await http.put(url, body: body, headers: UsersProviders.headers);
+    final decodedData = json.decode(resp.body);
+
     try {
-      final url = Uri.http(authority, 'api/users/$id');
-      final resp = await http.put(url, body: body, headers: UsersProviders.headers);
-      final decodedData = json.decode(resp.body);
       final updatedUser = new User.fromJson(decodedData['data']);
       return updatedUser;
-    } catch (err) {
-      print(err.toString());
+    } catch (_) {
+
+      try {
+        final error = ErrorUser.fromJson(decodedData['error']);
+        print(decodedData['error']);
+        return error;
+      } catch (error) {
+        print(error.toString());
+        return null;
+      }
     }
-    return null;
   }
 
   Future deleteUserById(String idUser) async {

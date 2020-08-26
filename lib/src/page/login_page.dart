@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_oso_test/src/bloc/provider_bloc.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,6 +9,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final prefs = new UserPreferences();
+
+  final _emailController = TextEditingController();
 
   IconData icon        = Icons.visibility;
   bool visiblePassword = true;
@@ -70,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
         FlatButton(
        child: Text( 'Crear una nueva cuenta' ),
-       onPressed: ()=> Navigator.pushNamed(context, 'registro'),
+       onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
       ),
         SizedBox( height: 100.0 ),
       ],
@@ -88,6 +93,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.symmetric( horizontal: 20.0 ),
 
         child: TextField(
+          controller: _emailController,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
             icon: Icon( Icons.alternate_email, color: Colors.deepPurple),
@@ -145,22 +151,29 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _crearBoton(RegistroBloc bloc) {
 
+    final size = MediaQuery.of(context).size;
+
     return StreamBuilder(
       stream: bloc.formValiedStreamLogin,
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
-        return RaisedButton(
-          child: Container(
-            padding: EdgeInsets.symmetric( horizontal: 80.0, vertical: 15.0 ),
+        return Container(
+          width: size.width * 0.6,
+          height: 45.0,
+
+          child: RaisedButton(
             child: Text('Ingresar'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0)
+            ),
+            elevation: 0.0,
+            color: Colors.deepPurple,
+            textColor: Colors.white,
+            onPressed: snapshot.hasData ? () {
+              prefs.userEmail = _emailController.text;
+              Navigator.pushReplacementNamed(context, 'home');
+            } : null
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0)
-          ),
-          elevation: 0.0,
-          color: Colors.deepPurple,
-          textColor: Colors.white,
-          onPressed: snapshot.hasData ? ()=> Navigator.pushReplacementNamed(context, 'home') : null
         );
       },
     );

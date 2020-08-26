@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_oso_test/src/components/my_drawer.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
+
 class HomePage extends StatelessWidget {
+
+  final prefs = new UserPreferences();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Osonline'),
+        centerTitle: true,
+        title: Text('Osoonline'),
         actions: <Widget>[
-          Icon(Icons.shopping_cart),
-          Icon(Icons.favorite)
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: (){}       
+          ),
+          SizedBox(width: 10.0),
+          Icon(Icons.favorite),
+          SizedBox(width: 10.0),
         ],
       ),
+      drawer: MyDrawer(),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_oso_test/src/bloc/provider_bloc.dart';
 //Miguel
 import 'package:flutter_oso_test/src/models/error_user_model.dart';
 import 'package:flutter_oso_test/src/models/user_model.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 import 'package:flutter_oso_test/src/providers/users_providers.dart';
 
 class RegistroPage extends StatefulWidget {
@@ -16,17 +17,25 @@ class RegistroPage extends StatefulWidget {
 class _RegistroPageState extends State<RegistroPage> {
 
   final usersProviders = new UsersProviders();
+  final prefs = new UserPreferences();
 
   bool visiblePassword1 = true;
   bool visiblePassword2 = true;
   IconData icon1 = Icons.visibility;
   IconData icon2 = Icons.visibility;
   bool _isLoading = false;
+  bool _botonActivo;
 
   final textControllerName                  = TextEditingController();
   final textControllerEmail                 = TextEditingController();
   final textControllerPassword              = TextEditingController();
   final textControllerPasswordConfirmation  = TextEditingController();
+
+  @override
+  void initState() { 
+    super.initState();
+    _botonActivo = false;
+  }
 
   @override
   void dispose() {
@@ -49,6 +58,13 @@ class _RegistroPageState extends State<RegistroPage> {
       ),
     );
   }
+
+  // void botonactivo(){
+
+  //   if ( textControllerEmail.text != '' ) {
+  //     _botonActivo = true;
+  //   } 
+  // }
 
   Widget _loginForm( BuildContext context ) {
 
@@ -95,6 +111,8 @@ class _RegistroPageState extends State<RegistroPage> {
                 _confirmarPassword(bloc),
                 SizedBox( height: 30.0 ),
                 _crearBoton( context, bloc ),
+                SizedBox( height: 30.0 ),
+                _crearCancelar( context ),
          ],
        ),
       ),
@@ -128,6 +146,7 @@ class _RegistroPageState extends State<RegistroPage> {
             errorText: snapshot.error,
           ),
           onChanged: bloc.changeName,
+          // onTap: () => _botonActivo = true,
         ),
       );
     },
@@ -154,6 +173,7 @@ class _RegistroPageState extends State<RegistroPage> {
             errorText: snapshot.error,
           ),
           onChanged: bloc.changeEmail,
+          // onTap: () => _botonActivo = true,
         ),
       );
     },
@@ -192,6 +212,7 @@ class _RegistroPageState extends State<RegistroPage> {
               errorText: snapshot.error
             ),
             onChanged: bloc.changePassword,
+            // onTap: () => _botonActivo = true,
           ),
         );
       },
@@ -230,6 +251,7 @@ class _RegistroPageState extends State<RegistroPage> {
               errorText: snapshot.error,
             ),
             onChanged: bloc.changePasswordConfirmation,
+            onTap: () => _botonActivo = true,
           ),
         );
       },
@@ -240,27 +262,50 @@ class _RegistroPageState extends State<RegistroPage> {
 
   Widget _crearBoton( BuildContext context, RegistroBloc bloc ) {
 
+    final size = MediaQuery.of(context).size;
+
     return StreamBuilder(
       stream: bloc.formValiedStream,
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
-         return RaisedButton(
-          child: Container(
-            padding: EdgeInsets.symmetric( horizontal: 80.0, vertical: 15.0 ),
+        return Container(
+          width: size.width * 0.6,
+          height: 45.0,
+          child: RaisedButton(
             child: Text('Registrar'),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0)
+            ),
+            elevation: 0.0,
+            color: Colors.deepPurple,
+            textColor: Colors.white,
+            onPressed: (snapshot.hasData && !_isLoading && _botonActivo) ? (){
+              _addNewUser(context);
+            } : null
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0)
-          ),
-          elevation: 0.0,
-          color: Colors.deepPurple,
-          textColor: Colors.white,
-          onPressed: (snapshot.hasData && !_isLoading) ? (){
-            _addNewUser(context);
-          } : null
         );
-      },
-    );   
+      }
+    );
+  }
+
+  Widget _crearCancelar(BuildContext context) {
+
+    final size = MediaQuery.of(context).size;  
+
+    return Container(
+      width: size.width * 0.6,
+      height: 45.0,
+      child: RaisedButton(
+        child: Text('Cancelar'),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0)
+        ),
+        elevation: 0.0,
+        color: Colors.deepPurple,
+        textColor: Colors.white,
+        onPressed: ()=> Navigator.pushReplacementNamed(context, 'login')
+      ),
+    );
   }
 
   void _addNewUser(BuildContext context) async {
@@ -273,11 +318,14 @@ class _RegistroPageState extends State<RegistroPage> {
       nombre           : textControllerName.text,
       correo           : textControllerEmail.text,
       clave            : textControllerPassword.text,
-      claveConfirmation: textControllerPasswordConfirmation.text,
+      claveConfirmation: textControllerPasswordConfirmation.text,  
     );
 
     if (response is User) {
 
+      prefs.id = response.id;
+      prefs.userName = response.name;
+      
       textControllerName.clear();
       textControllerEmail.clear();
       textControllerPassword.clear();
@@ -293,7 +341,7 @@ class _RegistroPageState extends State<RegistroPage> {
               child: Text('Aceptar'),
               onPressed: () {
                 Navigator.pop(context);
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, 'login');
               },
             )
           ],
@@ -331,6 +379,7 @@ class _RegistroPageState extends State<RegistroPage> {
       );
     }
     _isLoading = false;
+    _botonActivo = false;
   }
 
   _crearFondo( BuildContext context) {

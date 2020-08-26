@@ -5,7 +5,7 @@ class User {
     this.email,
     this.emailVerifiedAt,
     this.verified,
-    this.admin,
+    this.role,
     this.createdAt,
     this.updatedAt,
   });
@@ -15,7 +15,7 @@ class User {
   String email;
   String emailVerifiedAt;
   String verified;
-  String admin;
+  String role;
   String createdAt;
   String updatedAt;
 
@@ -25,7 +25,7 @@ class User {
     email             = json['email'];
     emailVerifiedAt   = json['email_verified_at'];
     verified          = json['verified'];
-    admin             = json['admin'];
+    role              = json['role'];
     createdAt         = json['created_at'];
     updatedAt         = json['updated_at'];
   }
