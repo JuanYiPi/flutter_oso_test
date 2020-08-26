@@ -24,6 +24,14 @@ class HomePage extends StatelessWidget {
         ],
       ),
       drawer: MyDrawer(),
+      body: Container(
+        child: Center(
+          child: RaisedButton(
+            child: Text('Categorias'),
+            onPressed: ()=> Navigator.pushNamed(context, 'cat_page')
+          ),
+        ),
+      ),
     );
   }
 }

@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 //Pages
+import 'src/page/categories_page.dart';
+import 'src/page/det_product_page.dart';
 import 'src/page/login_page.dart';
+import 'src/page/products_by_category_page.dart';
 import 'src/page/registro_page.dart';
 import 'src/page/update_my_data.dart';
 import 'src/page/user_det_page.dart';
@@ -36,14 +39,18 @@ class MyApp extends StatelessWidget {
         title: 'Oso test',
         initialRoute: 'login',
         routes: {
-          'login'        :  ( BuildContext context ) => LoginPage(),
-          'registro'     :  ( BuildContext context ) => RegistroPage(),
-          'home'         :  ( BuildContext context ) => HomePage(),
-          'user_det'     :  ( BuildContext context ) => UserDetPage(),
-          'update_data'  :  ( BuildContext context ) =>UpdateMyDataPage(),
+          'login'             :  ( BuildContext context ) => LoginPage(),
+          'registro'          :  ( BuildContext context ) => RegistroPage(),
+          'home'              :  ( BuildContext context ) => HomePage(),
+          'user_det'          :  ( BuildContext context ) => UserDetPage(),
+          'update_data'       :  ( BuildContext context ) => UpdateMyDataPage(),
+          'cat_page'          :  ( BuildContext context ) => CategoriesPage(),
+          'det_product'       :  ( BuildContext context ) => DetProductPage(),
+          'products_by_cat'   :  ( BuildContext context ) => ProductsByCategoryPage()
+
         },
         theme: ThemeData(
-          primaryColor: Colors.deepPurple
+          primaryColor: Colors.teal
         ),
       )
     );
