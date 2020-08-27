@@ -120,7 +120,7 @@ class _RegistroPageState extends State<RegistroPage> {
        child: Text( '¿Ya tienes cuenta? Ingresa aquí' ),
        onPressed: ()=> Navigator.pushReplacementNamed(context, 'login'),
       ),
-        SizedBox( height: 100.0 ),
+        SizedBox( height: 50.0 ),
        ],
      ),
    );

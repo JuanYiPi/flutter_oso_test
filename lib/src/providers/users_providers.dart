@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,28 @@ class UsersProviders {
   static Map<String, String> headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   };
+
+  Future<dynamic> login({@required String email, @required String password}) async {
+
+    final Map<String, String> body = {
+      "email": email,
+      "password": password
+    };
+
+    final url = Uri.http(authority, 'api/login');
+    final resp = await http.post(url, body: body, headers: UsersProviders.headers);
+    final decodedData = json.decode(resp.body);
+
+    try {
+
+      final user = new User.fromJson(decodedData['data']);
+      print(decodedData['data']);
+      return user;
+
+    } catch (_) {
+      return null;
+    }
+  }
 
   Future<List<User>> getAllUsers() async {
 

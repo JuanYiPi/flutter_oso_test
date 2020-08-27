@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_oso_test/src/bloc/provider_bloc.dart';
+import 'package:flutter_oso_test/src/models/user_model.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
+import 'package:flutter_oso_test/src/providers/users_providers.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,8 +13,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   final prefs = new UserPreferences();
-
-  final _emailController = TextEditingController();
+  final usersProviders = new UsersProviders();
+  final _emailController    = TextEditingController();
+  final _passwordController = TextEditingController();
 
   IconData icon        = Icons.visibility;
   bool visiblePassword = true;
@@ -24,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           _crearFondo( context ),
           _loginForm( context ),
+          _botonSkip( context ),
         ],
       ),
     );
@@ -77,7 +81,6 @@ class _LoginPageState extends State<LoginPage> {
        child: Text( 'Crear una nueva cuenta' ),
        onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
       ),
-        SizedBox( height: 100.0 ),
       ],
     ),
   );
@@ -120,6 +123,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.symmetric( horizontal: 20.0 ),
 
           child: TextField(
+            controller: _passwordController,
             obscureText: visiblePassword,
             decoration: InputDecoration(
               suffixIcon: IconButton(
@@ -170,8 +174,8 @@ class _LoginPageState extends State<LoginPage> {
             color: Colors.deepPurple,
             textColor: Colors.white,
             onPressed: snapshot.hasData ? () {
-              prefs.userEmail = _emailController.text;
-              Navigator.pushReplacementNamed(context, 'home');
+              // prefs.userEmail = _emailController.text;
+              _login();
             } : null
           ),
         );
@@ -179,6 +183,46 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     
+  }
+
+  Widget _botonSkip( BuildContext context ) {
+
+    return Container(
+      
+      child: Row(
+
+        mainAxisAlignment: MainAxisAlignment.end,
+
+        children: <Widget>[
+
+          SafeArea(
+            child: RaisedButton(
+              child: Title(
+                color: Colors.black,
+                child: Text('Entrar como invitado')
+              ),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)
+              ),
+              elevation: 20.0,
+              onPressed: (){
+                prefs.id = 0;
+                prefs.userEmail = "Sin registrar";
+                prefs.userName  = "Invitado";
+                Navigator.pushReplacementNamed(context, 'home');
+              }
+            ),
+          ),
+
+          SizedBox(width: 20.0),
+
+        ]
+      ),
+
+
+      
+    );
   }
 
   _crearFondo( BuildContext context) {
@@ -228,5 +272,29 @@ class _LoginPageState extends State<LoginPage> {
         presentacion,
       ],
     );
+  }
+
+  void _login() async {
+
+    var resp = await usersProviders.login(
+      email: _emailController.text,
+      password: _passwordController.text,
+    );
+
+    if ( resp is User ) {
+      prefs.id        = resp.id;
+      prefs.userName  = resp.name;
+      prefs.userEmail = resp.email;
+      Navigator.pushReplacementNamed(context, 'home');
+    } else {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Icon(Icons.warning, size: 35.0, color: Colors.red),
+          content: Text('El correo o la contraseña son incorrectos'),
+        ),
+        barrierDismissible: true,
+      );
+    }
   }
 }
