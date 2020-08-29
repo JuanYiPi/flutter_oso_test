@@ -28,6 +28,7 @@ class UsersProviders {
     final url = Uri.http(authority, 'api/login', {
       'api_key'               : apiKey,
     });
+
     final resp = await http.post(url, body: body, headers: UsersProviders.headers);
     final decodedData = json.decode(resp.body);
 
@@ -66,6 +67,7 @@ class UsersProviders {
     final url = Uri.http(authority, 'api/users/$idUser', {
       'api_key'               : apiKey,
     });
+
     final resp = await http.get(url);
     final decodedData = json.decode(resp.body);
 
@@ -121,6 +123,7 @@ class UsersProviders {
     final url = Uri.http(authority, 'api/users/$id',{
       'api_key'               : apiKey,
     });
+
     final resp = await http.put(url, body: body, headers: UsersProviders.headers);
     final decodedData = json.decode(resp.body);
 
@@ -146,6 +149,7 @@ class UsersProviders {
       final url = Uri.http(authority, 'api/users/$idUser', {
         'api_key'               : apiKey,
       });
+      
       var response = await http.delete(url);
       print(response.body);
       return jsonDecode(response.body);
