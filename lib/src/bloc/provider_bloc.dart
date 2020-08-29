@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_oso_test/src/bloc/registro_bloc.dart';
-export 'package:flutter_oso_test/src/bloc/registro_bloc.dart';
+import 'package:flutter_oso_test/src/bloc/blocs.dart';
+export 'package:flutter_oso_test/src/bloc/blocs.dart';
 
 class Provider extends InheritedWidget {
 
-  final registroBloc = RegistroBloc();
+  final registroBloc = Blocs();
 
   Provider({ Key key, Widget child })
     : super( key: key, child: child );
@@ -12,7 +12,7 @@ class Provider extends InheritedWidget {
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
-  static RegistroBloc of ( BuildContext context ){
+  static Blocs of ( BuildContext context ){
     return context.dependOnInheritedWidgetOfExactType<Provider>().registroBloc;
   }
 }

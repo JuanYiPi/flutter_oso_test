@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
@@ -10,7 +11,8 @@ import 'package:flutter_oso_test/src/models/user_model.dart';
 
 class UsersProviders {
 
-  String authority = '192.168.0.2:8001';
+  String authority = DotEnv().env['OSO_BASE_URL'];
+  String apiKey    = DotEnv().env['OSO_API_KEY'];
 
   static Map<String, String> headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -23,7 +25,9 @@ class UsersProviders {
       "password": password
     };
 
-    final url = Uri.http(authority, 'api/login');
+    final url = Uri.http(authority, 'api/login', {
+      'api_key'               : apiKey,
+    });
     final resp = await http.post(url, body: body, headers: UsersProviders.headers);
     final decodedData = json.decode(resp.body);
 
@@ -40,7 +44,9 @@ class UsersProviders {
 
   Future<List<User>> getAllUsers() async {
 
-    final url = Uri.http(authority, 'api/users');
+    final url = Uri.http(authority, 'api/users', {
+      'api_key'               : apiKey,
+    });
     final resp = await http.get(url);
     final decodedData = json.decode(resp.body);
 
@@ -57,7 +63,9 @@ class UsersProviders {
 
   Future <User> getUserById(String idUser) async {
 
-    final url = Uri.http(authority, 'api/users/$idUser');
+    final url = Uri.http(authority, 'api/users/$idUser', {
+      'api_key'               : apiKey,
+    });
     final resp = await http.get(url);
     final decodedData = json.decode(resp.body);
 
@@ -75,6 +83,7 @@ class UsersProviders {
   Future<dynamic> addNewUser({String nombre, String correo, String clave, String claveConfirmation}) async {
 
     final url = Uri.http(authority, 'api/users',{
+      'api_key'               : apiKey,
       'name'                  : nombre,
       'email'                 : correo,
       'password'              : clave,
@@ -109,7 +118,9 @@ class UsersProviders {
       'email'   : email,
     };
 
-    final url = Uri.http(authority, 'api/users/$id');
+    final url = Uri.http(authority, 'api/users/$id',{
+      'api_key'               : apiKey,
+    });
     final resp = await http.put(url, body: body, headers: UsersProviders.headers);
     final decodedData = json.decode(resp.body);
 
@@ -132,7 +143,9 @@ class UsersProviders {
   Future deleteUserById(String idUser) async {
 
     try {
-      final url = Uri.http(authority, 'api/users/$idUser');
+      final url = Uri.http(authority, 'api/users/$idUser', {
+        'api_key'               : apiKey,
+      });
       var response = await http.delete(url);
       print(response.body);
       return jsonDecode(response.body);

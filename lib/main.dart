@@ -1,12 +1,15 @@
 //Paquetes Dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 //Pages
 import 'src/page/categories_page.dart';
 import 'src/page/det_product_page.dart';
+import 'src/page/addresses_page.dart';
 import 'src/page/login_page.dart';
 import 'src/page/products_by_category_page.dart';
+import 'src/page/register_addresses_page.dart';
 import 'src/page/registro_page.dart';
 import 'src/page/update_my_data.dart';
 import 'src/page/user_det_page.dart';
@@ -20,6 +23,7 @@ import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DotEnv().load('.env');
   final userPrefs = new UserPreferences();
   await userPrefs.initPrefs();
   runApp(MyApp());
@@ -39,18 +43,20 @@ class MyApp extends StatelessWidget {
         title: 'Oso test',
         initialRoute: 'login',
         routes: {
-          'login'             :  ( BuildContext context ) => LoginPage(),
-          'registro'          :  ( BuildContext context ) => RegistroPage(),
-          'home'              :  ( BuildContext context ) => HomePage(),
-          'user_det'          :  ( BuildContext context ) => UserDetPage(),
-          'update_data'       :  ( BuildContext context ) => UpdateMyDataPage(),
-          'cat_page'          :  ( BuildContext context ) => CategoriesPage(),
-          'det_product'       :  ( BuildContext context ) => DetProductPage(),
-          'products_by_cat'   :  ( BuildContext context ) => ProductsByCategoryPage()
+          'login'              :  ( BuildContext context ) => LoginPage(),
+          'registro'           :  ( BuildContext context ) => RegistroPage(),
+          'home'               :  ( BuildContext context ) => HomePage(),
+          'user_det'           :  ( BuildContext context ) => UserDetPage(),
+          'update_data'        :  ( BuildContext context ) => UpdateMyDataPage(),
+          'cat_page'           :  ( BuildContext context ) => CategoriesPage(),
+          'det_product'        :  ( BuildContext context ) => DetProductPage(),
+          'products_by_cat'    :  ( BuildContext context ) => ProductsByCategoryPage(),
+          'shipping_addresses' :  ( BuildContext context ) => AddressesPage(),
+          'register_addresses' :  ( BuildContext context ) => RegisterAddresses()
 
         },
         theme: ThemeData(
-          primaryColor: Colors.teal
+          primaryColor: Colors.teal,
         ),
       )
     );

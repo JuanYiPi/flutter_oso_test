@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
   );
  }
 
- Widget _crearEmail(RegistroBloc bloc) {
+ Widget _crearEmail(Blocs bloc) {
 
   return StreamBuilder(
     stream: bloc.emailStreamLogin,
@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
   
   }
 
-  Widget _crearPassword(RegistroBloc bloc) {
+  Widget _crearPassword(Blocs bloc) {
     
     return StreamBuilder(
       stream: bloc.passwordStreamLogin,
@@ -153,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
     
   }
 
-  Widget _crearBoton(RegistroBloc bloc) {
+  Widget _crearBoton(Blocs bloc) {
 
     final size = MediaQuery.of(context).size;
 

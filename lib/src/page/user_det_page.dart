@@ -74,7 +74,7 @@ class _UserDetPageState extends State<UserDetPage> {
       leading: Icon(Icons.home),
       title: Text('Mis direcciones de envío'),
       trailing: Icon(Icons.arrow_forward_ios),
-      onTap: (){},
+      onTap: ()=> Navigator.pushNamed(context, 'shipping_addresses'),
     );
   }
 

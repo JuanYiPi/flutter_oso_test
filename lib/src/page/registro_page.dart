@@ -126,7 +126,7 @@ class _RegistroPageState extends State<RegistroPage> {
    );
  } 
 
- Widget _registrarNombre(RegistroBloc bloc) {
+ Widget _registrarNombre(Blocs bloc) {
 
    return StreamBuilder(
      stream: bloc.nameStream,
@@ -153,7 +153,7 @@ class _RegistroPageState extends State<RegistroPage> {
   );   
  }
 
- Widget _crearEmail(RegistroBloc bloc) {
+ Widget _crearEmail(Blocs bloc) {
 
   return StreamBuilder(
     stream: bloc.emailStream,
@@ -180,7 +180,7 @@ class _RegistroPageState extends State<RegistroPage> {
   );
  }
 
-  Widget _crearPassword(RegistroBloc bloc) {
+  Widget _crearPassword(Blocs bloc) {
     
     return StreamBuilder(
       stream: bloc.passwordStream,
@@ -219,7 +219,7 @@ class _RegistroPageState extends State<RegistroPage> {
     );    
   }
 
-  Widget _confirmarPassword(RegistroBloc bloc) {
+  Widget _confirmarPassword(Blocs bloc) {
 
     return StreamBuilder(
       stream: bloc.passwordConfirmationStream,
@@ -260,7 +260,7 @@ class _RegistroPageState extends State<RegistroPage> {
     
   }
 
-  Widget _crearBoton( BuildContext context, RegistroBloc bloc ) {
+  Widget _crearBoton( BuildContext context, Blocs bloc ) {
 
     final size = MediaQuery.of(context).size;
 
