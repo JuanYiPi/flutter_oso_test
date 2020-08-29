@@ -5,6 +5,8 @@ import 'package:flutter_oso_test/src/models/user_model.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 import 'package:flutter_oso_test/src/providers/users_providers.dart';
 
+import 'package:flutter_oso_test/src/constants/constants.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -50,11 +52,11 @@ class _LoginPageState extends State<LoginPage> {
 
        Container(
         width: size.width * 0.85,
-        margin: EdgeInsets.symmetric( vertical: 30.0 ),
-        padding: EdgeInsets.symmetric( vertical: 50.0 ),
+        margin: EdgeInsets.symmetric( vertical: kDefaultPaddin * 1.5 ),
+        padding: EdgeInsets.symmetric( vertical: kDefaultPaddin * 2.0 ),
         decoration: BoxDecoration(
          color: Colors.white,
-         borderRadius: BorderRadius.circular(5.0),
+         borderRadius: BorderRadius.circular(10.0),
          boxShadow: <BoxShadow> [
            BoxShadow(
              color: Colors.black26,
@@ -68,11 +70,11 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: <Widget>[
            Text('Ingreso', style: TextStyle(fontSize: 20.0)),
-           SizedBox( height: 60.0 ),
-           _crearEmail(bloc),
-           SizedBox( height: 30.0 ),
-           _crearPassword(bloc),
-            SizedBox( height: 30.0 ),
+           SizedBox( height: kDefaultPaddin * 3.0 ),
+           _crearEmail(context, bloc),
+           SizedBox( height: kDefaultPaddin * 1.5 ),
+           _crearPassword(context, bloc),
+            SizedBox( height: kDefaultPaddin * 1.5 ),
            _crearBoton(bloc),
          ],
        ),
@@ -86,20 +88,20 @@ class _LoginPageState extends State<LoginPage> {
   );
  }
 
- Widget _crearEmail(Blocs bloc) {
+ Widget _crearEmail(BuildContext context, Blocs bloc) {
 
   return StreamBuilder(
     stream: bloc.emailStreamLogin,
     builder: (BuildContext context, AsyncSnapshot snapshot){
 
       return Container(
-        padding: EdgeInsets.symmetric( horizontal: 20.0 ),
+        padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
 
         child: TextField(
           controller: _emailController,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            icon: Icon( Icons.alternate_email, color: Colors.deepPurple),
+            icon: Icon( Icons.alternate_email, color: Theme.of(context).primaryColor),
             hintText: 'ejemplo@correo.com',
             labelText: 'Correo electronico',   
             errorText: snapshot.error
@@ -113,14 +115,14 @@ class _LoginPageState extends State<LoginPage> {
   
   }
 
-  Widget _crearPassword(Blocs bloc) {
+  Widget _crearPassword(BuildContext context, Blocs bloc) {
     
     return StreamBuilder(
       stream: bloc.passwordStreamLogin,
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return Container(
-          padding: EdgeInsets.symmetric( horizontal: 20.0 ),
+          padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
 
           child: TextField(
             controller: _passwordController,
@@ -140,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 }
               ),
-              icon: Icon( Icons.lock_outline, color: Colors.deepPurple),
+              icon: Icon( Icons.lock_outline, color: Theme.of(context).primaryColor),
               labelText: 'Contraseña',
               errorText: snapshot.error
             ),
@@ -168,13 +170,12 @@ class _LoginPageState extends State<LoginPage> {
           child: RaisedButton(
             child: Text('Ingresar'),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0)
+              borderRadius: BorderRadius.circular(kDefaultRadius)
             ),
             elevation: 0.0,
-            color: Colors.deepPurple,
+            color: Theme.of(context).primaryColor,
             textColor: Colors.white,
             onPressed: snapshot.hasData ? () {
-              // prefs.userEmail = _emailController.text;
               _login();
             } : null
           ),
@@ -215,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
 
-          SizedBox(width: 20.0),
+          SizedBox(width: kDefaultPaddin),
 
         ]
       ),
@@ -235,8 +236,10 @@ class _LoginPageState extends State<LoginPage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: <Color> [
-            Color.fromRGBO(63, 63, 156, 1.0),
-            Color.fromRGBO(90, 70, 178, 1.0),
+            // Color.fromRGBO(63, 63, 156, 1.0),
+            // Color.fromRGBO(90, 70, 178, 1.0),
+            Theme.of(context).primaryColor,
+            Theme.of(context).primaryColor.withOpacity(0.98)
           ]
         )
       ),
@@ -252,11 +255,11 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final presentacion = Container(
-      padding: EdgeInsets.only(top: 80.0),
+      padding: EdgeInsets.only(top: kDefaultPaddin * 4.0),
       child: Column(
         children: <Widget>[
           Icon( Icons.bubble_chart, color: Colors.white, size: 100.0 ),
-          SizedBox( width: double.infinity, height: 10),
+          SizedBox( width: double.infinity, height: kDefaultPaddin / 2.0),
           Text('Osonline', style: TextStyle( color: Colors.white, fontSize: 25.0 ))
         ],
       ),

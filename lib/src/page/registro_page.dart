@@ -8,6 +8,8 @@ import 'package:flutter_oso_test/src/models/user_model.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 import 'package:flutter_oso_test/src/providers/users_providers.dart';
 
+import 'package:flutter_oso_test/src/constants/constants.dart';
+
 class RegistroPage extends StatefulWidget {
 
   @override
@@ -87,7 +89,7 @@ class _RegistroPageState extends State<RegistroPage> {
         padding: EdgeInsets.symmetric( vertical: 50.0 ),
         decoration: BoxDecoration(
          color: Colors.white,
-         borderRadius: BorderRadius.circular(5.0),
+         borderRadius: BorderRadius.circular(10.0),
          boxShadow: <BoxShadow> [
            BoxShadow(
              color: Colors.black26,
@@ -101,17 +103,17 @@ class _RegistroPageState extends State<RegistroPage> {
         child: Column(
           children: <Widget>[
            Text('Crear cuenta', style: TextStyle(fontSize: 20.0)),
-                SizedBox( height: 60.0 ),
+                SizedBox( height: kDefaultPaddin * 2.0 ),
                 _registrarNombre(bloc),
-                SizedBox( height: 30.0 ),
+                SizedBox( height: kDefaultPaddin ),
                 _crearEmail(bloc),
-                SizedBox( height: 30.0 ),
+                SizedBox( height: kDefaultPaddin ),
                 _crearPassword(bloc),
-                SizedBox( height: 30.0 ),
+                SizedBox( height: kDefaultPaddin ),
                 _confirmarPassword(bloc),
-                SizedBox( height: 30.0 ),
+                SizedBox( height: kDefaultPaddin * 2.0 ),
                 _crearBoton( context, bloc ),
-                SizedBox( height: 30.0 ),
+                SizedBox( height: kDefaultPaddin / 2.0 ),
                 _crearCancelar( context ),
          ],
        ),
@@ -120,7 +122,7 @@ class _RegistroPageState extends State<RegistroPage> {
        child: Text( '¿Ya tienes cuenta? Ingresa aquí' ),
        onPressed: ()=> Navigator.pushReplacementNamed(context, 'login'),
       ),
-        SizedBox( height: 50.0 ),
+        SizedBox( height: kDefaultPaddin * 2.0 ),
        ],
      ),
    );
@@ -133,14 +135,14 @@ class _RegistroPageState extends State<RegistroPage> {
      builder: (BuildContext context, AsyncSnapshot snapshot){
 
       return Container(
-         padding: EdgeInsets.symmetric( horizontal: 20.0 ),
+         padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
 
          child: TextField(
            controller: textControllerName,
            textCapitalization: TextCapitalization.words,
            decoration: InputDecoration(
-            icon: Icon( Icons.person_pin, color: Colors.deepPurple),
-            hintText: 'Juan Miguel Gómez Pérez',
+            icon: Icon( Icons.person_pin, color: Theme.of(context).primaryColor),
+            // hintText: '',
             labelText: 'Nombre completo',
             // counterText: snapshot.data,
             errorText: snapshot.error,
@@ -160,13 +162,13 @@ class _RegistroPageState extends State<RegistroPage> {
     builder: (BuildContext context, AsyncSnapshot snapshot){
 
       return Container(
-        padding: EdgeInsets.symmetric( horizontal: 20.0 ),
+        padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
 
         child: TextField(
           controller: textControllerEmail,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            icon: Icon( Icons.alternate_email, color: Colors.deepPurple),
+            icon: Icon( Icons.alternate_email, color: Theme.of(context).primaryColor),
             hintText: 'ejemplo@correo.com',
             labelText: 'Correo electronico',
             // counterText: snapshot.data,
@@ -187,7 +189,7 @@ class _RegistroPageState extends State<RegistroPage> {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return Container(
-          padding: EdgeInsets.symmetric( horizontal: 20.0 ),
+          padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
 
           child: TextField(
             controller: textControllerPassword,
@@ -207,7 +209,7 @@ class _RegistroPageState extends State<RegistroPage> {
                   }
                 }
               ),
-              icon: Icon( Icons.lock_outline, color: Colors.deepPurple),
+              icon: Icon( Icons.lock_outline, color: Theme.of(context).primaryColor),
               labelText: 'Contraseña',
               errorText: snapshot.error
             ),
@@ -226,7 +228,7 @@ class _RegistroPageState extends State<RegistroPage> {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return Container(
-          padding: EdgeInsets.symmetric( horizontal: 20.0 ),
+          padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
 
           child: TextField(
             controller: textControllerPasswordConfirmation,
@@ -246,7 +248,7 @@ class _RegistroPageState extends State<RegistroPage> {
                   }
                 }
               ),
-              icon: Icon( Icons.lock_outline, color: Colors.deepPurple),
+              icon: Icon( Icons.lock_outline, color: Theme.of(context).primaryColor),
               labelText: 'Confirmar contraseña',
               errorText: snapshot.error,
             ),
@@ -274,10 +276,10 @@ class _RegistroPageState extends State<RegistroPage> {
           child: RaisedButton(
             child: Text('Registrar'),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0)
+              borderRadius: BorderRadius.circular(kDefaultRadius)
             ),
             elevation: 0.0,
-            color: Colors.deepPurple,
+            color: Theme.of(context).primaryColor,
             textColor: Colors.white,
             onPressed: (snapshot.hasData && !_isLoading && _botonActivo) ? (){
               _addNewUser(context);
@@ -298,10 +300,10 @@ class _RegistroPageState extends State<RegistroPage> {
       child: RaisedButton(
         child: Text('Cancelar'),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0)
+          borderRadius: BorderRadius.circular(kDefaultRadius)
         ),
         elevation: 0.0,
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         textColor: Colors.white,
         onPressed: ()=> Navigator.pushReplacementNamed(context, 'login')
       ),
@@ -392,8 +394,8 @@ class _RegistroPageState extends State<RegistroPage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: <Color> [
-            Color.fromRGBO(63, 63, 156, 1.0),
-            Color.fromRGBO(90, 70, 178, 1.0),
+            Theme.of(context).primaryColor,
+            Theme.of(context).primaryColor.withOpacity(0.95),
           ]
         )
       ),
