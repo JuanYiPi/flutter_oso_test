@@ -52,7 +52,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
 
           ListTile(
-            onTap: () {},
+            onTap: () => Navigator.pushNamed(context, 'my_shopping'),
             leading: Icon(Icons.shopping_basket, color: Theme.of(context).primaryColor),
             title: Text('Mis compras'),
           ),

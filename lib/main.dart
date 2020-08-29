@@ -5,9 +5,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 //Pages
 import 'src/page/categories_page.dart';
+import 'src/page/det_compra_page.dart';
 import 'src/page/det_product_page.dart';
 import 'src/page/addresses_page.dart';
 import 'src/page/login_page.dart';
+import 'src/page/my_shopping.dart';
 import 'src/page/products_by_category_page.dart';
 import 'src/page/register_addresses_page.dart';
 import 'src/page/registro_page.dart';
@@ -52,7 +54,9 @@ class MyApp extends StatelessWidget {
           'det_product'        :  ( BuildContext context ) => DetProductPage(),
           'products_by_cat'    :  ( BuildContext context ) => ProductsByCategoryPage(),
           'shipping_addresses' :  ( BuildContext context ) => AddressesPage(),
-          'register_addresses' :  ( BuildContext context ) => RegisterAddresses()
+          'register_addresses' :  ( BuildContext context ) => RegisterAddresses(),
+          'my_shopping'        :  ( BuildContext context ) => MyShoppingPage(),
+          'det_shopping'       :  ( BuildContext context ) => DetCompraPage(),
 
         },
         theme: ThemeData(

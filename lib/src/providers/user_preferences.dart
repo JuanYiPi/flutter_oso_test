@@ -53,4 +53,5 @@ class UserPreferences {
   set idCategoria(int value) {
     _preferences.setInt('idCategoria', value);
   }
+
 }
