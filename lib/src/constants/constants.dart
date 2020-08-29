@@ -5,6 +5,7 @@ const kTextLightColor = Color(0xFFACACAC);
 const kTextGreenColor = Color(0xFF34B454);
 
 const kDefaultPaddin = 20.0;
+const kDefaultRadius = 5.0;
 
 const texto = TextStyle(color: kTextColor, fontWeight: FontWeight.w500, fontSize: 18.0);
 const textoLight = TextStyle(color: kTextColor, fontWeight: FontWeight.w500, fontSize: 16.0);
