@@ -1,16 +1,16 @@
 class Cart {
   int id;
   String fechaPedido;
-  dynamic fechaPago;
-  dynamic fechaSalida;
-  dynamic fechaEntrega;
+  String fechaPago;
+  String fechaSalida;
+  String fechaEntrega;
   String estado;
   int userId;
   dynamic gastos;
   int descuento;
   double total;
   String metodoPago;
-  dynamic referenciaPago;
+  String referenciaPago;
   String metodoEntrega;
   String createdAt;
   String updatedAt;
