@@ -21,6 +21,13 @@ class _LoginPageState extends State<LoginPage> {
 
   IconData icon        = Icons.visibility;
   bool visiblePassword = true;
+  bool _isLoading;
+
+  @override
+  void initState() { 
+    super.initState();
+    _isLoading = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +37,18 @@ class _LoginPageState extends State<LoginPage> {
           _crearFondo( context ),
           _loginForm( context ),
           _botonSkip( context ),
+          _loadingIndicator()
         ],
       ),
     );
+  }
+
+  Widget _loadingIndicator() {
+    if (_isLoading == true) {
+      return Center(child: CircularProgressIndicator(),);
+    } else {
+      return Container();
+    }
   }
 
   Widget _loginForm( BuildContext context ) {
@@ -279,10 +295,18 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() async {
 
+    setState(() {
+      _isLoading = true;
+    });
+
     var resp = await usersProviders.login(
       email: _emailController.text,
       password: _passwordController.text,
     );
+
+    setState(() {
+      _isLoading = false;
+    });
 
     if ( resp is User ) {
       prefs.id        = resp.id;

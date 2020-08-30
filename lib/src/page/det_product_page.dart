@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/cart_counter.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
+import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 
 class DetProductPage extends StatelessWidget {
+
+  final cartsProvider = new CartsProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +16,13 @@ class DetProductPage extends StatelessWidget {
 
     product.cantidadCompra = 1;
   
-
     return Scaffold(
-      appBar: _buildAppBarDet(),
+      appBar: _buildAppBarDet(context),
       body: _buildBodyDet(context, product, screenSize),
     );
   }
 
-  AppBar _buildAppBarDet() {
+  AppBar _buildAppBarDet(BuildContext context) {
     return AppBar(
       title: Text('Producto', style: encabezado,),
       actions: <Widget>[
@@ -36,7 +38,9 @@ class DetProductPage extends StatelessWidget {
 
         IconButton(
           icon: Icon(Icons.shopping_cart), 
-          onPressed: () {}
+          onPressed: () {
+            Navigator.pushNamed(context, 'shopping_cart');
+          }
         ),
       ],
     );
@@ -149,7 +153,9 @@ class DetProductPage extends StatelessWidget {
             texto: 'Agregar al carrito',
             btnColor: Colors.white,
             txtColor: Theme.of(context).primaryColor,
-            press: () {}
+            press: () {
+              _addToShoppingCart(context, product);
+            }
           ),
         ],
       ),
@@ -174,5 +180,10 @@ class DetProductPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _addToShoppingCart(BuildContext context, Product producto) {
+    // final response = await cartsProvider.addToShoppingCart(producto);
+    cartsProvider.addToShoppingCart(producto);
   }
 }
