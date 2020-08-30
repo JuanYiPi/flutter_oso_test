@@ -7,9 +7,9 @@ class CartDetail {
   int idProductoDesc;
   int idProductoPres;
   int cantidad;
-  int precio;
+  double precio;
   int descuento;
-  int total;
+  double total;
   String createdAt;
   String updatedAt;
 
@@ -36,9 +36,9 @@ class CartDetail {
     idProductoDesc   = json['IdProductoDesc'];
     idProductoPres   = json['IdProductoPres'];
     cantidad         = json['Cantidad'];
-    precio           = json['Precio'];
+    precio           = json['Precio'] / 1;
     descuento        = json['Descuento'];
-    total            = json['Total'];
+    total            = json['Total'] / 1;
     createdAt        = json['created_at'];
     updatedAt        = json['updated_at'];
   }

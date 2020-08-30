@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 //Pages
+import 'package:flutter_oso_test/src/page/shopping_cart_page.dart';
 import 'src/page/categories_page.dart';
 import 'src/page/det_compra_page.dart';
 import 'src/page/det_product_page.dart';
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
           'register_addresses' :  ( BuildContext context ) => RegisterAddresses(),
           'my_shopping'        :  ( BuildContext context ) => MyShoppingPage(),
           'det_shopping'       :  ( BuildContext context ) => DetCompraPage(),
-
+          'shopping_cart'      :  ( BuildContext context ) => ShoppingCartPage(),
         },
         theme: ThemeData(
           primaryColor: Colors.teal,

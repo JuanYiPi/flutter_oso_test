@@ -16,7 +16,9 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.shopping_cart),
-            onPressed: (){}       
+            onPressed: (){
+              Navigator.pushNamed(context, 'shopping_cart');
+            }       
           ),
           SizedBox(width: 10.0),
           Icon(Icons.favorite),
