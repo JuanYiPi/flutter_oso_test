@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/components/list_cart_detail.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/cart_detail_model.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
@@ -18,7 +19,8 @@ class ShoppingCartPage extends StatelessWidget {
         future: cartsProvider.getShoppingCart(),
         builder: (BuildContext context, AsyncSnapshot<List<CartDetail>> snapshot) {
           if (snapshot.hasData) {
-            return _buildProductList(context, snapshot.data);
+            // return _buildProductList(context, snapshot.data);
+            return ListCartDetail(cartItems: snapshot.data);
           } else {
             return Center(child: CircularProgressIndicator(),);
           }

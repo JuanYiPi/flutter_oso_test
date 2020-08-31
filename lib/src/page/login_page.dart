@@ -45,7 +45,12 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loadingIndicator() {
     if (_isLoading == true) {
-      return Center(child: CircularProgressIndicator(),);
+      return Stack(
+        children: [
+          Container(color: Colors.white.withOpacity(0.85),),
+          Center(child: CircularProgressIndicator(),),
+        ],
+      );
     } else {
       return Container();
     }

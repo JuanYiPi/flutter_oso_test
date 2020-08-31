@@ -25,7 +25,8 @@ class _RegistroPageState extends State<RegistroPage> {
   bool visiblePassword2 = true;
   IconData icon1 = Icons.visibility;
   IconData icon2 = Icons.visibility;
-  bool _isLoading = false;
+  bool _isLoading;
+  bool _isPosting;
   bool _botonActivo;
 
   final textControllerName                  = TextEditingController();
@@ -36,7 +37,9 @@ class _RegistroPageState extends State<RegistroPage> {
   @override
   void initState() { 
     super.initState();
+    _isLoading = false;
     _botonActivo = false;
+    _isPosting = false;
   }
 
   @override
@@ -56,53 +59,60 @@ class _RegistroPageState extends State<RegistroPage> {
         children: <Widget>[
           _crearFondo( context ),
           _loginForm( context ),
+          _loadingIndicator()
         ],
       ),
     );
   }
 
-  // void botonactivo(){
-
-  //   if ( textControllerEmail.text != '' ) {
-  //     _botonActivo = true;
-  //   } 
-  // }
+  Widget _loadingIndicator() {
+    if (_isPosting == true) {
+      return Stack(
+        children: [
+          Container(color: Colors.white.withOpacity(0.85),),
+          Center(child: CircularProgressIndicator(),),
+        ],
+      );
+    } else {
+      return Container();
+    }
+  }
 
   Widget _loginForm( BuildContext context ) {
 
-  final bloc = Provider.of(context);
-  final size = MediaQuery.of(context).size;  
+    final bloc = Provider.of(context);
+    final size = MediaQuery.of(context).size;  
 
-   return SingleChildScrollView(
-    child: Column(
-      children: <Widget>[
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
 
-       SafeArea(
-         child: Container(
-          height: 220.0,
-         )
-       ),
-
-       Container(
-        width: size.width * 0.85,
-        margin: EdgeInsets.symmetric( vertical: 30.0 ),
-        padding: EdgeInsets.symmetric( vertical: 50.0 ),
-        decoration: BoxDecoration(
-         color: Colors.white,
-         borderRadius: BorderRadius.circular(10.0),
-         boxShadow: <BoxShadow> [
-           BoxShadow(
-             color: Colors.black26,
-             blurRadius: 3.0,
-             offset: Offset(0.0, 5.0),
-             spreadRadius: 3.0,
+          SafeArea(
+            child: Container(
+              height: 220.0,
+            )
           ),
-        ]
-       ),
 
-        child: Column(
-          children: <Widget>[
-           Text('Crear cuenta', style: TextStyle(fontSize: 20.0)),
+          Container(
+            width: size.width * 0.85,
+            margin: EdgeInsets.symmetric( vertical: 30.0 ),
+            padding: EdgeInsets.symmetric( vertical: 50.0 ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: <BoxShadow> [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 3.0,
+                  offset: Offset(0.0, 5.0),
+                  spreadRadius: 3.0,
+                ),
+              ]
+            ),
+
+            child: Column(
+              children: <Widget>[
+                Text('Crear cuenta', style: TextStyle(fontSize: 20.0)),
                 SizedBox( height: kDefaultPaddin * 2.0 ),
                 _registrarNombre(bloc),
                 SizedBox( height: kDefaultPaddin ),
@@ -115,72 +125,69 @@ class _RegistroPageState extends State<RegistroPage> {
                 _crearBoton( context, bloc ),
                 SizedBox( height: kDefaultPaddin / 2.0 ),
                 _crearCancelar( context ),
-         ],
-       ),
-      ),
-        FlatButton(
-       child: Text( '¿Ya tienes cuenta? Ingresa aquí' ),
-       onPressed: ()=> Navigator.pushReplacementNamed(context, 'login'),
-      ),
-        SizedBox( height: kDefaultPaddin * 2.0 ),
-       ],
-     ),
-   );
- } 
-
- Widget _registrarNombre(Blocs bloc) {
-
-   return StreamBuilder(
-     stream: bloc.nameStream,
-     builder: (BuildContext context, AsyncSnapshot snapshot){
-
-      return Container(
-         padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
-
-         child: TextField(
-           controller: textControllerName,
-           textCapitalization: TextCapitalization.words,
-           decoration: InputDecoration(
-            icon: Icon( Icons.person_pin, color: Theme.of(context).primaryColor),
-            // hintText: '',
-            labelText: 'Nombre completo',
-            // counterText: snapshot.data,
-            errorText: snapshot.error,
+              ],
+            ),
           ),
-          onChanged: bloc.changeName,
-          // onTap: () => _botonActivo = true,
-        ),
-      );
-    },
-  );   
- }
 
- Widget _crearEmail(Blocs bloc) {
-
-  return StreamBuilder(
-    stream: bloc.emailStream,
-    builder: (BuildContext context, AsyncSnapshot snapshot){
-
-      return Container(
-        padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
-
-        child: TextField(
-          controller: textControllerEmail,
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            icon: Icon( Icons.alternate_email, color: Theme.of(context).primaryColor),
-            hintText: 'ejemplo@correo.com',
-            labelText: 'Correo electronico',
-            // counterText: snapshot.data,
-            errorText: snapshot.error,
+          FlatButton(
+            child: Text( '¿Ya tienes cuenta? Ingresa aquí' ),
+            onPressed: ()=> Navigator.pushReplacementNamed(context, 'login'),
           ),
-          onChanged: bloc.changeEmail,
-          // onTap: () => _botonActivo = true,
-        ),
-      );
-    },
-  );
- }
+
+          SizedBox( height: kDefaultPaddin * 2.0 ),
+        ],
+      ),
+    );
+  } 
+
+  Widget _registrarNombre(Blocs bloc) {
+
+    return StreamBuilder(
+      stream: bloc.nameStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+
+        return Container(
+          padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
+
+          child: TextField(
+            controller: textControllerName,
+            textCapitalization: TextCapitalization.words,
+            decoration: InputDecoration(
+              icon: Icon( Icons.person_pin, color: Theme.of(context).primaryColor),
+              labelText: 'Nombre completo',
+              errorText: snapshot.error,
+            ),
+            onChanged: bloc.changeName,
+          ),
+        );
+      },
+    );   
+  }
+
+  Widget _crearEmail(Blocs bloc) {
+
+    return StreamBuilder(
+      stream: bloc.emailStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot){
+
+        return Container(
+          padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
+
+          child: TextField(
+            controller: textControllerEmail,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              icon: Icon( Icons.alternate_email, color: Theme.of(context).primaryColor),
+              hintText: 'ejemplo@correo.com',
+              labelText: 'Correo electronico',
+              errorText: snapshot.error,
+            ),
+            onChanged: bloc.changeEmail,
+          ),
+        );
+      },
+    );
+  }
 
   Widget _crearPassword(Blocs bloc) {
     
@@ -214,7 +221,6 @@ class _RegistroPageState extends State<RegistroPage> {
               errorText: snapshot.error
             ),
             onChanged: bloc.changePassword,
-            // onTap: () => _botonActivo = true,
           ),
         );
       },
@@ -258,8 +264,6 @@ class _RegistroPageState extends State<RegistroPage> {
         );
       },
     );
-
-    
   }
 
   Widget _crearBoton( BuildContext context, Blocs bloc ) {
@@ -311,8 +315,9 @@ class _RegistroPageState extends State<RegistroPage> {
   }
 
   void _addNewUser(BuildContext context) async {
-  
+
     setState(() {
+      _isPosting = true;
       _isLoading = true;
     });
 
@@ -322,6 +327,10 @@ class _RegistroPageState extends State<RegistroPage> {
       clave            : textControllerPassword.text,
       claveConfirmation: textControllerPasswordConfirmation.text,  
     );
+
+    setState(() {
+      _isPosting = false;
+    });
 
     if (response is User) {
 
@@ -360,7 +369,6 @@ class _RegistroPageState extends State<RegistroPage> {
         ),
         barrierDismissible: true,
       );
-
     } else if (response is ErrorUser){
       showDialog(
         context: context,
@@ -380,8 +388,10 @@ class _RegistroPageState extends State<RegistroPage> {
         barrierDismissible: true,
       );
     }
-    _isLoading = false;
-    _botonActivo = false;
+    setState(() {
+      _isLoading = false;
+      _botonActivo = false;
+    });
   }
 
   _crearFondo( BuildContext context) {
@@ -432,5 +442,4 @@ class _RegistroPageState extends State<RegistroPage> {
       ],
     );
   }
-
 }
