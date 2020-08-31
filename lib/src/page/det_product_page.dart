@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter_oso_test/src/components/cart_counter.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 
-class DetProductPage extends StatelessWidget {
+class DetProductPage extends StatefulWidget {
+
+  @override
+  _DetProductPageState createState() => _DetProductPageState();
+}
+
+class _DetProductPageState extends State<DetProductPage> {
 
   final cartsProvider = new CartsProvider();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool _isLoading;
+
+  @override
+  void initState() { 
+    super.initState();
+    _isLoading = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +34,28 @@ class DetProductPage extends StatelessWidget {
     product.cantidadCompra = 1;
   
     return Scaffold(
+      key: scaffoldKey,
       appBar: _buildAppBarDet(context),
-      body: _buildBodyDet(context, product, screenSize),
+      body: Stack(
+        children: [
+          _buildBodyDet(context, product, screenSize),
+          _loadingIndicator()
+        ],
+      ) 
     );
+  }
+
+  Widget _loadingIndicator() {
+    if (_isLoading == true) {
+      return Stack(
+        children: [
+          Container(color: Colors.white.withOpacity(0.85),),
+          Center(child: CircularProgressIndicator(),),
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 
   AppBar _buildAppBarDet(BuildContext context) {
@@ -98,15 +134,51 @@ class DetProductPage extends StatelessWidget {
   }
 
   ClipRRect _productImg(Size screenSize, Product product) {
+    // return ClipRRect(
+    //   borderRadius: BorderRadius.circular(20.0),
+    //   clipBehavior: Clip.antiAlias,
+    //   child: FadeInImage(
+    //     width: screenSize.width * 0.9,
+    //     height: screenSize.width * 0.9,
+    //     fit: BoxFit.cover,
+    //     placeholder: AssetImage('assets\img\loading.gif'), 
+    //     image: NetworkImage(product.getImg()),
+    //   ),
+    // );
     return ClipRRect(
-      borderRadius: BorderRadius.circular(20.0),
       clipBehavior: Clip.antiAlias,
-      child: FadeInImage(
-        width: screenSize.width * 0.9,
-        height: screenSize.width * 0.9,
-        fit: BoxFit.cover,
-        placeholder: AssetImage('assets\img\loading.gif'), 
-        image: NetworkImage(product.getImg()),
+      borderRadius: BorderRadius.circular(10.0),
+      child: FutureBuilder(
+        future: _checkUrl(product.getImg()),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data != 200) {
+              return Container(
+                child: Image(image: AssetImage('assets/img/no_disponible.jpg')),
+                width: screenSize.width * 0.9,
+                height: screenSize.width * 0.9,
+              );
+            }
+            return Container(
+              width: screenSize.width * 0.9,
+              height: screenSize.width * 0.9,
+              child: FadeInImage(
+                placeholder: AssetImage('assets/img/loading.gif'), 
+                image: NetworkImage(product.getImg()),
+                fit: BoxFit.cover,
+              ),
+            );
+          } else {
+            return Container(
+              width: screenSize.width * 0.9,
+              height: screenSize.width * 0.9,
+              child: Image(
+                image: AssetImage('assets/img/loading.gif'), 
+                fit: BoxFit.cover,
+              ),
+            );
+          }
+        },
       ),
     );
   }
@@ -182,8 +254,44 @@ class DetProductPage extends StatelessWidget {
     );
   }
 
-  void _addToShoppingCart(BuildContext context, Product producto) {
-    // final response = await cartsProvider.addToShoppingCart(producto);
-    cartsProvider.addToShoppingCart(producto);
+  void _addToShoppingCart(BuildContext context, Product producto) async {
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final response = await cartsProvider.addToShoppingCart(producto);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (response == true) {
+      _mostrarSnackbar('Agregado al carrito exitosamente!');
+      print('Agregado exitosamente');
+    } else {
+      _mostrarSnackbar('No se pudo agregar al carrito :(');
+      print('error al agregar');
+    }
+  }
+
+  void _mostrarSnackbar(String text) {
+    final snackbar = SnackBar(
+      content: Text(text),
+      duration: Duration(milliseconds: 2000),
+    );
+
+    scaffoldKey.currentState.showSnackBar(snackbar);
+  }
+
+  Future<int> _checkUrl(String url) async {
+    try {
+      final response = await http.get(url);
+      print(response.statusCode);
+      return response.statusCode;
+    } catch (err) {
+      print(err.toString());
+      return null;
+    }
   }
 }
