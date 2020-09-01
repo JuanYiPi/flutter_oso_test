@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
     return Provider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Oso test',
+        title: 'Oso online',
         initialRoute: 'login',
         routes: {
           'login'              :  ( BuildContext context ) => LoginPage(),
