@@ -69,7 +69,9 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
         IconButton(
           icon: Icon(Icons.shopping_cart), 
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, 'shopping_cart');
+          },
         ),
 
       ],

@@ -134,17 +134,6 @@ class _DetProductPageState extends State<DetProductPage> {
   }
 
   ClipRRect _productImg(Size screenSize, Product product) {
-    // return ClipRRect(
-    //   borderRadius: BorderRadius.circular(20.0),
-    //   clipBehavior: Clip.antiAlias,
-    //   child: FadeInImage(
-    //     width: screenSize.width * 0.9,
-    //     height: screenSize.width * 0.9,
-    //     fit: BoxFit.cover,
-    //     placeholder: AssetImage('assets\img\loading.gif'), 
-    //     image: NetworkImage(product.getImg()),
-    //   ),
-    // );
     return ClipRRect(
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(10.0),
@@ -277,6 +266,7 @@ class _DetProductPageState extends State<DetProductPage> {
 
   void _mostrarSnackbar(String text) {
     final snackbar = SnackBar(
+      backgroundColor: Colors.green,
       content: Text(text),
       duration: Duration(milliseconds: 2000),
     );

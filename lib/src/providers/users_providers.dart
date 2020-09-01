@@ -30,15 +30,18 @@ class UsersProviders {
     });
 
     final resp = await http.post(url, body: body, headers: UsersProviders.headers);
-    final decodedData = json.decode(resp.body);
 
-    try {
+    if (resp.statusCode == 200) {
+      final decodedData = json.decode(resp.body);
 
-      final user = new User.fromJson(decodedData['data']);
-      print(decodedData['data']);
-      return user;
-
-    } catch (_) {
+      try {
+        final user = new User.fromJson(decodedData['data']);
+        print(decodedData['data']);
+        return user;
+      } catch (_) {
+        return null;
+      }
+    } else {
       return null;
     }
   }

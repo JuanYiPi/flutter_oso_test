@@ -63,7 +63,9 @@ class MyCustomScrollView extends StatelessWidget {
 
         IconButton(
           icon: Icon(Icons.shopping_cart), 
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, 'shopping_cart');
+          },
         ),
       ],
     );
