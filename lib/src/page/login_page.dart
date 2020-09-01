@@ -18,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final usersProviders = new UsersProviders();
   final _emailController    = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _save = false;
 
   IconData icon        = Icons.visibility;
   bool visiblePassword = true;
@@ -96,6 +97,8 @@ class _LoginPageState extends State<LoginPage> {
            SizedBox( height: kDefaultPaddin * 1.5 ),
            _crearPassword(context, bloc),
             SizedBox( height: kDefaultPaddin * 1.5 ),
+           _crearCheckbox(),
+            SizedBox( height: kDefaultPaddin * 1.5 ),
            _crearBoton(bloc),
          ],
        ),
@@ -109,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
   );
  }
 
- Widget _crearEmail(BuildContext context, Blocs bloc) {
+  Widget _crearEmail(BuildContext context, Blocs bloc) {
 
   return StreamBuilder(
     stream: bloc.emailStreamLogin,
@@ -175,6 +178,22 @@ class _LoginPageState extends State<LoginPage> {
 
     
   }
+
+  Widget _crearCheckbox(){
+
+    return Container(
+      padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
+
+      child: CheckboxListTile(
+        activeColor: Theme.of(context).primaryColor,
+        title: Text('Recordarme'),
+        value: _save,
+        onChanged: (valor){
+          setState(()=> _save = valor);
+        }
+      ),
+    );
+  } 
 
   Widget _crearBoton(Blocs bloc) {
 
