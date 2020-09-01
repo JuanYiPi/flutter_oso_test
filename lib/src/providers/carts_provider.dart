@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_oso_test/src/models/cart_detail_list_model.dart';
 import 'package:flutter_oso_test/src/models/cart_detail_model.dart';
@@ -13,10 +14,12 @@ class CartsProvider {
 
   String authority = DotEnv().env['OSO_BASE_URL'];
   String apiKey    = DotEnv().env['OSO_API_KEY'];
+
+  final prefs      = new UserPreferences();
+  
   static Map<String, String> headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   };
-  final prefs      = new UserPreferences();
 
   Future<List<Cart>> getPurchasesById() async {
 
@@ -34,21 +37,6 @@ class CartsProvider {
     return null;
   }
 
-  // Future<Cart> getCompraDetById(Stream idCompra) async {
-
-  //   final url = Uri.http(authority, 'api/carts/$idCompra/details', {
-  //     'api_key'               : apiKey,
-  //   });
-  //   try {
-  //     final resp = await http.get(url);
-  //     final decodedData = json.decode(resp.body);
-  //     final compraDetById = new Cart.fromJsonMap(decodedData['data']);
-  //     return 
-  //   } catch (err) {
-  //     print(err.toString());
-  //   }
-  //   return null;
-  // }
   Future<List<CartDetail>> getShoppingCart() async {
     
     final url = Uri.http(authority, 'api/carts/37/details',{
@@ -91,4 +79,15 @@ class CartsProvider {
       return false;
     }
   }
+
+  Future<bool> deleteFromShoppingCart(CartDetail item) async {
+    final url = Uri.http(authority, 'api/cartdetail/${item.id}', {'api_key': apiKey});
+
+    final response = await http.delete(url);
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }  
 }
