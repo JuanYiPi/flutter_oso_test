@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
 
        SafeArea(
          child: Container(
-          height: 220.0,
+          height: 250.0,
          )
        ),
 
@@ -252,7 +252,7 @@ class _LoginPageState extends State<LoginPage> {
     final size = MediaQuery.of(context).size;
 
     final fondoMorado = Container(
-      height: size.height * 0.4,
+      height: size.height * 0.45,
       width: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -276,10 +276,14 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     final presentacion = Container(
-      padding: EdgeInsets.only(top: kDefaultPaddin * 4.0),
+      padding: EdgeInsets.only(top: kDefaultPaddin * 5.0),
       child: Column(
         children: <Widget>[
-          Icon( Icons.bubble_chart, color: Colors.white, size: 100.0 ),
+          Container(
+            width: size.width * 0.3,
+            child: Image
+            (image: AssetImage('assets/icon/oso-icon.png'))
+          ),
           SizedBox( width: double.infinity, height: kDefaultPaddin / 2.0),
           Text('Osonline', style: TextStyle( color: Colors.white, fontSize: 25.0 ))
         ],
