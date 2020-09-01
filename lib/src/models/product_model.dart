@@ -40,7 +40,7 @@ class Product {
     imagen           = json['Imagen'];
   }
 
-    String getImg() {
+  String getImg() {
     if (imagen == null) {
       return 'http://192.168.0.2:8001/img/products/${imagen}wwww';
     } else {

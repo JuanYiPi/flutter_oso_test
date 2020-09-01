@@ -128,7 +128,7 @@ class _DetProductPageState extends State<DetProductPage> {
 
   Text _productID(Product product) {
     return Text(
-      'ID ${product.id.toString()}',
+      'ID ${product.idProductoCodigo.toString()}',
       style: TextStyle(color: kTextLightColor),
     );
   }
