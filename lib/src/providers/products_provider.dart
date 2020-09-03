@@ -113,4 +113,12 @@ class ProductsProvider {
     }
     return null;
   }
+
+  Future<List<Product>> searchProduct(String query) async {
+    final url = Uri.http(authority, 'api/products',{
+      'api_key': apiKey,
+      'query'  : query
+    });
+    return await _procesarResp(url);
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 
@@ -41,7 +42,32 @@ class DataSearch extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     // crea las sugerencias que aparecen al escribir
-    return Container();
+    if (query.isEmpty) return Container();
+
+    return FutureBuilder(
+      future: productsProvider.searchProduct(query),
+      builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
+        if (snapshot.hasData) {
+          final productos = snapshot.data;
+
+          return ListView(
+            children: productos.map((product) {
+              return ListTile(
+                title: Text(product.descripcion),
+                onTap: () {
+                  close(context, null);
+                  Navigator.pushNamed(context, 'det_product', arguments: product);
+                },
+              );
+            }).toList(),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 
   
