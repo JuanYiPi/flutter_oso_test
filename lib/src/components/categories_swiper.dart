@@ -15,15 +15,17 @@ class CategoriesSwiper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
     return Container(
-      height: 300.0,
+      height: screenSize.width * 0.8,
       width: double.infinity,
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {
           return _crearCategoria(context, categorias[index]);
         },
         itemCount: categorias.length,
-        autoplay: true,
+        // autoplay: true,
         autoplayDelay: 5000,
         control: new SwiperControl(),
         viewportFraction: 0.8,
@@ -60,11 +62,7 @@ class CategoriesSwiper extends StatelessWidget {
             child: Text(
               categoria.descripcion, 
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white, 
-                fontWeight: FontWeight.bold, 
-                fontSize: 40.0
-              )
+              style: Theme.of(context).textTheme.headline4.copyWith(color: Colors.white, fontWeight: FontWeight.bold) 
             ),
           )
         )

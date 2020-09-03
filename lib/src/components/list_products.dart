@@ -49,7 +49,7 @@ class MyCustomScrollView extends StatelessWidget {
       floating: true,
       pinned: false,
       snap: false,
-      title: Text(categoria.descripcion, style: encabezado,),
+      title: Text(categoria.descripcion),
       actions: [
          IconButton(
           icon: Icon(Icons.search), 
@@ -76,20 +76,15 @@ class MyCustomScrollView extends StatelessWidget {
     final cardProduct = Card(
       elevation: 0.0,
       child: Container(
+        padding: EdgeInsets.only(left:5.0),
         height: 120.0,
         width: double.infinity,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-
-            SizedBox(width: kDefaultPaddin/2,),
-
             _buildProductImg(product),
-
             SizedBox(width: kDefaultPaddin/2,),
-
-            _buildProductText(screenSize, product),
-
+            _buildProductText(context,screenSize, product),
             _buildFavoriteIcon(context),
           ],
         ),
@@ -115,13 +110,11 @@ class MyCustomScrollView extends StatelessWidget {
     );
   }
 
-  Container _buildProductText(Size screenSize, Product product) {
-    return Container(
-      width: screenSize.width * 0.5,
+  Widget _buildProductText(BuildContext context, Size screenSize, Product product) {
+    return Flexible(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           // mostrar el nombre del producto
           Text(
@@ -137,7 +130,7 @@ class MyCustomScrollView extends StatelessWidget {
           // mostrar el precio del producto
           Text(
             '\$${product.precio}',
-            style: priceLight,
+            style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor)
           ),
 
           SizedBox(height: 8.0),
@@ -145,8 +138,7 @@ class MyCustomScrollView extends StatelessWidget {
           Text(
             'Disponibilidad: ${product.stock}',
             style: TextStyle(
-              fontSize: 12.0,
-              // fontStyle: FontStyle.italic,
+              fontSize: 11.0,
               color: kTextGreenColor
             ),
           ),

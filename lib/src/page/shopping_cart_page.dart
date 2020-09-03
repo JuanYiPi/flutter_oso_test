@@ -26,7 +26,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Carrito de compras', style: encabezado,),
+        title: Text('Carrito de compras'),
       ),
       body: Stack(
         children: [
@@ -89,7 +89,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     final cardProduct = Card(
       elevation: 0.0,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: kDefaultPaddin/2),
+        padding: EdgeInsets.only(left: kDefaultPaddin/2),
         height: 120.0,
         width: double.infinity,
         child: Row(
@@ -125,7 +125,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
   Widget _buildProductText(CartDetail cartItem) {
     return Flexible( 
-      // width: screenSize.width * 0.5,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +166,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
               ),
               Text(
                 '\$${cartItem.total}',
-                style: priceLight,
+                style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor),
               ),
             ],
           ),
@@ -190,13 +189,13 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             if (snapshot.data != 200) {
               return Container(
                 child: Image(image: AssetImage('assets/img/no_disponible.jpg')),
-                height: 100.0,
-                width: 100.0,
+                height: 85.0,
+                width: 85.0,
               );
             }
             return Container(
-              height: 100.0,
-              width: 100.0,
+              height: 85.0,
+              width: 85.0,
               child: FadeInImage(
                 placeholder: AssetImage('assets/img/loading.gif'), 
                 image: NetworkImage(cartItem.getImg()),
@@ -205,8 +204,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             );
           } else {
             return Container(
-              height: 100.0,
-              width: 100.0,
+              height: 85.0,
+              width: 85.0,
               child: Image(
                 image: AssetImage('assets/img/loading.gif'), 
                 fit: BoxFit.cover,

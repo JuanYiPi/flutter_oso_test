@@ -47,17 +47,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Container _buildBody(BuildContext context) {
-  //   return Container(
-  //     child: Center(
-  //       child: RaisedButton(
-  //         child: Text('Categorias'),
-  //         onPressed: ()=> Navigator.pushNamed(context, 'cat_page')
-  //       ),
-  //     ),
-  //   );
-  // }
-
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       centerTitle: true,

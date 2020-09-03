@@ -36,12 +36,14 @@ class _DetProductPageState extends State<DetProductPage> {
     return Scaffold(
       key: scaffoldKey,
       appBar: _buildAppBarDet(context),
-      body: Stack(
-        children: [
-          _buildBodyDet(context, product, screenSize),
-          _loadingIndicator()
-        ],
-      ) 
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            _buildProductTitleImgPrice(context, screenSize, product),
+            _loadingIndicator()
+          ],
+        ),
+      )
     );
   }
 
@@ -60,15 +62,10 @@ class _DetProductPageState extends State<DetProductPage> {
 
   AppBar _buildAppBarDet(BuildContext context) {
     return AppBar(
-      title: Text('Producto', style: encabezado,),
+      title: Text('Producto'),
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.favorite_border), 
-          onPressed: () {}
-        ),
-
-        IconButton(
-          icon: Icon(Icons.search), 
           onPressed: () {}
         ),
 
@@ -79,19 +76,6 @@ class _DetProductPageState extends State<DetProductPage> {
           }
         ),
       ],
-    );
-  }
-
-  _buildBodyDet(BuildContext context, Product product, Size screenSize) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: screenSize.height,
-            child: _buildProductTitleImgPrice(context, screenSize, product),
-          )
-        ],
-      ),
     );
   }
 
@@ -114,6 +98,7 @@ class _DetProductPageState extends State<DetProductPage> {
           CartCounter(product: product, stock: product.stock,),
           SizedBox(height: kDefaultPaddin * 2,),
           _builPayCartButtons(context, product,),
+          SizedBox(height: kDefaultPaddin * 2,)
         ],
       ),
     );
@@ -129,7 +114,7 @@ class _DetProductPageState extends State<DetProductPage> {
   Text _productID(Product product) {
     return Text(
       'ID ${product.idProductoCodigo.toString()}',
-      style: TextStyle(color: kTextLightColor),
+      style: TextStyle(color: kTextLightColor, ),
     );
   }
 
