@@ -5,7 +5,7 @@ class DetCompraPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final String idCart = ModalRoute.of(context).settings.arguments;
+    // final String idCart = ModalRoute.of(context).settings.arguments;
 
     return Container(
       
