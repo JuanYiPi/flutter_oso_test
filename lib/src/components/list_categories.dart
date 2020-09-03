@@ -25,23 +25,6 @@ class ListAllCategories extends StatelessWidget {
     
   }
 
-  // List<Widget> _createListCategorias(BuildContext context, List<Categoria> categorias) {
-
-  //   final List<Widget> allCategorias = [];
-
-  //   categorias.forEach((categoria) { 
-
-  //     final tempWidget = _catIndividual(context, categoria);
-
-  //     allCategorias.add(tempWidget);
-  //     allCategorias.add(Divider());
-
-  //   });
-
-  //   return allCategorias;
-
-  // }
-
   Widget _catIndividual(BuildContext context, Categoria categoria) {
 
     final tarjeta = ListTile(
