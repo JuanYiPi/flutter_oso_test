@@ -14,28 +14,33 @@ class ListAllCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return ListView(
-      children: _createListCategorias(context, categorias),
+    return ListView.separated(
+      itemBuilder: (context, index) {
+        return _catIndividual(context, categorias[index]);
+      },
+      separatorBuilder: (context, index) => Divider(),
+      itemCount: categorias.length,
+      // children: _createListCategorias(context, categorias),
     );
     
   }
 
-  List<Widget> _createListCategorias(BuildContext context, List<Categoria> categorias) {
+  // List<Widget> _createListCategorias(BuildContext context, List<Categoria> categorias) {
 
-    final List<Widget> allCategorias = [];
+  //   final List<Widget> allCategorias = [];
 
-    categorias.forEach((categoria) { 
+  //   categorias.forEach((categoria) { 
 
-      final tempWidget = _catIndividual(context, categoria);
+  //     final tempWidget = _catIndividual(context, categoria);
 
-      allCategorias.add(tempWidget);
-      allCategorias.add(Divider());
+  //     allCategorias.add(tempWidget);
+  //     allCategorias.add(Divider());
 
-    });
+  //   });
 
-    return allCategorias;
+  //   return allCategorias;
 
-  }
+  // }
 
   Widget _catIndividual(BuildContext context, Categoria categoria) {
 

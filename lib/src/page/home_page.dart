@@ -43,6 +43,12 @@ class HomePage extends StatelessWidget {
             }  
           },
         ),
+        SizedBox(height: kDefaultPaddin,),
+        FlatButton(
+          child: Text('Categorias'),
+          onPressed: (){
+          Navigator.pushNamed(context, 'cat_page');
+        })
       ],
     );
   }
