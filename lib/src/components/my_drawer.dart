@@ -68,6 +68,15 @@ class _MyDrawerState extends State<MyDrawer> {
             leading: Icon(Icons.notifications, color: Theme.of(context).primaryColor),
             title: Text('Notificaciones'),
           ),
+
+          ListTile(
+            leading: Icon(Icons.power_settings_new, color: Theme.of(context).primaryColor),
+            title: Text('Cerrar sesion'),
+            onTap: () {
+              prefs.rememberMe = false;
+              Navigator.pushReplacementNamed(context, 'login');
+            },
+          ),
         ],
       )  
     );
