@@ -16,8 +16,9 @@ class ProductsProvider {
 
   int _productPage = 0;
   bool _loadingPage = false;
-  List<Product> _productos = new List();
 
+  // STREAM 
+  List<Product> _productos = new List();
   final _productsStreamController = StreamController<List<Product>>.broadcast();
   Function(List<Product>) get productsSink => _productsStreamController.sink.add;
   Stream<List<Product>> get productsStream => _productsStreamController.stream;
@@ -25,6 +26,7 @@ class ProductsProvider {
   void disposeStreams() {
     _productsStreamController?.close();
   }
+  //STREAM
 
   Future<List<Product>> getProducts() async {
 

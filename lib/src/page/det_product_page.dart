@@ -40,7 +40,6 @@ class _DetProductPageState extends State<DetProductPage> {
         child: Stack(
           children: [
             _buildProductTitleImgPrice(context, screenSize, product),
-            _loadingIndicator()
           ],
         ),
       )
@@ -49,12 +48,7 @@ class _DetProductPageState extends State<DetProductPage> {
 
   Widget _loadingIndicator() {
     if (_isLoading == true) {
-      return Stack(
-        children: [
-          Container(color: Colors.white.withOpacity(0.85),),
-          Center(child: CircularProgressIndicator(),),
-        ],
-      );
+      return Center(child: CircularProgressIndicator(),);
     } else {
       return Container();
     }
@@ -195,14 +189,19 @@ class _DetProductPageState extends State<DetProductPage> {
 
           SizedBox(height: kDefaultPaddin/2),
 
-          _buildFlatButton(
-            texto: 'Agregar al carrito',
-            btnColor: Colors.white,
-            txtColor: Theme.of(context).primaryColor,
-            press: () {
-              _addToShoppingCart(context, product);
-            }
-          ),
+          Stack(
+            children: [
+              _buildFlatButton(
+                texto: 'Agregar al carrito',
+                btnColor: _isLoading? Colors.grey : Colors.white,
+                txtColor: _isLoading? Colors.white : Theme.of(context).primaryColor,
+                press: () {
+                  _addToShoppingCart(context, product);
+                }
+              ),
+              _loadingIndicator()
+            ],
+          )
         ],
       ),
     );

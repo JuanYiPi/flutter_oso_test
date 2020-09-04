@@ -21,6 +21,17 @@ class CartsProvider {
     'Content-Type': 'application/x-www-form-urlencoded'
   };
 
+  // STREAM 
+  List<CartDetail> _shoppingCart = new List();
+  final _shoppingCartStreamController = StreamController<List<CartDetail>>.broadcast();
+  Function(List<CartDetail>) get shoppingCartSink => _shoppingCartStreamController.sink.add;
+  Stream<List<CartDetail>> get shoppingCartStream => _shoppingCartStreamController.stream;
+
+  void disposeStreams() {
+    _shoppingCartStreamController?.close();
+  }
+  //STREAM
+
   Future<List<Cart>> getPurchasesById() async {
 
     final url = Uri.http(authority, 'api/users/${prefs.id}/carts', {
@@ -49,6 +60,10 @@ class CartsProvider {
       try {
         final decodedData = json.decode(response.body);
         final shoppingList = CartDetailList.fromJsonList(decodedData['data']);
+
+        _shoppingCart.addAll(shoppingList.items);   //STREAM
+        shoppingCartSink(_shoppingCart);            //STREAM
+
         return shoppingList.items;
       } catch (err) {
         print(err.toString());
@@ -85,6 +100,8 @@ class CartsProvider {
 
     final response = await http.delete(url);
     if (response.statusCode == 200) {
+      _shoppingCart = []; // STREAM
+      getShoppingCart();  // STREAM
       return true;
     } else {
       return false;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_oso_test/src/bloc/shopping_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/cart_detail_model.dart';
@@ -13,16 +14,12 @@ class ShoppingCartPage extends StatefulWidget {
 class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
   final cartsProvider = new CartsProvider();
-  bool _isLoading;
-
-  @override
-  void initState() { 
-    super.initState();
-    _isLoading = false;
-  }
 
   @override
   Widget build(BuildContext context) {
+
+    cartsProvider.getShoppingCart();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -31,50 +28,59 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
       body: Stack(
         children: [
           _buildBody(),
-          _loadingIndicator(),
         ],
       ) 
     );
   }
 
-  Widget _loadingIndicator() {
-    if (_isLoading == true) {
-      return Stack(
-        children: [
-          Container(color: Colors.white.withOpacity(0.85),),
-          Center(child: CircularProgressIndicator(),),
-        ],
-      );
-    } else {
-      return Container();
-    }
-  }
-
   Widget _buildBody() {
-    return FutureBuilder(
-      future: cartsProvider.getShoppingCart(),
+    return StreamBuilder<List<CartDetail>>(
+      stream: cartsProvider.shoppingCartStream,
       builder: (BuildContext context, AsyncSnapshot<List<CartDetail>> snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data.length == 0) {
-            return Center(child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                children: [
-                  TextSpan(text: 'Tu carrito esta vacío\n\n', style: textoLight),
-                  TextSpan(text: '¿No sabes que comprar?\nRevisa las categorias de productos\nque tenemos disponibles para ti', 
-                    style: textoLightColor.copyWith(fontWeight: FontWeight.normal)
-                  ),
-                ]
-              )
-            ));
-          }
-          
-          return _listCartDetail(cartItems: snapshot.data);
-        } else {
+        if (!snapshot.hasData) {
           return Center(child: CircularProgressIndicator(),);
         }
+        final items = snapshot.data;
+        if (items.length == 0) {
+          return Center(child: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              children: [
+                TextSpan(text: 'Tu carrito esta vacío\n\n', style: textoLight),
+                TextSpan(text: '¿No sabes que comprar?\nRevisa las categorias de productos\nque tenemos disponibles para ti', 
+                  style: textoLightColor.copyWith(fontWeight: FontWeight.normal)
+                ),
+              ]
+            )
+          ));
+        }
+        return _listCartDetail(cartItems: snapshot.data);
       },
     );
+    
+    // FutureBuilder(
+    //   future: cartsProvider.getShoppingCart(),
+    //   builder: (BuildContext context, AsyncSnapshot<List<CartDetail>> snapshot) {
+    //     if (snapshot.hasData) {
+          // if (snapshot.data.length == 0) {
+          //   return Center(child: RichText(
+          //     textAlign: TextAlign.center,
+          //     text: TextSpan(
+          //       children: [
+          //         TextSpan(text: 'Tu carrito esta vacío\n\n', style: textoLight),
+          //         TextSpan(text: '¿No sabes que comprar?\nRevisa las categorias de productos\nque tenemos disponibles para ti', 
+          //           style: textoLightColor.copyWith(fontWeight: FontWeight.normal)
+          //         ),
+          //       ]
+          //     )
+          //   ));
+          // }
+    //       return _listCartDetail(cartItems: snapshot.data);
+    //     } else {
+    //       return Center(child: CircularProgressIndicator(),);
+    //     }
+    //   },
+    // );
   }
 
   Widget _listCartDetail({List<CartDetail> cartItems}) {
@@ -95,10 +101,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            // SizedBox(width: kDefaultPaddin/2,),
             _buildProductImg(cartItem),
             SizedBox(width: kDefaultPaddin/2,),
-            _buildProductText(cartItem),
+            _buildProductText(context, cartItem),
           ],
         ),
       ),
@@ -115,15 +120,12 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           )
         )
       ),
-      onDismissed: (direction) async {
-        await cartsProvider.deleteFromShoppingCart(cartItem);
-        setState(() {});
-      },
-      child: cardProduct 
+      onDismissed: (direction) => cartsProvider.deleteFromShoppingCart(cartItem),
+      child: cardProduct
     );
   }
 
-  Widget _buildProductText(CartDetail cartItem) {
+  Widget _buildProductText(BuildContext context, CartDetail cartItem) {
     return Flexible( 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,23 +143,13 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                   ),
                 ),
               ),
-              IconButton(icon: Icon(Icons.delete, color: kTextLightColor,), onPressed: () async {
-                setState(() {
-                  _isLoading = true;
-                });
-                await cartsProvider.deleteFromShoppingCart(cartItem);
-                // cartsProvider.getShoppingCart();
-                setState(() {
-                  _isLoading = false;
-                });
+              IconButton(icon: Icon(Icons.delete, color: kTextLightColor,), onPressed: () {
+                cartsProvider.deleteFromShoppingCart(cartItem);
               })
             ],
           ),
           SizedBox(height: 15.0),
-
-          // mostrar el precio del producto
           Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               FlatButton(
@@ -170,9 +162,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
               ),
             ],
           ),
-
-          // SizedBox(height: 8.0),
-
         ],
       ),
     );

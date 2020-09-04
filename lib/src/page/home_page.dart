@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
         ),
         SizedBox(height: kDefaultPaddin,),
         FlatButton(
-          child: Text('Categorias'),
+          child: Text('Lista de categorias'),
           onPressed: (){
           Navigator.pushNamed(context, 'cat_page');
         })
@@ -67,7 +67,11 @@ class HomePage extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.shopping_cart),
           onPressed: (){
-            Navigator.pushNamed(context, 'shopping_cart');
+            if (prefs.id != 0) {
+              Navigator.pushNamed(context, 'shopping_cart');
+            } else {
+              Navigator.pushNamed(context, 'login');
+            }
           }       
         ),
         SizedBox(width: 10.0),

@@ -111,7 +111,7 @@ class MyCustomScrollView extends StatelessWidget {
   }
 
   Widget _buildProductText(BuildContext context, Size screenSize, Product product) {
-    return Flexible(
+    return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
