@@ -33,6 +33,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final prefs = new UserPreferences();
   @override
   Widget build(BuildContext context) {
 
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Oso online',
-        initialRoute: 'login',
+        initialRoute: prefs.rememberMe? 'home' : 'login',
         routes: {
           'login'              :  ( BuildContext context ) => LoginPage(),
           'registro'           :  ( BuildContext context ) => RegistroPage(),

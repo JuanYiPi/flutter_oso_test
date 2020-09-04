@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final usersProviders = new UsersProviders();
   final _emailController    = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _save = false;
+  bool _rememberMe = false;
 
   IconData icon        = Icons.visibility;
   bool visiblePassword = true;
@@ -187,9 +187,9 @@ class _LoginPageState extends State<LoginPage> {
       child: CheckboxListTile(
         activeColor: Theme.of(context).primaryColor,
         title: Text('Recordarme'),
-        value: _save,
+        value: _rememberMe,
         onChanged: (valor){
-          setState(()=> _save = valor);
+          setState(()=> _rememberMe = valor);
         }
       ),
     );
@@ -337,6 +337,9 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     if ( resp is User ) {
+
+      if (_rememberMe) prefs.rememberMe = true;
+      
       prefs.id        = resp.id;
       prefs.userName  = resp.name;
       prefs.userEmail = resp.email;

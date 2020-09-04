@@ -36,12 +36,24 @@ class UserPreferences {
     _preferences.setString('name', value);
   }
 
+  // get & set del nombre del correo del usuario
+
   get userEmail {
     return _preferences.getString('email') ?? 'Sin correo';
   }
 
   set userEmail(String value) {
     _preferences.setString('email', value);
+  }
+
+  // get & set rememberMe
+
+  get rememberMe{
+    return _preferences.getBool('rememberMe') ?? false;
+  }
+
+  set rememberMe(bool value) {
+    _preferences.setBool('rememberMe', value);
   }
 
   // get & set de id categoria
