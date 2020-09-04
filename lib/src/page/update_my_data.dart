@@ -65,7 +65,7 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
       initialValue: name,
       textCapitalization: TextCapitalization.words,
       decoration: InputDecoration(
-       icon: Icon( Icons.person_pin, color: Colors.deepPurple),
+       icon: Icon( Icons.person_pin, color: Theme.of(context).primaryColor),
        hintText: 'Juan Miguel Gómez Pérez',
        labelText: 'Nombre completo',
       ),
@@ -83,7 +83,7 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
       initialValue: email,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        icon: Icon( Icons.alternate_email, color: Colors.deepPurple),
+        icon: Icon( Icons.alternate_email, color: Theme.of(context).primaryColor),
         hintText: 'ejemplo@correo.com',
         labelText: 'Correo electronico',
       ),
@@ -108,7 +108,7 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
           borderRadius: BorderRadius.circular(5.0)
         ),
         elevation: 0.0,
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         textColor: Colors.white,
         onPressed: () {
           _updateUser(user, context);
@@ -194,7 +194,7 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
           borderRadius: BorderRadius.circular(5.0)
         ),
         elevation: 0.0,
-        color: Colors.deepPurple,
+        color: Theme.of(context).primaryColor,
         textColor: Colors.white,
         onPressed: ()=> Navigator.pop(context)
       ),
