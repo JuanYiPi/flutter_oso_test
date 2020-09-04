@@ -73,7 +73,7 @@ class CategoriesSwiper extends StatelessWidget {
       child: card,
       onTap: () {
         prefs.idCategoria = categoria.id;
-        Navigator.pushNamed(context, 'products_by_cat', arguments: categoria);
+        Navigator.pushNamed(context, 'products_by_cat', arguments: categoria.descripcion);
       },
     );
   }

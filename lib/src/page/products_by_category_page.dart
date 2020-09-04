@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/list_products.dart';
-import 'package:flutter_oso_test/src/models/categories_model.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 
@@ -11,15 +10,15 @@ class ProductsByCategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final Categoria categoria = ModalRoute.of(context).settings.arguments;
+    final String title = ModalRoute.of(context).settings.arguments;
     productsProvider.getProducts();
 
     return Scaffold(
-      body: _buildBody(categoria),
+      body: _buildBody(title),
     );
   }
 
-  Container _buildBody(Categoria categoria) {
+  Container _buildBody(String title) {
     return Container(
       child: StreamBuilder(
         stream: productsProvider.productsStream,
@@ -27,7 +26,7 @@ class ProductsByCategoryPage extends StatelessWidget {
           if (snapshot.hasData) {
             return MyCustomScrollView(
             products: snapshot.data, 
-            categoria: categoria, 
+            title: title, 
             nextPage: productsProvider.getProducts
           );
           } else {

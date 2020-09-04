@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
-import 'package:flutter_oso_test/src/models/categories_model.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 
 
 class MyCustomScrollView extends StatelessWidget {
 
   final List<Product> products;
-  final Categoria categoria;
+  final String title;
   final Function nextPage;
 
   MyCustomScrollView({
-    Key key, @required this.products, @required this.categoria, @required this.nextPage,
+    Key key, @required this.products, @required this.title, @required this.nextPage,
   }) : super(key: key);
 
   final ScrollController _scrollController = new ScrollController();
+  final productsProvider = new ProductsProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class MyCustomScrollView extends StatelessWidget {
     return CustomScrollView(
       controller: _scrollController,
       slivers: [
-        _mySliverAppBar(context, categoria),
+        _mySliverAppBar(context, title),
         SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) => _myProductCard(context, products[index], _screenSize),
@@ -44,12 +44,12 @@ class MyCustomScrollView extends StatelessWidget {
     );
   }
 
-  _mySliverAppBar(BuildContext context ,Categoria categoria) {
+  _mySliverAppBar(BuildContext context, String title) {
     return SliverAppBar(
       floating: true,
       pinned: false,
       snap: false,
-      title: Text(categoria.descripcion),
+      title: Text(title),
       actions: [
          IconButton(
           icon: Icon(Icons.search), 
@@ -153,7 +153,7 @@ class MyCustomScrollView extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(10.0),
       child: FutureBuilder(
-        future: _checkUrl(product.getImg()),
+        future: productsProvider.checkUrl(product.getImg()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != 200) {
@@ -185,17 +185,6 @@ class MyCustomScrollView extends StatelessWidget {
         },
       ),
     );
-  }
-
-  Future<int> _checkUrl(String url) async {
-    try {
-      final response = await http.get(url);
-      print(response.statusCode);
-      return response.statusCode;
-    } catch (err) {
-      print(err.toString());
-      return null;
-    }
   }
 }
 
