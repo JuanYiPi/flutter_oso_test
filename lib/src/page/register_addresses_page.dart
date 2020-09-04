@@ -1,7 +1,48 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_oso_test/src/bloc/provider_bloc.dart';
 
-class RegisterAddresses extends StatelessWidget {
+import 'package:flutter_oso_test/src/constants/constants.dart';
+import 'package:flutter_oso_test/src/models/direction_model.dart';
+import 'package:flutter_oso_test/src/providers/directions_provider.dart';
+
+class RegisterAddresses extends StatefulWidget {
+
+  @override
+  _RegisterAddressesState createState() => _RegisterAddressesState();
+}
+
+final directionsProvider = new DirectionsProvider();
+
+class _RegisterAddressesState extends State<RegisterAddresses> {
+
+  final textControllerNombre            = TextEditingController();
+  final textControllerCodigoPostal      = TextEditingController();
+  final textControllerPais              = TextEditingController();
+  final textControllerEstado            = TextEditingController();
+  final textControllerMunicipio         = TextEditingController();
+  final textControllerColina            = TextEditingController();
+  final textControllerCalle             = TextEditingController();
+  final textControllerNomExterior       = TextEditingController();
+  final textControllerNomInterior       = TextEditingController();
+  final textControllerTelefonoContacto  = TextEditingController();
+  final textControllerReferencia        = TextEditingController();
+
+  @override
+  void dispose() { 
+    textControllerNombre.dispose();
+    textControllerCodigoPostal.dispose();
+    textControllerPais.dispose();
+    textControllerEstado.dispose();
+    textControllerMunicipio.dispose();
+    textControllerColina.dispose();
+    textControllerCalle.dispose();
+    textControllerNomExterior.dispose();
+    textControllerNomInterior.dispose();
+    textControllerTelefonoContacto.dispose();
+    textControllerReferencia.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,29 +60,29 @@ class RegisterAddresses extends StatelessWidget {
         child: Column(
           children: <Widget>[
             nombre(bloc),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             codigoPostal(bloc),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             pais(bloc),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             estado(bloc),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             municipio(bloc),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             colonia(bloc),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             calle(bloc),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             nomExterior(bloc),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             nomInterior(),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             telefonoContacto(bloc),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             referencia(),
-            SizedBox( height: 30.0 ),
+            SizedBox( height: kDefaultPaddin ),
             guardar(context, size, bloc),
-            SizedBox( height: 15.0 ),
+            SizedBox( height: kDefaultPaddin / 2 ),
             cancelar(context, size),
           ],
         ),
@@ -56,8 +97,9 @@ class RegisterAddresses extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return TextField(
-            textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
+          controller: textControllerNombre,
+          textCapitalization: TextCapitalization.words,
+          decoration: InputDecoration(
             labelText: 'Nombre y apellido',
             helperText: 'Tal cual figure en el INE o IFE',
             errorText: snapshot.error
@@ -75,8 +117,9 @@ class RegisterAddresses extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
+          controller: textControllerCodigoPostal,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
             labelText: 'Código postal',
             errorText: snapshot.error
           ),
@@ -93,8 +136,9 @@ class RegisterAddresses extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return TextField(
-            textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
+          controller: textControllerPais,
+          textCapitalization: TextCapitalization.words,
+          decoration: InputDecoration(
             labelText: 'Pais',
           ),
           onChanged: bloc.changePais,
@@ -102,7 +146,7 @@ class RegisterAddresses extends StatelessWidget {
       },
     );
   }
-  
+
   Widget estado(Blocs bloc){
 
     return StreamBuilder(
@@ -110,8 +154,9 @@ class RegisterAddresses extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return TextField(
-            textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
+          controller: textControllerEstado,
+          textCapitalization: TextCapitalization.words,
+          decoration: InputDecoration(
             labelText: 'Estado',
           ),
           onChanged: bloc.changeEstado,
@@ -127,8 +172,9 @@ class RegisterAddresses extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return TextField(
-            textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
+          controller: textControllerMunicipio,
+          textCapitalization: TextCapitalization.words,
+          decoration: InputDecoration(
             labelText: 'Delegación / Municipio',
           ),
           onChanged: bloc.changeMunicipio,
@@ -144,8 +190,9 @@ class RegisterAddresses extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
       
         return TextField(
-            textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
+          controller: textControllerColina,
+          textCapitalization: TextCapitalization.words,
+          decoration: InputDecoration(
             labelText: 'Colonia',
           ),
           onChanged: bloc.changeColonia,
@@ -161,8 +208,9 @@ class RegisterAddresses extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return TextField(
-            textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
+          controller: textControllerCalle,
+          textCapitalization: TextCapitalization.words,
+          decoration: InputDecoration(
             labelText: 'Calle',
           ),
           onChanged: bloc.changeCalle,
@@ -178,8 +226,9 @@ class RegisterAddresses extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
+          controller: textControllerNomExterior,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
             labelText: 'Número exterior',
           ),
           onChanged: bloc.changeNumeroExterior,
@@ -191,8 +240,9 @@ class RegisterAddresses extends StatelessWidget {
   Widget nomInterior(){
 
     return TextField(
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
+      controller: textControllerNomInterior,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
         labelText: 'N° interior / Depto (opcional)',
       ),
     );
@@ -205,8 +255,9 @@ class RegisterAddresses extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot){
 
         return TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
+          controller: textControllerTelefonoContacto,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
             labelText: 'Teléfono de contacto',
             hintText: 'Ej: 222 1234567',
             helperText: 'Llamarán a este número si hay algún problema en el envío',
@@ -221,7 +272,8 @@ class RegisterAddresses extends StatelessWidget {
   Widget referencia(){
 
      return TextField(
-        textCapitalization: TextCapitalization.words,
+      controller: textControllerReferencia,
+      textCapitalization: TextCapitalization.words,
         decoration: InputDecoration(
         labelText: 'Referencia',
       ),
@@ -243,7 +295,9 @@ class RegisterAddresses extends StatelessWidget {
             child: Text('Guardar'),
             color: Theme.of(context).primaryColor,
             textColor: Colors.white,
-            onPressed: snapshot.hasData ? (){} : null
+            onPressed: snapshot.hasData ? (){
+              _addNewDirection(context);
+            } : null
           ),
         );
       },
@@ -266,5 +320,51 @@ class RegisterAddresses extends StatelessWidget {
         onPressed: ()=>Navigator.pop(context),
       ),
     );
+  }
+
+  void _addNewDirection(BuildContext context) async {
+
+    final direction = new Direction(
+      type: 1,
+      userId: 15,
+      receive: textControllerNombre.text,
+      receivePhone: textControllerTelefonoContacto.text,
+      street: textControllerCalle.text,
+      numberExt: textControllerNomExterior.text,
+      numberInt: textControllerNomInterior.text,
+      zip: int.parse(textControllerCodigoPostal.text),
+      colony: textControllerColina.text,
+      city: textControllerMunicipio.text,
+      state: textControllerEstado.text,
+      country: textControllerPais.text,
+      reference: textControllerReferencia.text,
+    );
+
+    var response = await directionsProvider.addNewDirection(direction);
+
+    if ( response is Direction ) {
+      textControllerNombre.clear();
+      textControllerCodigoPostal.clear();
+      textControllerPais.clear();
+      textControllerEstado.clear();
+      textControllerMunicipio.clear();
+      textControllerColina.clear();
+      textControllerCalle.clear();
+      textControllerNomExterior.clear();
+      textControllerNomInterior.clear();
+      textControllerTelefonoContacto.clear();
+      textControllerReferencia.clear();
+      return Navigator.pop(context);
+    } else {
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Icon(Icons.warning, size: 35.0, color: Colors.red),
+          content: Text('error: $response'),
+        ),
+        barrierDismissible: true,
+      );
+    }
+
   }
 }

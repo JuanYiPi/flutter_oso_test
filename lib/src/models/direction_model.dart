@@ -39,14 +39,14 @@ class Direction {
 
   Direction.fromJsonMap(Map<String, dynamic> json){
     id            = json['id'];
-    type          = json['type'];
+    type          = json['type'] is String ? int.parse(json['type']) : json['type'] ;
     userId        = json['user_id'];
     receive       = json['receive'];
     receivePhone  = json['receive_phone'];
     street        = json['street'];
     numberExt     = json['number_ext'];
     numberInt     = json['number_int'];
-    zip           = json['zip'];
+    zip           = json['zip'] is String ? int.parse(json['zip']) : json['zip'];
     colony        = json['colony'];
     city          = json['city'];
     state         = json['state'];
