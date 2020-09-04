@@ -123,4 +123,15 @@ class ProductsProvider {
     });
     return await _procesarResp(url);
   }
+
+  Future<int> checkUrl(String url) async {
+    try {
+      final response = await http.get(url);
+      print(response.statusCode);
+      return response.statusCode;
+    } catch (err) {
+      print(err.toString());
+      return null;
+    }
+  }
 }

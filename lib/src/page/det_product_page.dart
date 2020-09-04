@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 import 'package:flutter_oso_test/src/components/cart_counter.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
@@ -15,6 +15,7 @@ class DetProductPage extends StatefulWidget {
 class _DetProductPageState extends State<DetProductPage> {
 
   final cartsProvider = new CartsProvider();
+  final productsProvider = new ProductsProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool _isLoading;
@@ -117,7 +118,7 @@ class _DetProductPageState extends State<DetProductPage> {
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(10.0),
       child: FutureBuilder(
-        future: _checkUrl(product.getImg()),
+        future: productsProvider.checkUrl(product.getImg()),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != 200) {
@@ -256,16 +257,5 @@ class _DetProductPageState extends State<DetProductPage> {
     );
 
     scaffoldKey.currentState.showSnackBar(snackbar);
-  }
-
-  Future<int> _checkUrl(String url) async {
-    try {
-      final response = await http.get(url);
-      print(response.statusCode);
-      return response.statusCode;
-    } catch (err) {
-      print(err.toString());
-      return null;
-    }
   }
 }

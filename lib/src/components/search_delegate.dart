@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/components/my_product_card.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
@@ -6,6 +9,7 @@ import 'package:flutter_oso_test/src/providers/products_provider.dart';
 class DataSearch extends SearchDelegate {
 
   String busqueda = '';
+  List<Product> results = new List();
 
   final productsProvider = new ProductsProvider();
 
@@ -36,7 +40,16 @@ class DataSearch extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     // crea los resultados que vamos a mostrar
-    return Center();
+    if (results.length != 0) {
+      return ListView.builder(
+        itemBuilder: (context, index) {
+          return MyProductCard(product: results[index]); 
+        },
+        itemCount: results.length,
+      );
+    } else {
+      return Center(child: Text('Sin resultados :('),);
+    }
   }
 
   @override
@@ -44,19 +57,31 @@ class DataSearch extends SearchDelegate {
     // crea las sugerencias que aparecen al escribir
     if (query.isEmpty) return Container();
 
-    return FutureBuilder(
+    return 
+    FutureBuilder(
       future: productsProvider.searchProduct(query),
       builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
         if (snapshot.hasData) {
-          final productos = snapshot.data;
+
+          results = snapshot.data;
 
           return ListView(
-            children: productos.map((product) {
+            children: results.map((product) {
               return ListTile(
-                title: Text(product.descripcion),
+                leading: Icon(Icons.search),
+                title: Text(product.descripcion.toLowerCase(),),
+                trailing: Transform.rotate(
+                    angle: -pi/4.0,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_upward), 
+                      onPressed: () => query = product.descripcion.toLowerCase()
+                  ),
+                ),
                 onTap: () {
-                  close(context, null);
-                  Navigator.pushNamed(context, 'det_product', arguments: product);
+                  // close(context, null);
+                  query = product.descripcion.toLowerCase();
+                  // buildResults(context);
+                  // Navigator.pushNamed(context, 'det_product', arguments: product);
                 },
               );
             }).toList(),
@@ -69,8 +94,4 @@ class DataSearch extends SearchDelegate {
       },
     );
   }
-
-  
-
-
 }
