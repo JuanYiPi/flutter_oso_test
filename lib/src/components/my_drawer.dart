@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
-// import 'package:flutter_oso_test/src/models/user_model.dart';
 
 class MyDrawer extends StatefulWidget {
 
@@ -58,7 +57,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
 
           ListTile(
-            onTap: () => Navigator.pushNamed(context, 'user_det', arguments: prefs.id),
+            onTap: () => Navigator.pushNamed(context, 'user_det', arguments: prefs.idUsuario),
             leading: Icon(Icons.account_circle, color: Theme.of(context).primaryColor),
             title: Text('Mi cuenta'),
           ),

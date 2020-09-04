@@ -28,7 +28,7 @@ class MyProductCard extends StatelessWidget {
             _buildProductImg(),
             SizedBox(width: kDefaultPaddin/2,),
             _buildProductText(context),
-            _buildLoveIcon(),
+            _buildLoveIcon(context),
           ],
         ),
       ),
@@ -37,7 +37,7 @@ class MyProductCard extends StatelessWidget {
     return GestureDetector(
       child: cardProduct,
       onTap: () {
-        Navigator.pushNamed(context, 'detProduct', arguments: product);
+        Navigator.pushNamed(context, 'det_product', arguments: product);
       },
     );
 
@@ -119,11 +119,11 @@ class MyProductCard extends StatelessWidget {
     );
   }
 
-  Column _buildLoveIcon() {
+  Column _buildLoveIcon(BuildContext context) {
     return Column(
       children: <Widget>[
         IconButton(
-          icon: Icon(Icons.favorite_border, size: 16.0, color: Colors.deepPurple,), 
+          icon: Icon(Icons.favorite_border, size: 16.0, color: Theme.of(context).primaryColor), 
           onPressed: () {}
         ),
       ],

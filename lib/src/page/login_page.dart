@@ -248,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               elevation: 20.0,
               onPressed: (){
-                prefs.id = 0;
+                prefs.idUsuario = 0;
                 prefs.userEmail = "Sin registrar";
                 prefs.userName  = "Invitado";
                 Navigator.pushReplacementNamed(context, 'home');
@@ -340,7 +340,7 @@ class _LoginPageState extends State<LoginPage> {
 
       if (_rememberMe) prefs.rememberMe = true;
       
-      prefs.id        = resp.id;
+      prefs.idUsuario        = resp.id;
       prefs.userName  = resp.name;
       prefs.userEmail = resp.email;
       Navigator.pushReplacementNamed(context, 'home');

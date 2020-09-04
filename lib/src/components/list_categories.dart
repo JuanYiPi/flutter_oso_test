@@ -20,7 +20,6 @@ class ListAllCategories extends StatelessWidget {
       },
       separatorBuilder: (context, index) => Divider(),
       itemCount: categorias.length,
-      // children: _createListCategorias(context, categorias),
     );
     
   }
@@ -32,7 +31,7 @@ class ListAllCategories extends StatelessWidget {
       trailing: Icon(Icons.keyboard_arrow_right, color: Theme.of(context).primaryColor,),
       onTap: () {
         prefs.idCategoria = categoria.id;
-        Navigator.pushNamed(context, 'products_by_cat', arguments: categoria);
+        Navigator.pushNamed(context, 'products_by_cat', arguments: categoria.descripcion);
       },
     );
 
