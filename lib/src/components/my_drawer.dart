@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
-// import 'package:flutter_oso_test/src/models/user_model.dart';
 
 class MyDrawer extends StatefulWidget {
 
