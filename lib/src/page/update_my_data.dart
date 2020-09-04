@@ -33,7 +33,7 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
         title: Text('Modificar mis datos'),
       ),
       body: FutureBuilder(
-      future: userProvider.getUserById( prefs.id.toString() ),
+      future: userProvider.getUserById( prefs.idUsuario.toString() ),
 
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
         if ( snapshot.hasData ){

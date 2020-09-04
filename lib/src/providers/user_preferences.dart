@@ -16,13 +16,13 @@ class UserPreferences {
     this._preferences = await SharedPreferences.getInstance();
   }
 
-  // get & set del genero
+  // get & set del idUsuario
 
-  get id {
+  get idUsuario {
     return _preferences.getInt('id') ?? 1;
   }
 
-  set id(int value) {
+  set idUsuario(int value) {
     _preferences.setInt('id', value);
   }
 

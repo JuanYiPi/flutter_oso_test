@@ -334,7 +334,7 @@ class _RegistroPageState extends State<RegistroPage> {
 
     if (response is User) {
 
-      prefs.id = response.id;
+      prefs.idUsuario = response.id;
       prefs.userName = response.name;
       
       textControllerName.clear();

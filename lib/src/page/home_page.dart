@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.shopping_cart),
           onPressed: (){
-            if (prefs.id != 0) {
+            if (prefs.idUsuario != 0) {
               Navigator.pushNamed(context, 'shopping_cart');
             } else {
               Navigator.pushNamed(context, 'login');

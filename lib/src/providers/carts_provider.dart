@@ -34,7 +34,7 @@ class CartsProvider {
 
   Future<List<Cart>> getPurchasesById() async {
 
-    final url = Uri.http(authority, 'api/users/${prefs.id}/carts', {
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/carts', {
       'api_key'               : apiKey,
     });
     try {
