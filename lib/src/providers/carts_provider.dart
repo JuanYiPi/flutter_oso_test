@@ -49,8 +49,8 @@ class CartsProvider {
   }
 
   Future<List<CartDetail>> getShoppingCart() async {
-    
-    final url = Uri.http(authority, 'api/carts/37/details',{
+
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails', {
       'api_key': apiKey
     });
 
@@ -73,7 +73,7 @@ class CartsProvider {
   }
 
   Future<bool> addToShoppingCart(Product producto) async {
-    final url = Uri.http(authority, 'api/cartdetail');
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails');
 
     final response = await http.post(
       url, 
