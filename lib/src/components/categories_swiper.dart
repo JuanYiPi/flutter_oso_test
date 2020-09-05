@@ -25,7 +25,7 @@ class CategoriesSwiper extends StatelessWidget {
           return _crearCategoria(context, categorias[index]);
         },
         itemCount: categorias.length,
-        // autoplay: true,
+        autoplay: true,
         autoplayDelay: 5000,
         control: new SwiperControl(),
         viewportFraction: 0.8,

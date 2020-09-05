@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_oso_test/src/models/cart_compuesto.dart';
 import 'package:flutter_oso_test/src/models/cart_detail_list_model.dart';
 import 'package:flutter_oso_test/src/models/cart_detail_model.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
@@ -21,14 +22,14 @@ class CartsProvider {
     'Content-Type': 'application/x-www-form-urlencoded'
   };
 
-  // STREAM 
-  List<CartDetail> _shoppingCart = new List();
-  final _shoppingCartStreamController = StreamController<List<CartDetail>>.broadcast();
-  Function(List<CartDetail>) get shoppingCartSink => _shoppingCartStreamController.sink.add;
-  Stream<List<CartDetail>> get shoppingCartStream => _shoppingCartStreamController.stream;
+  // CARTMAP STREAM
+  final _shoppingCartInfoStreamController = StreamController<CartMap>.broadcast();
+  Function(CartMap) get shoppingCartInfoSink => _shoppingCartInfoStreamController.sink.add;
+  Stream<CartMap> get shoppingCartInfoStream => _shoppingCartInfoStreamController.stream;
+  // CARTMAP STREAM
 
   void disposeStreams() {
-    _shoppingCartStreamController?.close();
+    _shoppingCartInfoStreamController?.close();
   }
   //STREAM
 
@@ -59,15 +60,16 @@ class CartsProvider {
     if (response.statusCode == 200) {
       try {
         final decodedData = json.decode(response.body);
+        print(decodedData);
         final shoppingList = CartDetailList.fromJsonList(decodedData['data']);
         final cartInfo = Cart.fromJsonMap(decodedData['total']);
 
-        // prefs.cartTotal = cartInfo.total;
-        // print(prefs.cartTotal.toString());
+        final cartCompuesto = new CartMap(
+          data: shoppingList.items,
+          total: cartInfo
+        );
 
-        _shoppingCart = [];                         //STREAM
-        _shoppingCart.addAll(shoppingList.items);   //STREAM
-        shoppingCartSink(_shoppingCart);            //STREAM
+        shoppingCartInfoSink(cartCompuesto);        //STREAM
 
         return shoppingList.items;
       } catch (err) {
@@ -105,7 +107,6 @@ class CartsProvider {
 
     final response = await http.delete(url);
     if (response.statusCode == 200) {
-      _shoppingCart = []; // STREAM
       getShoppingCart();  // STREAM
       return true;
     } else {
