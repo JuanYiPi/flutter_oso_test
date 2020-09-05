@@ -5,6 +5,7 @@ import 'package:flutter_oso_test/src/bloc/provider_bloc.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/direction_model.dart';
 import 'package:flutter_oso_test/src/providers/directions_provider.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 class RegisterAddresses extends StatefulWidget {
 
@@ -13,6 +14,7 @@ class RegisterAddresses extends StatefulWidget {
 }
 
 final directionsProvider = new DirectionsProvider();
+final prefs = UserPreferences();
 
 class _RegisterAddressesState extends State<RegisterAddresses> {
 
@@ -173,7 +175,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
 
         return TextField(
           controller: textControllerMunicipio,
-          textCapitalization: TextCapitalization.words,
+          textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             labelText: 'Delegación / Municipio',
           ),
@@ -273,7 +275,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
 
      return TextField(
       controller: textControllerReferencia,
-      textCapitalization: TextCapitalization.words,
+      textCapitalization: TextCapitalization.none,
         decoration: InputDecoration(
         labelText: 'Referencia',
       ),
@@ -291,7 +293,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
           height: 45.0,
           width: size.width * 0.6,
           child: RaisedButton(
-          
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
             child: Text('Guardar'),
             color: Theme.of(context).primaryColor,
             textColor: Colors.white,
@@ -313,7 +315,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
       height: 45.0,
       width: size.width * 0.6,
       child: RaisedButton(
-      
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         child: Text('Cancelar'),
         color: Theme.of(context).primaryColor,
         textColor: Colors.white,
@@ -326,7 +328,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
 
     final direction = new Direction(
       type: 1,
-      userId: 15,
+      userId: prefs.idUsuario,
       receive: textControllerNombre.text,
       receivePhone: textControllerTelefonoContacto.text,
       street: textControllerCalle.text,
