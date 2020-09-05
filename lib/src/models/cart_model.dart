@@ -12,6 +12,7 @@ class Cart {
   String metodoPago;
   String referenciaPago;
   String metodoEntrega;
+  int directionId;
   String createdAt;
   String updatedAt;
 
@@ -29,6 +30,7 @@ class Cart {
     this.metodoPago,
     this.referenciaPago,
     this.metodoEntrega,
+    this.directionId,
     this.createdAt,
     this.updatedAt,
   });
@@ -48,6 +50,7 @@ class Cart {
     metodoPago      = json['MetodoPago'];
     referenciaPago  = json['ReferenciaPago'];
     metodoEntrega   = json['MetodoEntrega'];
+    directionId     = json['direction_id'];
     createdAt       = json['createdAt'];
     updatedAt       = json['updatedAt'];
   }

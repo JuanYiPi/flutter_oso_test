@@ -66,4 +66,14 @@ class UserPreferences {
     _preferences.setInt('idCategoria', value);
   }
 
+  // get & set de total carrito
+
+  // get cartTotal {
+  //   return _preferences.getDouble('cartTotal') ?? 1.0;
+  // }
+
+  // set cartTotal(double value) {
+  //   _preferences.setDouble('cartTotal', value);
+  // }
+
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/models/cart_model.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 // import 'package:flutter_oso_test/src/bloc/shopping_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_oso_test/src/constants/constants.dart';
@@ -14,6 +16,7 @@ class ShoppingCartPage extends StatefulWidget {
 class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
   final cartsProvider = new CartsProvider();
+  final prefs = new UserPreferences();
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +28,33 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
         centerTitle: true,
         title: Text('Carrito de compras'),
       ),
-      body: Stack(
-        children: [
-          _buildBody(),
-        ],
-      ) 
+      body: _buildBody(), 
+      // bottomNavigationBar: _buildButtonBar(context)
     );
   }
+
+  // Widget _buildButtonBar(BuildContext context) {
+
+  //   return Container(
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: Colors.black26,
+  //           blurRadius: 3.0,
+  //           offset: Offset(0.0, 5.0),
+  //           spreadRadius: 5.0,
+  //         )
+  //       ]
+  //     ),
+  //     height: 100.0,
+  //     child: RaisedButton(
+  //       child: Text('pagar', style: TextStyle(color: Colors.white),),
+  //       color: Theme.of(context).primaryColor,
+  //       onPressed: (){}
+  //     )
+  //   ); 
+  // }
 
   Widget _buildBody() {
     return StreamBuilder<List<CartDetail>>(
@@ -120,7 +143,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           )
         )
       ),
-      onDismissed: (direction) => cartsProvider.deleteFromShoppingCart(cartItem),
+      onDismissed: (direction) {
+        cartsProvider.deleteFromShoppingCart(cartItem);
+      },
       child: cardProduct
     );
   }

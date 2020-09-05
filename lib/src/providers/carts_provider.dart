@@ -60,7 +60,12 @@ class CartsProvider {
       try {
         final decodedData = json.decode(response.body);
         final shoppingList = CartDetailList.fromJsonList(decodedData['data']);
+        final cartInfo = Cart.fromJsonMap(decodedData['total']);
 
+        // prefs.cartTotal = cartInfo.total;
+        // print(prefs.cartTotal.toString());
+
+        _shoppingCart = [];                         //STREAM
         _shoppingCart.addAll(shoppingList.items);   //STREAM
         shoppingCartSink(_shoppingCart);            //STREAM
 
