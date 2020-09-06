@@ -101,7 +101,7 @@ class MyProductCard extends StatelessWidget {
 
           // mostrar el precio del producto
           Text(
-            '\$${product.precio}',
+            '\$${product.precio}0',
             style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor)
           ),
 

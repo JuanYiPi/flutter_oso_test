@@ -201,7 +201,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                 child: Text('Cantidad: ${cartItem.cantidad}', style: textoLight,)
               ),
               Text(
-                '\$${cartItem.total}',
+                '\$${cartItem.total}0',
                 style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor),
               ),
             ],
@@ -233,7 +233,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Total:', style: Theme.of(context).textTheme.headline5),
-              Text('\$${cartDet.total}', style: Theme.of(context).textTheme.headline5,)
+              Text('\$${cartDet.total}0', style: Theme.of(context).textTheme.headline5,)
             ],
           ),
           Divider(),
@@ -247,7 +247,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
               ),
               color: Theme.of(context).primaryColor,
               child: Text('Finalizar compra', style: TextStyle(color: Colors.white)),
-              onPressed: () {}
+              onPressed: () {
+                Navigator.pushNamed(context, 'shipping', arguments: cartDet.total.toString());
+              }
             ),
           )
         ],

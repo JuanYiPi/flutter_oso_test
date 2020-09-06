@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_oso_test/src/page/shipping_method_page.dart';
 
 //Pages
 import 'package:flutter_oso_test/src/page/shopping_cart_page.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           'my_shopping'        :  ( BuildContext context ) => MyShoppingPage(),
           'det_shopping'       :  ( BuildContext context ) => DetCompraPage(),
           'shopping_cart'      :  ( BuildContext context ) => ShoppingCartPage(),
+          'shipping'           :  ( BuildContext context ) => ShippingMethod(),
         },
         theme: ThemeData(
           primaryColor: Colors.teal,
