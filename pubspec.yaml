@@ -33,6 +33,7 @@ dependencies:
   shared_preferences: ^0.5.8
   flutter_dotenv: ^2.1.0
   flutter_swiper: ^1.1.6
+  stripe_payment: ^1.0.7
 
 dev_dependencies:
   flutter_test:

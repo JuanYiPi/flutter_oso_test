@@ -41,7 +41,7 @@ class ShippingMethod extends StatelessWidget {
               subtitle: Text('Pagas: \$${total}0'),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
-                
+                Navigator.pushNamed(context, 'payment', arguments: total);
               },
             )
           )
