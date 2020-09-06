@@ -23,10 +23,10 @@ class ShippingMethod extends StatelessWidget {
             ),
             child: ListTile(
               title: Text('Entrega a domicilio'),
-              subtitle: Text('Se aplicaran costos de envio adicionales'),
+              subtitle: Text('Se aplicarán costos de envío adicionales'),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
-
+                Navigator.pushNamed(context, 'address');
               },
             )
           ),
@@ -41,7 +41,7 @@ class ShippingMethod extends StatelessWidget {
               subtitle: Text('Pagas: \$${total}0'),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
-
+                
               },
             )
           )
