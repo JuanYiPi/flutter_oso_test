@@ -83,4 +83,16 @@ class DirectionsProvider {
     }
   }
 
+  Future<bool> deleteDirections(String id) async {
+    final url = Uri.http(authority, 'api/directions/$id', {'api_key': apiKey});
+
+    final response = await http.delete(url);
+    if (response.statusCode == 200) {
+      getAllDirections();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
