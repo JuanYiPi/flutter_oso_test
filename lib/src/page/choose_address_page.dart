@@ -21,21 +21,10 @@ class _ChooseAddressState extends State<ChooseAddress> {
       future: directionsProvider.getAllDirections(),
       builder: (BuildContext context, AsyncSnapshot<List<Direction>> snapshot) {
         if (!snapshot.hasData){
-          return Container(
-            color: Theme.of(context).primaryColor,
-            child: Center(
-              child: Image.asset('assets/img/paquete.png', height: 100.0,),
-            ),
-          );
+          return _buildLoadingScreen();
         }
         if (snapshot.data.length == 0) {
-          return Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: Text('Mis direcciones'),
-            ),
-            body: Center(child: Text('No ha registrado ninguna direccion'),),
-          );
+          return _buildEmptyScreen();
         } 
         final directions = snapshot.data;
         return Scaffold(
@@ -49,32 +38,50 @@ class _ChooseAddressState extends State<ChooseAddress> {
             },
             itemCount: directions.length,
           ),
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: <BoxShadow> [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 5.0,
+                  offset: Offset(0.0, 5.0),
+                  spreadRadius: 5.0,
+              ),
+              ]
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: RaisedButton(
+              elevation: 3.0,
+              color: Theme.of(context).primaryColor,
+              child: Text('Continuar compra', style: TextStyle(color: Colors.white),),
+              onPressed: _directionId != null? () {
+                
+              } : null
+            ),
+          ),
         );
       },
     );
+  }
 
-    // return Scaffold(
-    //   appBar: AppBar(
-    //     centerTitle: true,
-    //     title: Text('Mis direcciones'),
-    //   ),
-    //   body: FutureBuilder<List<Direction>>(
-    //     future: directionsProvider.getAllDirections(),
-    //     builder: (BuildContext context, AsyncSnapshot<List<Direction>> snapshot) {
-    //       if (snapshot.hasData) {
-    //         final directions = snapshot.data;
-    //         return ListView.builder(
-    //           itemBuilder: (context, index) {
-    //             return _directionCard(directions[index]);
-    //           },
-    //           itemCount: directions.length,
-    //         );
-    //       } else {
-    //         return Center(child: CircularProgressIndicator(),);
-    //       }
-    //     },
-    //   ),
-    // );
+  Scaffold _buildEmptyScreen() {
+    return Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text('Mis direcciones'),
+          ),
+          body: Center(child: Text('No ha registrado ninguna direccion'),),
+        );
+  }
+
+  Container _buildLoadingScreen() {
+    return Container(
+          color: Colors.white,
+          child: Center(
+            child: CircularProgressIndicator()
+          ),
+        );
   }
 
   Widget _directionCard(Direction direction) {
@@ -88,7 +95,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
         groupValue: _directionId, 
         onChanged: _setSelectedRadio,
         title: ListTile(
-          title: Text(direction.street, style: Theme.of(context).textTheme.subtitle2,),
+          title: Text('${direction.street} - ${direction.numberExt}', style: Theme.of(context).textTheme.subtitle2,),
           subtitle: RichText(
             text: TextSpan(
               style: TextStyle(color: kTextLightColor,),

@@ -214,10 +214,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
   Widget _buildButtonBar(BuildContext context, Cart cartDet) {
     return Container(
       padding: EdgeInsets.only(left: kDefaultPaddin, right: kDefaultPaddin, top: kDefaultPaddin/2),
-      height: 140.0,
+      height: 110.0,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
+        // borderRadius: BorderRadius.only(topLeft: 10.0, ),
         boxShadow: <BoxShadow> [
           BoxShadow(
             color: Colors.black26,

@@ -11,7 +11,7 @@ class ShippingMethod extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Selecciona un método de entrega'),
+        title: Text('Método de entrega'),
       ),
       body: ListView(
         padding: EdgeInsets.all(20.0),

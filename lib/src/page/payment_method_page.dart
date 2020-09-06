@@ -24,7 +24,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Seleccione un metodo de pago'),
+        title: Text('Metodo de pago'),
       ),
       body: Container(
         padding: EdgeInsets.all(20.0),
