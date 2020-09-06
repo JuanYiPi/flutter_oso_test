@@ -37,18 +37,20 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
 
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
         if ( snapshot.hasData ){
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-            child: Column(
-              children: <Widget>[
-                changeName(snapshot.data),
-                SizedBox(height: 20.0),
-                changeEmail(snapshot.data),
-                Expanded( child: Container() ),
-                modificar(context, snapshot.data),
-                SizedBox(height: 20.0),
-                cancelar(context),
-              ],
+          return SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+              child: Column(
+                children: <Widget>[
+                  changeName(snapshot.data),
+                  SizedBox(height: 20.0),
+                  changeEmail(snapshot.data),
+                  Expanded( child: Container() ),
+                  modificar(context, snapshot.data),
+                  SizedBox(height: 20.0),
+                  cancelar(context),
+                ],
+              ),
             ),
           );
         } else {
