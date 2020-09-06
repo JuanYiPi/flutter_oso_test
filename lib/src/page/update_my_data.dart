@@ -38,9 +38,7 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
         if ( snapshot.hasData ){
           return SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-              child: Column(
+            child: Column(
                 children: <Widget>[
                   changeName(snapshot.data),
                   SizedBox(height: 20.0),
@@ -50,8 +48,21 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
                   SizedBox(height: 20.0),
                   cancelar(context),
                 ],
-              ),
-            ),
+              ), 
+            // Container(
+            //   padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+            //   child: Column(
+            //     children: <Widget>[
+            //       changeName(snapshot.data),
+            //       SizedBox(height: 20.0),
+            //       changeEmail(snapshot.data),
+            //       Expanded( child: Container() ),
+            //       modificar(context, snapshot.data),
+            //       SizedBox(height: 20.0),
+            //       cancelar(context),
+            //     ],
+            //   ),
+            // ),
           );
         } else {
           return Center(child: CircularProgressIndicator() );

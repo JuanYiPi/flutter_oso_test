@@ -66,47 +66,47 @@ class _LoginPageState extends State<LoginPage> {
     child: Column(
       children: <Widget>[
 
-       SafeArea(
-         child: Container(
+        SafeArea(
+          child: Container(
           height: 250.0,
-         )
-       ),
+          )
+        ),
 
-       Container(
-        width: size.width * 0.85,
-        margin: EdgeInsets.symmetric( vertical: kDefaultPaddin * 1.5 ),
-        padding: EdgeInsets.symmetric( vertical: kDefaultPaddin * 2.0 ),
-        decoration: BoxDecoration(
-         color: Colors.white,
-         borderRadius: BorderRadius.circular(10.0),
-         boxShadow: <BoxShadow> [
-           BoxShadow(
-             color: Colors.black26,
-             blurRadius: 3.0,
-             offset: Offset(0.0, 5.0),
-             spreadRadius: 3.0,
+        Container(
+          width: size.width * 0.85,
+          margin: EdgeInsets.symmetric( vertical: kDefaultPaddin * 1.5 ),
+          padding: EdgeInsets.symmetric( vertical: kDefaultPaddin * 2.0 ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.0),
+            boxShadow: <BoxShadow> [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 3.0,
+                offset: Offset(0.0, 5.0),
+                spreadRadius: 3.0,
+              ),
+            ]
           ),
-        ]
-       ),
 
-        child: Column(
-          children: <Widget>[
-           Text('Ingreso', style: TextStyle(fontSize: 20.0)),
-           SizedBox( height: kDefaultPaddin * 3.0 ),
-           _crearEmail(context, bloc),
-           SizedBox( height: kDefaultPaddin * 1.5 ),
-           _crearPassword(context, bloc),
-            SizedBox( height: kDefaultPaddin * 1.5 ),
-           _crearCheckbox(),
-            SizedBox( height: kDefaultPaddin * 1.5 ),
-           _crearBoton(bloc),
-         ],
-       ),
-      ),
+          child: Column(
+            children: <Widget>[
+              Text('Ingreso', style: TextStyle(fontSize: 20.0)),
+              SizedBox( height: kDefaultPaddin * 3.0 ),
+              _crearEmail(context, bloc),
+              SizedBox( height: kDefaultPaddin * 1.5 ),
+              _crearPassword(context, bloc),
+              SizedBox( height: kDefaultPaddin * 1.5 ),
+              _crearCheckbox(),
+              SizedBox( height: kDefaultPaddin * 1.5 ),
+              _crearBoton(bloc),
+            ],
+          ),
+        ),
         FlatButton(
-       child: Text( 'Crear una nueva cuenta' ),
-       onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
-      ),
+          child: Text( 'Crear una nueva cuenta' ),
+          onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
+        ),
       ],
     ),
   );
