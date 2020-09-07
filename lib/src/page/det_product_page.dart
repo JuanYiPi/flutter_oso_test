@@ -117,38 +117,21 @@ class _DetProductPageState extends State<DetProductPage> {
     return ClipRRect(
       clipBehavior: Clip.antiAlias,
       borderRadius: BorderRadius.circular(10.0),
-      child: FutureBuilder(
-        future: productsProvider.checkUrl(product.getImg()),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data != 200) {
-              return Container(
-                child: Image(image: AssetImage('assets/img/no_disponible.jpg')),
-                width: screenSize.width * 0.9,
-                height: screenSize.width * 0.9,
-              );
-            }
-            return Container(
-              width: screenSize.width * 0.9,
-              height: screenSize.width * 0.9,
-              child: FadeInImage(
-                placeholder: AssetImage('assets/img/loading.gif'), 
-                image: NetworkImage(product.getImg()),
-                fit: BoxFit.cover,
-              ),
-            );
-          } else {
-            return Container(
-              width: screenSize.width * 0.9,
-              height: screenSize.width * 0.9,
-              child: Image(
-                image: AssetImage('assets/img/loading.gif'), 
-                fit: BoxFit.cover,
-              ),
-            );
-          }
+      child: FadeInImage(
+        imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+          print('Error Handler');
+          return Container(
+            width: screenSize.width * 0.9,
+            height: screenSize.width * 0.9,
+            child: Image.asset('assets/img/no_disponible.jpg'),
+          );
         },
-      ),
+        placeholder: AssetImage('assets/img/loading.gif'), 
+        image: NetworkImage(product.getImg()),
+        fit: BoxFit.cover,
+        height: screenSize.width * 0.9,
+        width: screenSize.width * 0.9,
+      ), 
     );
   }
 
