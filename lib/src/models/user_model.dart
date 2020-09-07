@@ -12,16 +12,18 @@ class User {
 
   int id;
   String name;
+  String phone;
   String email;
   String emailVerifiedAt;
   String verified;
-  String role;
+  int role;
   String createdAt;
   String updatedAt;
 
   User.fromJson(Map<String, dynamic> json) {
     id                = json['id'];
     name              = json['name'];
+    phone             = json['phone'];
     email             = json['email'];
     emailVerifiedAt   = json['email_verified_at'];
     verified          = json['verified'];

@@ -38,7 +38,8 @@ class UsersProviders {
         final user = new User.fromJson(decodedData['data']);
         print(decodedData['data']);
         return user;
-      } catch (_) {
+      } catch (err) {
+        print(err.toString());
         return null;
       }
     } else {
