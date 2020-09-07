@@ -27,48 +27,39 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('Modificar mis datos'),
-      ),
-      body: FutureBuilder(
+    return FutureBuilder(
       future: userProvider.getUserById( prefs.idUsuario.toString() ),
-
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-        if ( snapshot.hasData ){
-          return SingleChildScrollView(
-            child: Column(
-                children: <Widget>[
-                  changeName(snapshot.data),
-                  SizedBox(height: 20.0),
-                  changeEmail(snapshot.data),
-                  Expanded( child: Container() ),
-                  modificar(context, snapshot.data),
-                  SizedBox(height: 20.0),
-                  cancelar(context),
-                ],
-              ), 
-            // Container(
-            //   padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
-            //   child: Column(
-            //     children: <Widget>[
-            //       changeName(snapshot.data),
-            //       SizedBox(height: 20.0),
-            //       changeEmail(snapshot.data),
-            //       Expanded( child: Container() ),
-            //       modificar(context, snapshot.data),
-            //       SizedBox(height: 20.0),
-            //       cancelar(context),
-            //     ],
-            //   ),
-            // ),
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text('Modificar mis datos'),
+            ),
+            body: Container(
+              padding: EdgeInsets.all(20.0),
+              child: Column(
+                  children: <Widget>[
+                    changeName(snapshot.data),
+                    SizedBox(height: 20.0),
+                    changeEmail(snapshot.data),
+                    Expanded( child: Container() ),
+                    modificar(context, snapshot.data),
+                    SizedBox(height: 10.0),
+                    cancelar(context),
+                  ],
+                ),
+            ), 
           );
         } else {
-          return Center(child: CircularProgressIndicator() );
+          return Container(
+            color: Colors.white,
+            child: Center(
+              child: CircularProgressIndicator(),
+            )
+          );
         }
-        },
-      ),
+      },
     );
   }
 
