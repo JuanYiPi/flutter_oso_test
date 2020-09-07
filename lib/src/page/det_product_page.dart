@@ -127,7 +127,7 @@ class _DetProductPageState extends State<DetProductPage> {
           );
         },
         placeholder: AssetImage('assets/img/loading.gif'), 
-        image: NetworkImage(product.getImg()),
+        image: product.getImg() != null? NetworkImage(product.getImg()) : AssetImage('assets/img/no_disponible'),
         fit: BoxFit.cover,
         height: screenSize.width * 0.9,
         width: screenSize.width * 0.9,
@@ -139,7 +139,7 @@ class _DetProductPageState extends State<DetProductPage> {
     return RichText(
       text: TextSpan(
         children: [
-          TextSpan(text: '\$${product.precio} MXN\n', style: price),
+          TextSpan(text: '\$${product.getPrice()[0]}.${product.getPrice()[1]} MXN\n', style: price),
           TextSpan(text: 'IVA Incluido', style: textoLightColor),
         ]
       )

@@ -112,7 +112,7 @@ class CartsProvider {
         'IdProductoDesc'  : producto.idProductoDesc.toString(),
         'IdProductoPres'  : producto.idProductoPres.toString(),
         'Cantidad'        : producto.cantidadCompra.toString(),
-        'Precio'          : producto.precio.toString()
+        'Precio'          : '${producto.getPrice()[0]}.${producto.getPrice()[1]}'
       }
     );
     if (response.statusCode == 201) {

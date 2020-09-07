@@ -40,12 +40,17 @@ class Product {
     imagen           = json['Imagen'];
   }
 
-    String getImg() {
+  String getImg() {
     if (imagen == null) {
-      return 'http://imposo.ddns.net:81/quickstart/img/products/${imagen}wwww';
+      return null;
     } else {
       final url = 'http://imposo.ddns.net:81/quickstart/img/products/$imagen';
       return url;
     }
   }
+
+  List<String> getPrice() {
+    final price = precio.toString();
+    return price.split('.');
+  }  
 }

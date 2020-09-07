@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_oso_test/src/page/register_addresses_page.dart';
 
 import 'package:flutter_oso_test/src/providers/directions_provider.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';

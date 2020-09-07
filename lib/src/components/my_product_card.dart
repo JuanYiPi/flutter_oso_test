@@ -57,7 +57,7 @@ class MyProductCard extends StatelessWidget {
           );
         },
         placeholder: AssetImage('assets/img/loading.gif'), 
-        image: NetworkImage(product.getImg()),
+        image: product.getImg() != null? NetworkImage(product.getImg()): AssetImage('assets/img/no_disponible.jpg'),
         fit: BoxFit.cover,
         height: 100.0,
         width: 100.0,
@@ -84,7 +84,7 @@ class MyProductCard extends StatelessWidget {
 
           // mostrar el precio del producto
           Text(
-            '\$${product.precio}0',
+            '\$${product.getPrice()[0]}.${product.getPrice()[1]}',
             style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor)
           ),
 
