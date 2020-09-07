@@ -33,10 +33,13 @@ class MyCustomScrollView extends StatelessWidget {
       slivers: [
         _mySliverAppBar(context, title),
         SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) => _myProductCard(context, products[index]),
-            childCount: products.length,
-          ),
+          delegate: SliverChildListDelegate(
+            List.generate(products.length, (index) => _myProductCard(context, products[index]))
+          )
+          // SliverChildBuilderDelegate(
+          //   (context, index) => _myProductCard(context, products[index]),
+          //   childCount: products.length,
+          // ),
         ),
       ],
     );

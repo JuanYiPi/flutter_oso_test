@@ -88,7 +88,7 @@ class DirectionsProvider {
 
     final response = await http.delete(url);
     if (response.statusCode == 200) {
-      getAllDirections();
+      // getAllDirections();
       return true;
     } else {
       return false;

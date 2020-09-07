@@ -8,8 +8,9 @@ class ListAllDirections extends StatelessWidget {
   final List<Direction> directions;
 
   final directionsProvider = new DirectionsProvider();
+  final Function onChange;
   
-  ListAllDirections({@required this.directions});
+  ListAllDirections({@required this.directions, this.onChange});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,6 @@ class ListAllDirections extends StatelessWidget {
 
     return Dismissible(
       key: UniqueKey(),
-
       background: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
         color: Colors.redAccent,
@@ -39,8 +39,9 @@ class ListAllDirections extends StatelessWidget {
           ],
         )
       ),
-      onDismissed: (dir) {
-        directionsProvider.deleteDirections(direction.id.toString());
+      onDismissed: (dir) async {
+        await directionsProvider.deleteDirections(direction.id.toString());
+        onChange();
       },
       child: ListTile(
         title:  RichText(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/page/register_addresses_page.dart';
 
 import 'package:flutter_oso_test/src/providers/directions_provider.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
@@ -68,7 +69,10 @@ class AddressesPage extends StatelessWidget {
         centerTitle: true,
         title: Text('Mis direcciones de envio'),
       ),
-      body: ListAllDirections(directions: items),
+      body: ListAllDirections(
+        directions: items, 
+        onChange: directionsProvider.getAllDirections,
+      ),
       floatingActionButton: _addAddresses(context),
     );
   }

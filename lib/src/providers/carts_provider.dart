@@ -79,6 +79,26 @@ class CartsProvider {
     return null;
   }
 
+  Future<Cart> getActiveCart() async {
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartactive', {
+      'api_key': apiKey
+    });
+
+    final response = await http.get(url);
+    if(response.statusCode == 200) {
+      try {
+        final decodedData = json.decode(response.body);
+        final cart = new Cart.fromJsonMap(decodedData['data']);
+        return cart;
+      } catch (err) {
+        print(err.toString());
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
   Future<bool> addToShoppingCart(Product producto) async {
     final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails');
 
@@ -110,6 +130,23 @@ class CartsProvider {
       getShoppingCart();  // STREAM
       return true;
     } else {
+      return false;
+    }
+  }
+
+  Future<bool> updateCartById(String directionId, String cartId) async {
+    final url = Uri.http(authority, 'api/carts/$cartId');
+
+    final response = await http.put(url, body: {
+      'api_key'     : apiKey,
+      'direction_id': directionId
+    }, headers: headers);
+
+    if (response.statusCode == 200) {
+      print('OK');
+      return true;
+    } else {
+      print('ERROR');
       return false;
     }
   }  
