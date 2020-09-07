@@ -66,4 +66,14 @@ class UserPreferences {
     _preferences.setInt('idCategoria', value);
   }
 
+  // get & set de id categoria
+
+  get idActiveCart {
+    return _preferences.getInt('idActiveCart') ?? 1;
+  }
+
+  set idActiveCart(int value) {
+    _preferences.setInt('idActiveCart', value);
+  }
+
 }

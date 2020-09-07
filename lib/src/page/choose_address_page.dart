@@ -4,6 +4,7 @@ import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 import 'package:flutter_oso_test/src/providers/directions_provider.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/direction_model.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 class ChooseAddress extends StatefulWidget {
   @override
@@ -15,8 +16,16 @@ class _ChooseAddressState extends State<ChooseAddress> {
   final directionsProvider = new DirectionsProvider();
   final cartsProvider = new CartsProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final prefs = UserPreferences();
 
   int _directionId;
+  bool _isLoading;
+
+  @override
+  void initState() {
+    super.initState();
+    _isLoading = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +47,23 @@ class _ChooseAddressState extends State<ChooseAddress> {
 
   Scaffold _buildScaffold(List<Direction> directions, BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('Mis direcciones'),
-        ),
-        body: ListView.builder(
-          itemBuilder: (context, index) {
-            return _directionCard(directions[index]);
-          },
-          itemCount: directions.length,
-        ),
-        bottomNavigationBar: _buildBottonButton(context),
-      );
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Mis direcciones'),
+      ),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          return _directionCard(directions[index]);
+        },
+        itemCount: directions.length,
+      ),
+      bottomNavigationBar: _bottomNavigationBar(context),
+    );
   }
 
-  Container _buildBottonButton(BuildContext context) {
+  Container _bottomNavigationBar(BuildContext context) {
     return Container(
+      // height: 140.0,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: <BoxShadow> [
@@ -62,30 +72,49 @@ class _ChooseAddressState extends State<ChooseAddress> {
             blurRadius: 5.0,
             offset: Offset(0.0, 5.0),
             spreadRadius: 5.0,
-        ),
+          ),
         ]
       ),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-      child: Container(
-        height: 45.0,
-        child: RaisedButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0)
-          ),
-          elevation: 3.0,
-          color: Theme.of(context).primaryColor,
-          child: Text('Continuar compra', style: TextStyle(color: Colors.white),),
-          onPressed: _directionId != null? () async {
-            final cart = await cartsProvider.getActiveCart();
-            if (cart != null) {
-              final status = await cartsProvider.updateCartById(_directionId.toString() ,cart.id.toString());
-              if (status == true) Navigator.pushNamed(context, 'payment');
-              else _mostrarSnackbar('Algo salio mal, intentelo de nuevo mas tarde');
-            }
-          } : null
+      child: _payButton(context),
+    );
+  }
+
+  Widget _payButton(BuildContext context) {
+    return Container(
+      height: 45.0,
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0)
         ),
+        elevation: 3.0,
+        color: Theme.of(context).primaryColor,
+        child: Text('Continuar compra', style: TextStyle(color: Colors.white),),
+        onPressed: _directionId != null && !_isLoading? () {
+          _updateCartShippingDirection(context);
+        } : null
       ),
     );
+  }
+
+  void _updateCartShippingDirection(BuildContext context) async {
+    setState(() {_isLoading = true;});
+
+    final cart = await cartsProvider.getActiveCart();
+    prefs.idActiveCart = cart.id;
+
+    setState(() {_isLoading = false;});
+    if (cart != null) {
+
+      final status = await cartsProvider.updateCartById(
+        directionId: _directionId.toString(), 
+        cartId: cart.id.toString(),
+        estado: null 
+      );
+
+      if (status == true) Navigator.pushNamed(context, 'payment', arguments: cart.total.toString());
+      else _mostrarSnackbar('Algo salio mal, intentelo de nuevo mas tarde');
+    }
   }
 
   Scaffold _buildEmptyScreen() {

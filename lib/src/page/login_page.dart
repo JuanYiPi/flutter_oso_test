@@ -340,7 +340,7 @@ class _LoginPageState extends State<LoginPage> {
 
       if (_rememberMe) prefs.rememberMe = true;
       
-      prefs.idUsuario        = resp.id;
+      prefs.idUsuario = resp.id;
       prefs.userName  = resp.name;
       prefs.userEmail = resp.email;
       Navigator.pushReplacementNamed(context, 'home');

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/providers/carts_provider.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 import 'package:flutter_oso_test/src/services/payment_service.dart';
 
 class PaymentMethod extends StatefulWidget {
@@ -7,6 +9,9 @@ class PaymentMethod extends StatefulWidget {
 }
 
 class _PaymentMethodState extends State<PaymentMethod> {
+
+  final prefs = UserPreferences();
+  final cartsProvider = CartsProvider();
 
   @override
   void initState() { 
@@ -74,6 +79,14 @@ class _PaymentMethodState extends State<PaymentMethod> {
           amount: '${total[0]}${total[1]}0',
           currency: 'mxn'
         );
+
+        if (response.success) {
+          await cartsProvider.updateCartById(
+            directionId: null,
+            cartId: prefs.idActiveCart.toString(),
+            estado: 'Pagado'
+          );
+        }
 
         Scaffold.of(context).showSnackBar(
           SnackBar(
