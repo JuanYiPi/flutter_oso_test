@@ -50,7 +50,10 @@ class Product {
   }
 
   List<String> getPrice() {
-    final price = precio.toString();
-    return price.split('.');
+    final a = precio.toString();
+    final b = a.split('.');
+    final d = '${b[1]}0';
+    final list = [b[0],d];
+    return list;
   }  
 }

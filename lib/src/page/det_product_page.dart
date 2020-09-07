@@ -162,13 +162,27 @@ class _DetProductPageState extends State<DetProductPage> {
       width: double.infinity,
       child: Column(
         children: <Widget>[
-          _buildFlatButton(
-            texto: 'Comprar ahora',
-            btnColor: Theme.of(context).primaryColor,
-            txtColor: Colors.white,
-            press: () {
-              // Navigator.pushNamed(context, 'pay', arguments: product);
-            }
+          // _buildFlatButton(
+          //   texto: 'Comprar ahora',
+          //   btnColor: Theme.of(context).primaryColor,
+          //   txtColor: Colors.white,
+          //   press: () {
+          //     _addProductAndPay(product);
+          //   }
+          // ),
+
+          Stack(
+            children: [
+              _buildFlatButton(
+                texto: 'Comprar ahora',
+                btnColor: Theme.of(context).primaryColor,
+                txtColor: Colors.white,
+                press: !_isLoading? () {
+                  _addProductAndPay(product);
+                } : null
+              ),
+              _loadingIndicator()
+            ],
           ),
 
           SizedBox(height: kDefaultPaddin/2),
@@ -177,8 +191,8 @@ class _DetProductPageState extends State<DetProductPage> {
             children: [
               _buildFlatButton(
                 texto: 'Agregar al carrito',
-                btnColor: _isLoading? Colors.grey : Colors.white,
-                txtColor: _isLoading? Colors.white : Theme.of(context).primaryColor,
+                btnColor: Colors.white,
+                txtColor: Theme.of(context).primaryColor,
                 press: () {
                   _addToShoppingCart(context, product);
                 }
@@ -195,19 +209,15 @@ class _DetProductPageState extends State<DetProductPage> {
     return SizedBox(
       height: 45.0,
       width: double.infinity,
-      child: DecoratedBox(
-        decoration: ShapeDecoration(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          color: btnColor,
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0)
         ),
-        child: OutlineButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          onPressed: press, 
-          child: Text(texto, style: TextStyle(color: txtColor, fontSize: 18.0, fontWeight: FontWeight.w400),),
-        ),
-      ),
+        elevation: 3.0,
+        onPressed: press,
+        color: btnColor,
+        child: Text(texto, style: TextStyle(color: txtColor)),
+      )
     );
   }
 
@@ -224,21 +234,41 @@ class _DetProductPageState extends State<DetProductPage> {
     });
 
     if (response == true) {
-      _mostrarSnackbar('Agregado al carrito exitosamente!');
+      _mostrarSnackbar('Agregado al carrito exitosamente!', Colors.green);
       print('Agregado exitosamente');
     } else {
-      _mostrarSnackbar('No se pudo agregar al carrito :(');
+      _mostrarSnackbar('No se pudo agregar al carrito :(', Colors.red);
       print('error al agregar');
     }
   }
 
-  void _mostrarSnackbar(String text) {
+  void _mostrarSnackbar(String text, Color color) {
     final snackbar = SnackBar(
-      backgroundColor: Colors.green,
+      backgroundColor: color,
       content: Text(text),
       duration: Duration(milliseconds: 2000),
     );
 
     scaffoldKey.currentState.showSnackBar(snackbar);
+  }
+
+  void _addProductAndPay(Product product) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final response = await cartsProvider.addToShoppingCart(product);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (response == true) {
+      Navigator.pushNamed(context, 'shopping_cart');
+      print('Agregado exitosamente');
+    } else {
+      _mostrarSnackbar('No se pudo agregar al carrito :(', Colors.red);
+      print('error al agregar');
+    }
   }
 }
