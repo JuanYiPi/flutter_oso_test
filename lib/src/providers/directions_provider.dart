@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_oso_test/src/models/directions_model.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
+import 'package:flutter_oso_test/src/providers/users_providers.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_oso_test/src/models/direction_model.dart';
@@ -92,6 +94,38 @@ class DirectionsProvider {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<dynamic> updateDirection({@required Direction direccion}) async {
+
+    final Map<String, dynamic> body = {
+      'api_key' : apiKey,
+      if (direccion.receive != null) 'receive'            : direccion.receive,
+      if (direccion.receivePhone != null) 'receive_phone' : direccion.receivePhone,
+      if (direccion.street != null) 'street'              : direccion.street,
+      if (direccion.numberExt != null) 'number_ext'       : direccion.numberExt,
+      if (direccion.numberInt != null) 'number_int'       : direccion.numberInt,
+      if (direccion.zip != null) 'zip'                    : direccion.zip.toString(),
+      if (direccion.colony != null) 'colony'              : direccion.colony,
+      if (direccion.city != null) 'city'                  : direccion.city,
+      if (direccion.state != null) 'state'                : direccion.state,
+      if (direccion.country != null) 'country'            : direccion.country,
+      if (direccion.reference != null) 'reference'        : direccion.reference,
+      if (direccion.type != null) 'type'                  : direccion.type.toString(),
+    };
+
+    final url = Uri.http(authority, 'api/directions/${direccion.id}');
+
+    final resp = await http.put(url, body: body, headers: UsersProviders.headers);
+    final decodedData = json.decode(resp.body);
+
+    try{
+      final updateDirection = new Direction.fromJsonMap(decodedData['data']);
+      return updateDirection;
+    } catch(error) {
+      print(error.toString());
+      return null;
     }
   }
 

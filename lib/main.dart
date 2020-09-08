@@ -17,6 +17,7 @@ import 'src/page/my_shopping.dart';
 import 'src/page/products_by_category_page.dart';
 import 'src/page/register_addresses_page.dart';
 import 'src/page/registro_page.dart';
+import 'src/page/update_address.dart';
 import 'src/page/update_my_data.dart';
 import 'src/page/user_det_page.dart';
 import 'package:flutter_oso_test/src/page/home_page.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
           'shipping'           :  ( BuildContext context ) => ShippingMethod(),
           'address'            :  ( BuildContext context ) => ChooseAddress(),
           'payment'            :  ( BuildContext context ) => PaymentMethod(),
+          'update_address'     :  ( BuildContext context ) => UpdateAddress(),
         },
         theme: ThemeData(
           primaryColor: Colors.teal,
