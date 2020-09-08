@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_oso_test/src/components/list_categories.dart';
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
-import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/providers/categories_provider.dart';
 
 
@@ -51,8 +50,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       title: Text(
-        'Categorias',
-        style: encabezado,
+        'Categorias'
       ),
       leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: ()=> Navigator.pop(context)),
       actions: <Widget>[

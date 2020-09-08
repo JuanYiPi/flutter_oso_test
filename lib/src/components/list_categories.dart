@@ -31,6 +31,7 @@ class ListAllCategories extends StatelessWidget {
       trailing: Icon(Icons.keyboard_arrow_right, color: Theme.of(context).primaryColor,),
       onTap: () {
         prefs.idCategoria = categoria.id;
+        print(prefs.idCategoria);
         Navigator.pushNamed(context, 'products_by_cat', arguments: categoria.descripcion);
       },
     );
