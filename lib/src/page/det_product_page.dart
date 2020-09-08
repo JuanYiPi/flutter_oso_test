@@ -139,7 +139,8 @@ class _DetProductPageState extends State<DetProductPage> {
     return RichText(
       text: TextSpan(
         children: [
-          TextSpan(text: '\$${product.getPrice()[0]}.${product.getPrice()[1]} MXN\n', style: price),
+          TextSpan(text: '\$${product.getPrice()[0]}.', style: price),
+          TextSpan(text: '${product.getPrice()[1]} MXN\n',style: price.copyWith(fontSize: 20.0)),
           TextSpan(text: 'IVA Incluido', style: textoLightColor),
         ]
       )
@@ -211,7 +212,7 @@ class _DetProductPageState extends State<DetProductPage> {
       width: double.infinity,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0)
+          borderRadius: BorderRadius.circular(5.0)
         ),
         elevation: 3.0,
         onPressed: press,

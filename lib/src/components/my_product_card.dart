@@ -83,9 +83,13 @@ class MyProductCard extends StatelessWidget {
           SizedBox(height: 15.0),
 
           // mostrar el precio del producto
-          Text(
-            '\$${product.getPrice()[0]}.${product.getPrice()[1]}',
-            style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor)
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(text: '\$${product.getPrice()[0]}.', style: price.copyWith(fontSize: 20.0)),
+                TextSpan(text: '${product.getPrice()[1]}',style: price.copyWith(fontSize: 15.0)),
+              ]
+            )
           ),
 
           SizedBox(height: 8.0),
