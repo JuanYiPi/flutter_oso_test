@@ -99,6 +99,33 @@ class CartsProvider {
     }
   }
 
+  Future<CartMap> getCartMap() async {
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails', {
+      'api_key': apiKey
+    });
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      try {
+        final decodedData = json.decode(response.body);
+        print(decodedData);
+        final shoppingList = CartDetailList.fromJsonList(decodedData['data']);
+        final cartInfo = Cart.fromJsonMap(decodedData['total']);
+
+        final cartMap = new CartMap(
+          data: shoppingList.items,
+          total: cartInfo
+        );       //STREAM
+
+        return cartMap;
+      } catch (err) {
+        print(err.toString());
+      }
+    }
+    return null;
+  }
+
   Future<bool> addToShoppingCart(Product producto) async {
     final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails');
 
@@ -134,15 +161,19 @@ class CartsProvider {
     }
   }
 
-  Future<bool> updateCartById({String directionId, String cartId, String estado}) async {
-    final url = Uri.http(authority, 'api/carts/$cartId');
+  Future<bool> updateShoppingCart({String directionId, String estado, String gastos, String mEntrega}) async {
+    final url = Uri.http(authority, 'api/carts/${prefs.idActiveCart}');
 
     final body = {
-      'api_key'     : apiKey,
+      'api_key'        : apiKey,
       if (directionId != null)
-        'direction_id': directionId,
-      if(estado != null)
-        'Estado'    : estado
+        'direction_id' : directionId,
+      if (estado != null)
+        'Estado'       : estado,
+      if (gastos != null)
+        'Gastos'       : gastos,
+      if (mEntrega != null)
+        'MetodoEntrega': mEntrega
     };
 
     final response = await http.put(url, body: body, headers: headers);

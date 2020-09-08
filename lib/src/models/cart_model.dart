@@ -6,7 +6,7 @@ class Cart {
   String fechaEntrega;
   String estado;
   int userId;
-  dynamic gastos;
+  double gastos;
   int descuento;
   double total;
   String metodoPago;
@@ -44,7 +44,7 @@ class Cart {
     fechaEntrega    = json['FechaEntrega'];
     estado          = json['Estado'];
     userId          = json['userId'];
-    gastos          = json['Gastos'];
+    gastos          = json['Gastos'] != null?json['Gastos']/1:0.0;
     descuento       = json['Descuento'];
     total           = json['Total'] != null?json['Total']/1:0.0;
     metodoPago      = json['MetodoPago'];

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 
 class ShippingMethod extends StatelessWidget {
-  const ShippingMethod({Key key}) : super(key: key);
+
+  // ShippingMethod({Key key}) : super(key: key);
+
+  final cartsProvider = new CartsProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class ShippingMethod extends StatelessWidget {
               title: Text('Entrega a domicilio'),
               subtitle: Text('Se aplicarán costos de envío adicionales'),
               trailing: Icon(Icons.chevron_right),
-              onTap: () {
+              onTap: () async {
                 Navigator.pushNamed(context, 'address');
               },
             )
@@ -41,12 +45,25 @@ class ShippingMethod extends StatelessWidget {
               subtitle: Text('Pagas: \$${total}0'),
               trailing: Icon(Icons.chevron_right),
               onTap: () {
-                Navigator.pushNamed(context, 'payment', arguments: total);
+                // Navigator.pushNamed(context, 'payment', arguments: total);
+                _navigateToConfirm(context, 0.0, 'Tienda');
               },
             )
           )
         ],
       )
     );
+  }
+
+  void _navigateToConfirm(BuildContext context, double gastos, String mEntrega) async {
+    final resp = await cartsProvider.updateShoppingCart(
+      gastos  : gastos.toString(),
+      mEntrega: mEntrega,
+    );
+    if (resp == true){
+      Navigator.pushNamed(context, 'confirm');
+    } else {
+      print('Error al actualizar');
+    }
   }
 }

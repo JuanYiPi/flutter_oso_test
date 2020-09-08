@@ -34,14 +34,16 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           return _loading();
         }
 
-        final cartInfo = snapshot.data;
-        final items = cartInfo.data;
-        final total = cartInfo.total;
+        final cartMap = snapshot.data;
+        final cartDetail = cartMap.data;
+        final cart = cartMap.total;
+        prefs.idActiveCart = cart.id;
+        print(prefs.idActiveCart);
 
-        if (items.length == 0) {
+        if (cartDetail.length == 0) {
           return _emptyCart();
         }
-        return _buildScaffold(items, context, total); 
+        return _buildScaffold(cartDetail, context, cart); 
       },
     );
   }
@@ -194,7 +196,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     );
   }
 
-  Widget _buildButtonBar(BuildContext context, Cart cartDet) {
+  Widget _buildButtonBar(BuildContext context, Cart cart) {
     return Container(
       padding: EdgeInsets.only(left: kDefaultPaddin, right: kDefaultPaddin, top: kDefaultPaddin/2),
       height: 110.0,
@@ -215,7 +217,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Total:', style: Theme.of(context).textTheme.headline6),
-              Text('\$${cartDet.total}0', style: Theme.of(context).textTheme.headline6,)
+              Text('\$${cart.total}0', style: Theme.of(context).textTheme.headline6,)
             ],
           ),
           Divider(),
@@ -230,7 +232,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
               color: Theme.of(context).primaryColor,
               child: Text('Finalizar compra', style: TextStyle(color: Colors.white)),
               onPressed: () {
-                Navigator.pushNamed(context, 'shipping', arguments: cartDet.total.toString());
+                Navigator.pushNamed(context, 'shipping', arguments: cart.total.toString());
               }
             ),
           )

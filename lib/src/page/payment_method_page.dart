@@ -81,9 +81,9 @@ class _PaymentMethodState extends State<PaymentMethod> {
         );
 
         if (response.success) {
-          await cartsProvider.updateCartById(
-            directionId: null,
-            cartId: prefs.idActiveCart.toString(),
+          await cartsProvider.updateShoppingCart(
+            // directionId: null,
+            // cartId: prefs.idActiveCart.toString(),
             estado: 'Pagado'
           );
         }

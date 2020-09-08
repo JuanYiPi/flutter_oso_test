@@ -4,7 +4,7 @@ import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 import 'package:flutter_oso_test/src/providers/directions_provider.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/direction_model.dart';
-import 'package:flutter_oso_test/src/providers/user_preferences.dart';
+// import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 class ChooseAddress extends StatefulWidget {
   @override
@@ -16,9 +16,9 @@ class _ChooseAddressState extends State<ChooseAddress> {
   final directionsProvider = new DirectionsProvider();
   final cartsProvider = new CartsProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final prefs = UserPreferences();
+  // final prefs = UserPreferences();
 
-  double total = 150.0;
+  // double total = 150.0;
   int _directionId;
   bool _isLoading;
 
@@ -105,32 +105,33 @@ class _ChooseAddressState extends State<ChooseAddress> {
         color: Theme.of(context).primaryColor,
         child: Text('Continuar compra', style: TextStyle(color: Colors.white),),
         onPressed: _directionId != null && !_isLoading? () {
-          _updateCartShippingDirection(context);
+          _updateShippingcart(context);
         } : null
       ),
     );
   }
 
-  void _updateCartShippingDirection(BuildContext context) async {
+  void _updateShippingcart(BuildContext context) async {
     setState(() {_isLoading = true;});
+    // prefs.idActiveCart = cart.id;
+    final resp = await cartsProvider.updateShoppingCart(
+      gastos: '150.0',
+      mEntrega: 'Domicilio',
+      directionId: _directionId.toString()
+    );
 
-    final cart = await cartsProvider.getActiveCart();
-    prefs.idActiveCart = cart.id;
+    // final cart = await cartsProvider.getActiveCart();
 
     setState(() {_isLoading = false;});
-    if (cart != null) {
-      total = total + cart.total;
-      print(total);
-      final status = await cartsProvider.updateCartById(
-        directionId: _directionId.toString(), 
-        cartId: cart.id.toString(),
-        estado: null 
-      );
-
-      if (status == true) 
-      // Navigator.pushNamed(context, 'confirm');
-      Navigator.pushNamed(context, 'payment', arguments: total.toString());
-      else _mostrarSnackbar('Algo salio mal, intentelo de nuevo mas tarde');
+    
+    if (resp == true) {
+      // total = total + cart.total;
+      // print(total);
+      Navigator.pushNamed(context, 'confirm');
+      // Navigator.pushNamed(context, 'payment', arguments: total.toString());
+      
+    } else {
+      _mostrarSnackbar('Algo salio mal, intentelo de nuevo mas tarde');
     }
   }
 
