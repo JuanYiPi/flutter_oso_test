@@ -18,6 +18,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final prefs = UserPreferences();
 
+  double total = 150.0;
   int _directionId;
   bool _isLoading;
 
@@ -63,7 +64,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
 
   Container _bottomNavigationBar(BuildContext context) {
     return Container(
-      // height: 140.0,
+      height: 130.0,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: <BoxShadow> [
@@ -76,12 +77,25 @@ class _ChooseAddressState extends State<ChooseAddress> {
         ]
       ),
       padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-      child: _payButton(context),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Envío:', style: Theme.of(context).textTheme.headline6,),
+              Text('\$150.00', style: Theme.of(context).textTheme.headline6),
+            ],
+          ),
+          Divider(),
+          _payButton(context),
+        ],
+      ),
     );
   }
 
   Widget _payButton(BuildContext context) {
     return Container(
+      width: double.infinity,
       height: 45.0,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
@@ -105,14 +119,17 @@ class _ChooseAddressState extends State<ChooseAddress> {
 
     setState(() {_isLoading = false;});
     if (cart != null) {
-
+      total = total + cart.total;
+      print(total);
       final status = await cartsProvider.updateCartById(
         directionId: _directionId.toString(), 
         cartId: cart.id.toString(),
         estado: null 
       );
 
-      if (status == true) Navigator.pushNamed(context, 'payment', arguments: cart.total.toString());
+      if (status == true) 
+      // Navigator.pushNamed(context, 'confirm');
+      Navigator.pushNamed(context, 'payment', arguments: total.toString());
       else _mostrarSnackbar('Algo salio mal, intentelo de nuevo mas tarde');
     }
   }

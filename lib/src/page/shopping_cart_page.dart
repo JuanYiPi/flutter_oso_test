@@ -200,7 +200,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
       height: 110.0,
       decoration: BoxDecoration(
         color: Colors.white,
-        // borderRadius: BorderRadius.only(topLeft: 10.0, ),
         boxShadow: <BoxShadow> [
           BoxShadow(
             color: Colors.black26,
@@ -215,8 +214,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Total:', style: Theme.of(context).textTheme.headline5),
-              Text('\$${cartDet.total}0', style: Theme.of(context).textTheme.headline5,)
+              Text('Total:', style: Theme.of(context).textTheme.headline6),
+              Text('\$${cartDet.total}0', style: Theme.of(context).textTheme.headline6,)
             ],
           ),
           Divider(),
