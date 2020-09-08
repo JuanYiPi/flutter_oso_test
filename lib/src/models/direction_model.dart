@@ -37,6 +37,8 @@ class Direction {
     this.updatedAt,
   });
 
+  Direction.empty();
+
   Direction.fromJsonMap(Map<String, dynamic> json){
     id            = json['id'];
     type          = json['type'] is String ? int.parse(json['type']) : json['type'] ;

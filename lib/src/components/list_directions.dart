@@ -44,6 +44,7 @@ class ListAllDirections extends StatelessWidget {
         onChange();
       },
       child: ListTile(
+        onTap: () {_navigateToUpdate(context, direction);},
         title:  RichText(
           text: TextSpan(
             children: [
@@ -55,5 +56,10 @@ class ListAllDirections extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _navigateToUpdate(BuildContext context, Direction direction) async {
+    await Navigator.pushNamed(context, 'update_address', arguments: direction);
+    onChange();
   }
 }

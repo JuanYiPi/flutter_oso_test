@@ -37,7 +37,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
 
           ListTile(
-            onTap: () {},
+            onTap: ()=> Navigator.pushNamed(context, 'home'),
             leading: Icon(Icons.home, color: Theme.of(context).primaryColor,),
             title: Text('Inicio'),
           ),
