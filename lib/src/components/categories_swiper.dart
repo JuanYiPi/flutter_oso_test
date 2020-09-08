@@ -41,8 +41,14 @@ class CategoriesSwiper extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
         child: FadeInImage(
+          imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+            print('Error Handler');
+            return Container(
+              child: Image.asset('assets/img/no-image.jpg'),
+            );
+          },
           placeholder: AssetImage('assets/img/loading2.gif'), 
-          image: NetworkImage(categoria.getImg()),
+          image: categoria.getImg() != null? NetworkImage(categoria.getImg()) : AssetImage('assets/img/no-image.jpg'),
           fit: BoxFit.cover,
         ),
       ),
