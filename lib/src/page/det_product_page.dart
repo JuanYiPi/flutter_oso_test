@@ -127,7 +127,8 @@ class _DetProductPageState extends State<DetProductPage> {
           );
         },
         placeholder: AssetImage('assets/img/loading.gif'), 
-        image: product.getImg() != null? NetworkImage(product.getImg()) : AssetImage('assets/img/no_disponible'),
+        image: product.getImg() != null? 
+          NetworkImage(product.getImg()) : AssetImage('assets/img/no_disponible'),
         fit: BoxFit.cover,
         height: screenSize.width * 0.9,
         width: screenSize.width * 0.9,

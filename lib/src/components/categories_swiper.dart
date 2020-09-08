@@ -15,6 +15,7 @@ class CategoriesSwiper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final screenSize = MediaQuery.of(context).size;
 
     return Container(
@@ -36,6 +37,8 @@ class CategoriesSwiper extends StatelessWidget {
 
   Widget _crearCategoria(BuildContext context ,Categoria categoria) {
 
+    final queryData = MediaQuery.of(context);
+
     final caratulaCategoria = Container(
       height: double.infinity,
       child: ClipRRect(
@@ -48,30 +51,38 @@ class CategoriesSwiper extends StatelessWidget {
             );
           },
           placeholder: AssetImage('assets/img/loading2.gif'), 
-          image: categoria.getImg() != null? NetworkImage(categoria.getImg()) : AssetImage('assets/img/no-image.jpg'),
+          image: categoria.getImg() != null? 
+            NetworkImage(categoria.getImg()) : AssetImage('assets/img/no-image.jpg'),
           fit: BoxFit.cover,
         ),
       ),
     );
 
+    final categoryName = Center(
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(5.0),
+          color: Colors.grey[700].withOpacity(0.5),
+        ),
+        padding: EdgeInsets.all(5.0),
+        child: Text(
+          categoria.descripcion, 
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white, 
+            fontWeight: FontWeight.bold,
+            fontSize: queryData.devicePixelRatio <= 1.75?
+              30.0 : 35.0
+          ) 
+        ),
+      )
+    );
+
     final card = Stack(
       children: [
         caratulaCategoria,
-        Center(
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(5.0),
-              color: Colors.grey[700].withOpacity(0.5),
-            ),
-            padding: EdgeInsets.all(5.0),
-            child: Text(
-              categoria.descripcion, 
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline5.copyWith(color: Colors.white, fontWeight: FontWeight.bold) 
-            ),
-          )
-        )
+        categoryName
       ],
     );
 

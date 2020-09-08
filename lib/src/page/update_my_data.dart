@@ -27,6 +27,8 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
   @override
   Widget build(BuildContext context) {
 
+    final queryData = MediaQuery.of(context);
+
     return FutureBuilder(
       future: userProvider.getUserById( prefs.idUsuario.toString() ),
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
@@ -36,19 +38,22 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
               centerTitle: true,
               title: Text('Modificar mis datos'),
             ),
-            body: Container(
+            body: SingleChildScrollView(
               padding: EdgeInsets.all(20.0),
-              child: Column(
-                  children: <Widget>[
-                    changeName(snapshot.data),
-                    SizedBox(height: 20.0),
-                    changeEmail(snapshot.data),
-                    Expanded( child: Container() ),
-                    modificar(context, snapshot.data),
-                    SizedBox(height: 10.0),
-                    cancelar(context),
-                  ],
-                ),
+              child: Container(
+                height: queryData.size.height - 120, 
+                child: Column(
+                    children: <Widget>[
+                      changeName(snapshot.data),
+                      SizedBox(height: 20.0),
+                      changeEmail(snapshot.data),
+                      Expanded(child: Container()),
+                      modificar(context, snapshot.data),
+                      SizedBox(height: 10.0),
+                      cancelar(context),
+                    ],
+                  ),
+              ),
             ), 
           );
         } else {
