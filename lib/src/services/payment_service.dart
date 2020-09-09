@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:stripe_payment/stripe_payment.dart';
 
@@ -44,12 +45,23 @@ class StripeService {
 
       var paymentIntent = await StripeService.createPaymentIntent(amount, currency);
 
-      var res = await StripePayment.confirmPaymentIntent(
+      PaymentIntentResult res = await StripePayment.confirmPaymentIntent(
         PaymentIntent(
           clientSecret: paymentIntent['client_secret'],
           paymentMethodId: paymentMethod.id
         )
       );
+      
+      final cartsProvider = CartsProvider();
+      final response = await cartsProvider.updateShoppingCart(
+        payReference: res.paymentIntentId
+      ); 
+
+      if(response) {
+        print('PaymentIntendId: ${res.paymentIntentId}\n PaymentMethod: ${res.paymentMethodId}');
+      } else {
+        print('no se pudo agregar la referencia');
+      }
 
       if (res.status == 'succeeded') {
         return new StripeTransactionResponse(

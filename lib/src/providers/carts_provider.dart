@@ -166,19 +166,21 @@ class CartsProvider {
     }
   }
 
-  Future<bool> updateShoppingCart({String directionId, String estado, String gastos, String mEntrega}) async {
+  Future<bool> updateShoppingCart({String directionId, String estado, String gastos, String mEntrega, String payReference}) async {
     final url = Uri.http(authority, 'api/carts/${prefs.idActiveCart}');
 
     final body = {
-      'api_key'        : apiKey,
+      'api_key'         : apiKey,
       if (directionId != null)
-        'direction_id' : directionId,
+        'direction_id'  : directionId,
       if (estado != null)
-        'Estado'       : estado,
+        'Estado'        : estado,
       if (gastos != null)
-        'Gastos'       : gastos,
+        'Gastos'        : gastos,
       if (mEntrega != null)
-        'MetodoEntrega': mEntrega
+        'MetodoEntrega' : mEntrega,
+      if (payReference != null)
+        'ReferenciaPago': payReference
     };
 
     final response = await http.put(url, body: body, headers: headers);

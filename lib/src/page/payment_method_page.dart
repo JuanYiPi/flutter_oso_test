@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
-import 'package:flutter_oso_test/src/providers/user_preferences.dart';
+// import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 import 'package:flutter_oso_test/src/services/payment_service.dart';
 
 class PaymentMethod extends StatefulWidget {
@@ -10,7 +10,7 @@ class PaymentMethod extends StatefulWidget {
 
 class _PaymentMethodState extends State<PaymentMethod> {
 
-  final prefs = UserPreferences();
+  // final prefs = UserPreferences();
   final cartsProvider = CartsProvider();
 
   @override
@@ -84,15 +84,18 @@ class _PaymentMethodState extends State<PaymentMethod> {
           await cartsProvider.updateShoppingCart(
             estado: 'Pagado'
           );
+          Navigator.pushReplacementNamed(context, 'finish');
+        } else {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text(response.message),
+              duration: new Duration(milliseconds: response.success == true ? 1200 : 3000),
+            ),
+          );
         }
 
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Colors.green,
-            content: Text(response.message),
-            duration: new Duration(milliseconds: response.success == true ? 1200 : 3000),
-          ),
-        );
+        
 
         break;
       case 1:

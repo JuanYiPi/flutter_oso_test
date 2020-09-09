@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
+import 'package:flutter_oso_test/src/page/buy_success.dart';
 import 'package:flutter_oso_test/src/page/choose_address_page.dart';
 import 'package:flutter_oso_test/src/page/confirm_buy_page.dart';
 import 'package:flutter_oso_test/src/page/payment_method_page.dart';
@@ -51,7 +52,9 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Oso online',
-        initialRoute: prefs.rememberMe? 'home' : 'login',
+        initialRoute: 
+        // 'finish', 
+        prefs.rememberMe? 'home' : 'login',
         routes: {
           'login'              :  ( BuildContext context ) => LoginPage(),
           'registro'           :  ( BuildContext context ) => RegistroPage(),
@@ -71,6 +74,7 @@ class MyApp extends StatelessWidget {
           'payment'            :  ( BuildContext context ) => PaymentMethod(),
           'confirm'            :  ( BuildContext context ) => ConfirmBuyPage(),
           'update_address'     :  ( BuildContext context ) => UpdateAddress(),
+          'finish'             :  ( BuildContext context ) => BuySuccess(),
         },
         theme: ThemeData(
           primaryColor: kColorPrimario,
