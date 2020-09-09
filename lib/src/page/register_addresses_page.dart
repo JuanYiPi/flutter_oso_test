@@ -293,9 +293,9 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
           height: 45.0,
           width: size.width * 0.6,
           child: RaisedButton(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kDefaultRadius)),
             child: Text('Guardar'),
-            color: Theme.of(context).primaryColor,
+            color: kColorSecundario,
             textColor: Colors.white,
             onPressed: snapshot.hasData ? (){
               _addNewDirection(context);
@@ -315,9 +315,9 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
       height: 45.0,
       width: size.width * 0.6,
       child: RaisedButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kDefaultRadius)),
         child: Text('Cancelar'),
-        color: Theme.of(context).primaryColor,
+        color: kColorSecundario,
         textColor: Colors.white,
         onPressed: ()=>Navigator.pop(context),
       ),

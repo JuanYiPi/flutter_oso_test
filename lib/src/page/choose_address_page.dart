@@ -82,8 +82,8 @@ class _ChooseAddressState extends State<ChooseAddress> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Envío:', style: Theme.of(context).textTheme.headline6,),
-              Text('\$150.00', style: Theme.of(context).textTheme.headline6),
+              Text('Envío:', style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor),),
+              Text('\$150.00', style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor)),
             ],
           ),
           Divider(),
@@ -99,9 +99,9 @@ class _ChooseAddressState extends State<ChooseAddress> {
       height: 45.0,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0)
+          borderRadius: BorderRadius.circular(kDefaultRadius)
         ),
-        elevation: 3.0,
+        // elevation: 3.0,
         color: kColorSecundario,
         child: Text('Continuar compra', style: TextStyle(color: Colors.white),),
         onPressed: _directionId != null && !_isLoading? () {

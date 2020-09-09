@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 
 class ShippingMethod extends StatelessWidget {
@@ -28,7 +29,7 @@ class ShippingMethod extends StatelessWidget {
             child: ListTile(
               title: Text('Entrega a domicilio'),
               subtitle: Text('Se aplicarán costos de envío adicionales'),
-              trailing: Icon(Icons.chevron_right),
+              trailing: Icon(Icons.chevron_right, color: kColorPrimario,),
               onTap: () async {
                 Navigator.pushNamed(context, 'address');
               },
@@ -43,7 +44,7 @@ class ShippingMethod extends StatelessWidget {
             child: ListTile(
               title: Text('Recoger en tienda'),
               subtitle: Text('Pagas: \$${total}0'),
-              trailing: Icon(Icons.chevron_right),
+              trailing: Icon(Icons.chevron_right, color: kColorPrimario,),
               onTap: () {
                 // Navigator.pushNamed(context, 'payment', arguments: total);
                 _navigateToConfirm(context, 0.0, 'Tienda');

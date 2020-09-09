@@ -71,7 +71,7 @@ class ConfirmBuyPage extends StatelessWidget {
         children: [
           _buildHeader(cart, context),
           _builCardItem(cartDetail),
-          _buildShippingDirection(),
+          _buildShippingDirection(cart),
         ],
       ) 
     );
@@ -114,7 +114,7 @@ class ConfirmBuyPage extends StatelessWidget {
             height: 45.0,
             child: RaisedButton(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)
+                borderRadius: BorderRadius.circular(kDefaultRadius)
               ),
               color: kColorSecundario,
               child: Text('Confirmar compra', style: TextStyle(color: Colors.white),),
@@ -146,16 +146,16 @@ class ConfirmBuyPage extends StatelessWidget {
                 imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
                   print('Error Handler');
                   return Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 60.0,
+                    height: 60.0,
                     child: Image.asset('assets/img/no_disponible.jpg'),
                   );
                 },
                 placeholder: AssetImage('assets/img/loading.gif'), 
                 image: item.getImg() != null? NetworkImage(item.getImg()): AssetImage('assets/img/no_disponible.jpg'),
                 fit: BoxFit.cover,
-                height: 50.0,
-                width: 50.0,
+                height: 60.0,
+                width: 60.0,
               ),
             ),
             SizedBox(height: 10.0,),
@@ -168,19 +168,20 @@ class ConfirmBuyPage extends StatelessWidget {
     )).toList());
   }
 
-  Widget _buildShippingDirection() {
+  Widget _buildShippingDirection(Cart cart) {
     return Card(
       elevation: 0.0,
       child: Container(
         padding: EdgeInsets.all(20.0),
-        height: 200.0,
+        height: 180.0,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.local_shipping, size: 40.0, color: kColorSecundario),
-            Text('Codigo Postal'),
-            Text('Toda la direccion aqui')
+            if (cart.metodoEntrega == 'Domicilio')Text('Codigo Postal'),
+            if (cart.metodoEntrega == 'Domicilio')Text('Toda la direccion aqui'),
+            if (cart.metodoEntrega == 'Tienda') Text('\nEl cliente lo recogera en tienda')
           ],
         ),
       ),

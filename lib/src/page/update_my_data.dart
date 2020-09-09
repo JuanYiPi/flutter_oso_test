@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/error_user_model.dart';
 import 'package:flutter_oso_test/src/models/user_model.dart';
 
@@ -116,8 +117,8 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)
         ),
-        elevation: 0.0,
-        color: Theme.of(context).primaryColor,
+        // elevation: 0.0,
+        color: kColorSecundario,
         textColor: Colors.white,
         onPressed: () {
           _updateUser(user, context);
@@ -200,10 +201,10 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
       child: RaisedButton(
         child: Text('Cancelar'),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0)
+          borderRadius: BorderRadius.circular(kDefaultRadius)
         ),
-        elevation: 0.0,
-        color: Theme.of(context).primaryColor,
+        // elevation: 0.0,
+        color: kColorSecundario,
         textColor: Colors.white,
         onPressed: ()=> Navigator.pop(context)
       ),

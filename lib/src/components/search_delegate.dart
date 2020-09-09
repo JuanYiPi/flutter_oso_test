@@ -8,6 +8,9 @@ import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 class DataSearch extends SearchDelegate {
 
+  @override
+  String get searchFieldLabel => "Buscar productos";
+
   String busqueda = '';
   List<Product> results = new List();
 

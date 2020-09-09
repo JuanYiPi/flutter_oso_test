@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/user_model.dart';
 import 'package:flutter_oso_test/src/providers/users_providers.dart';
 
@@ -52,7 +53,6 @@ class _UserDetPageState extends State<UserDetPage> {
           Divider(),
           changePassword(),
           Divider(),
-          Expanded( child: Container() ),
         ],
       ),
     );
@@ -61,9 +61,9 @@ class _UserDetPageState extends State<UserDetPage> {
   Widget myData(BuildContext context){
 
     return ListTile(
-      leading: Icon(Icons.person),
+      leading: Icon(Icons.person, color: kColorPrimario,),
       title: Text('Mis datos'),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: Icon(Icons.chevron_right, color: kColorPrimario),
       onTap: ()=> Navigator.pushNamed(context, 'update_data'),
     );
   }
@@ -71,9 +71,9 @@ class _UserDetPageState extends State<UserDetPage> {
   Widget shippingAddresses(){
     
     return ListTile(
-      leading: Icon(Icons.home),
+      leading: Icon(Icons.home, color: kColorPrimario),
       title: Text('Mis direcciones de envío'),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: Icon(Icons.chevron_right, color: kColorPrimario),
       onTap: ()=> Navigator.pushNamed(context, 'shipping_addresses'),
     );
   }
@@ -81,9 +81,9 @@ class _UserDetPageState extends State<UserDetPage> {
   Widget billingData(){
 
     return ListTile(
-      leading: Icon(Icons.note),
+      leading: Icon(Icons.note, color: kColorPrimario),
       title: Text('Mis datos de facturación'),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: Icon(Icons.chevron_right, color: kColorPrimario),
       onTap: (){},
     );
   }
@@ -91,19 +91,11 @@ class _UserDetPageState extends State<UserDetPage> {
   Widget changePassword(){
 
     return ListTile(
-      leading: Icon(Icons.lock),
+      leading: Icon(Icons.lock, color: kColorPrimario),
       title: Text('Cambiar contraseña'),
-      trailing: Icon(Icons.arrow_forward_ios),
+      trailing: Icon(Icons.chevron_right, color: kColorPrimario),
       onTap: (){},
     );
   }
-
-  // _navigateToUpdate(User user) async {
-  //   final result = await Navigator.pushNamed(context, 'update_user', arguments: user);
-  //   if(result == true) {
-  //     setState(() {});
-  //   }
-  // }
-
 
 }

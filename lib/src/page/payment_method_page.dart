@@ -59,9 +59,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
               ),
             );
           }, 
-          separatorBuilder: (context, index) => Divider(
-            color: theme.primaryColor,
-          ), 
+          separatorBuilder: (context, index) => Divider(), 
           itemCount: 2
         ),
       ),

@@ -164,20 +164,12 @@ class _DetProductPageState extends State<DetProductPage> {
       width: double.infinity,
       child: Column(
         children: <Widget>[
-          // _buildFlatButton(
-          //   texto: 'Comprar ahora',
-          //   btnColor: Theme.of(context).primaryColor,
-          //   txtColor: Colors.white,
-          //   press: () {
-          //     _addProductAndPay(product);
-          //   }
-          // ),
 
           Stack(
             children: [
               _buildFlatButton(
                 texto: 'Comprar ahora',
-                btnColor: Theme.of(context).primaryColor,
+                btnColor: kColorSecundario,
                 txtColor: Colors.white,
                 press: !_isLoading? () {
                   _addProductAndPay(product);
@@ -194,7 +186,7 @@ class _DetProductPageState extends State<DetProductPage> {
               _buildFlatButton(
                 texto: 'Agregar al carrito',
                 btnColor: Colors.white,
-                txtColor: Theme.of(context).primaryColor,
+                txtColor: kColorSecundario,
                 press: () {
                   _addToShoppingCart(context, product);
                 }
@@ -215,7 +207,7 @@ class _DetProductPageState extends State<DetProductPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0)
         ),
-        elevation: 3.0,
+        // elevation: 3.0,
         onPressed: press,
         color: btnColor,
         child: Text(texto, style: TextStyle(color: txtColor)),

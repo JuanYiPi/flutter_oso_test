@@ -282,8 +282,8 @@ class _RegistroPageState extends State<RegistroPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(kDefaultRadius)
             ),
-            elevation: 0.0,
-            color: Theme.of(context).primaryColor,
+            // elevation: 0.0,
+            color: kColorSecundario,
             textColor: Colors.white,
             onPressed: (snapshot.hasData && !_isLoading && _botonActivo) ? (){
               _addNewUser(context);
@@ -306,9 +306,9 @@ class _RegistroPageState extends State<RegistroPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius)
         ),
-        elevation: 0.0,
-        color: Theme.of(context).primaryColor,
-        textColor: Colors.white,
+        // elevation: 0.0,
+        color: Colors.white,
+        textColor: kColorSecundario,
         onPressed: ()=> Navigator.pushReplacementNamed(context, 'login')
       ),
     );

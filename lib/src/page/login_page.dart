@@ -212,8 +212,8 @@ class _LoginPageState extends State<LoginPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(kDefaultRadius)
             ),
-            elevation: 0.0,
-            color: Theme.of(context).primaryColor,
+            // elevation: 0.0,
+            color: kColorSecundario,
             textColor: Colors.white,
             onPressed: snapshot.hasData ? () {
               _login();

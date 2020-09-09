@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -38,7 +39,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
           ListTile(
             onTap: ()=> Navigator.pushNamed(context, 'home'),
-            leading: Icon(Icons.home, color: Theme.of(context).primaryColor,),
+            leading: Icon(Icons.home, color: kColorSecundario),
             title: Text('Inicio'),
           ),
 
@@ -46,31 +47,31 @@ class _MyDrawerState extends State<MyDrawer> {
             onTap: () {
               Navigator.pushNamed(context, 'fav');
             },
-            leading: Icon(Icons.favorite, color: Theme.of(context).primaryColor),
+            leading: Icon(Icons.favorite, color: kColorSecundario),
             title: Text('Favoritos'),
           ),
 
           ListTile(
             onTap: () => Navigator.pushNamed(context, 'my_shopping'),
-            leading: Icon(Icons.shopping_basket, color: Theme.of(context).primaryColor),
+            leading: Icon(Icons.shopping_basket, color: kColorSecundario),
             title: Text('Mis compras'),
           ),
 
           ListTile(
             onTap: () => Navigator.pushNamed(context, 'user_det', arguments: prefs.idUsuario),
-            leading: Icon(Icons.account_circle, color: Theme.of(context).primaryColor),
+            leading: Icon(Icons.account_circle, color: kColorSecundario),
             title: Text('Mi cuenta'),
           ),
 
           ListTile(
             onTap: () {},
-            leading: Icon(Icons.notifications, color: Theme.of(context).primaryColor),
+            leading: Icon(Icons.notifications, color: kColorSecundario),
             title: Text('Notificaciones'),
           ),
 
           ListTile(
-            leading: Icon(Icons.power_settings_new, color: Theme.of(context).primaryColor),
-            title: Text('Cerrar sesion'),
+            leading: Icon(Icons.power_settings_new, color: kColorSecundario),
+            title: prefs.idUsuario == 0? Text('Iniciar sesión') : Text('Cerrar sesión'),
             onTap: () {
               prefs.rememberMe = false;
               Navigator.pushReplacementNamed(context, 'login');

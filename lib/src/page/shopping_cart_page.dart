@@ -216,8 +216,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Total:', style: Theme.of(context).textTheme.headline6),
-              Text('\$${cart.total}0', style: Theme.of(context).textTheme.headline6,)
+              Text('Total:', style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor)),
+              Text('\$${cart.total}0', style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor),)
             ],
           ),
           Divider(),
@@ -225,9 +225,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             width: double.infinity,
             height: 45.0,
             child: RaisedButton(
-              elevation: 5.0,
+              // elevation: 5.0,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)
+                borderRadius: BorderRadius.circular(kDefaultRadius)
               ),
               color: kColorSecundario,
               child: Text('Finalizar compra', style: TextStyle(color: Colors.white)),

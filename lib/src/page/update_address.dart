@@ -205,9 +205,9 @@ class _UpdateAddressState extends State<UpdateAddress> {
       height: 45.0,
       width: size.width * 0.6,
       child: RaisedButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kDefaultRadius)),
         child: Text('Modificar'),
-        color: Theme.of(context).primaryColor,
+        color: kColorSecundario,
         textColor: Colors.white,
         onPressed: (){
           _updateDirection(context, direction.id);
@@ -223,9 +223,9 @@ class _UpdateAddressState extends State<UpdateAddress> {
       height: 45.0,
       width: size.width * 0.6,
       child: RaisedButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kDefaultRadius)),
         child: Text('Cancelar'),
-        color: Theme.of(context).primaryColor,
+        color: kColorSecundario,
         textColor: Colors.white,
         onPressed: ()=>Navigator.pop(context),
       ),
