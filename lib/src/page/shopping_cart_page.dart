@@ -229,7 +229,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0)
               ),
-              color: Theme.of(context).primaryColor,
+              color: kColorSecundario,
               child: Text('Finalizar compra', style: TextStyle(color: Colors.white)),
               onPressed: () {
                 Navigator.pushNamed(context, 'shipping', arguments: cart.total.toString());

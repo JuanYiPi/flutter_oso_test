@@ -4,6 +4,9 @@ const kTextColor = Color(0xFF535353);
 const kTextLightColor = Color(0xFFACACAC);
 const kTextGreenColor = Color(0xFF34B454);
 
+const kColorSecundario = Color(0xFF007296);
+const kColorTerciario = Color(0xFF880096);
+
 const kDefaultPaddin = 20.0;
 const kDefaultRadius = 5.0;
 

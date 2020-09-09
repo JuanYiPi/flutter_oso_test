@@ -102,7 +102,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
           borderRadius: BorderRadius.circular(5.0)
         ),
         elevation: 3.0,
-        color: Theme.of(context).primaryColor,
+        color: kColorSecundario,
         child: Text('Continuar compra', style: TextStyle(color: Colors.white),),
         onPressed: _directionId != null && !_isLoading? () {
           _updateShippingcart(context);
@@ -113,23 +113,17 @@ class _ChooseAddressState extends State<ChooseAddress> {
 
   void _updateShippingcart(BuildContext context) async {
     setState(() {_isLoading = true;});
-    // prefs.idActiveCart = cart.id;
+
     final resp = await cartsProvider.updateShoppingCart(
       gastos: '150.0',
       mEntrega: 'Domicilio',
       directionId: _directionId.toString()
     );
 
-    // final cart = await cartsProvider.getActiveCart();
-
     setState(() {_isLoading = false;});
     
     if (resp == true) {
-      // total = total + cart.total;
-      // print(total);
-      Navigator.pushNamed(context, 'confirm');
-      // Navigator.pushNamed(context, 'payment', arguments: total.toString());
-      
+      Navigator.pushNamed(context, 'confirm');      
     } else {
       _mostrarSnackbar('Algo salio mal, intentelo de nuevo mas tarde');
     }
