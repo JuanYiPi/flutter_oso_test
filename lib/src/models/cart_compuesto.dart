@@ -1,5 +1,6 @@
 import 'package:flutter_oso_test/src/models/cart_detail_model.dart';
 import 'package:flutter_oso_test/src/models/cart_model.dart';
+import 'package:flutter_oso_test/src/models/direction_model.dart';
 export 'package:flutter_oso_test/src/models/cart_detail_model.dart';
 export 'package:flutter_oso_test/src/models/cart_model.dart';
 
@@ -7,10 +8,12 @@ export 'package:flutter_oso_test/src/models/cart_model.dart';
 
 class CartMap {
   Cart total;
+  Direction direction;
   List<CartDetail> data;
 
   CartMap({
     this.total,
+    this.direction,
     this.data,
   });
 }

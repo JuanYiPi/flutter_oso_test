@@ -4,6 +4,8 @@ import 'package:flutter_oso_test/src/models/cart_compuesto.dart';
 import 'package:flutter_oso_test/src/models/cart_detail_list_model.dart';
 import 'package:flutter_oso_test/src/models/cart_detail_model.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
+// import 'package:flutter_oso_test/src/page/register_addresses_page.dart';
+import 'package:flutter_oso_test/src/providers/directions_provider.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
@@ -17,6 +19,7 @@ class CartsProvider {
   String apiKey    = DotEnv().env['OSO_API_KEY'];
 
   final prefs      = new UserPreferences();
+  final directionProvider = DirectionsProvider();
   
   static Map<String, String> headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -61,8 +64,10 @@ class CartsProvider {
       try {
         final decodedData = json.decode(response.body);
         print(decodedData);
+
         final shoppingList = CartDetailList.fromJsonList(decodedData['data']);
         final cartInfo = Cart.fromJsonMap(decodedData['total']);
+        // final direction = directionsProvider.
 
         final cartCompuesto = new CartMap(
           data: shoppingList.items,

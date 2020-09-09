@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/page/choose_address_page.dart';
 import 'package:flutter_oso_test/src/page/confirm_buy_page.dart';
 import 'package:flutter_oso_test/src/page/payment_method_page.dart';
@@ -72,7 +73,7 @@ class MyApp extends StatelessWidget {
           'update_address'     :  ( BuildContext context ) => UpdateAddress(),
         },
         theme: ThemeData(
-          primaryColor: Colors.teal,
+          primaryColor: kColorPrimario,
         ),
       )
     );

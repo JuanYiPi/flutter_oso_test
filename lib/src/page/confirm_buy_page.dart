@@ -67,6 +67,7 @@ class ConfirmBuyPage extends StatelessWidget {
         title: Text('Confirma tu compra'),
       ),
       body: ListView(
+        padding: EdgeInsets.only(bottom: 30.0),
         children: [
           _buildHeader(cart, context),
           _builCardItem(cartDetail),
@@ -76,21 +77,53 @@ class ConfirmBuyPage extends StatelessWidget {
     );
   }
 
-  Widget _buildShippingDirection() {
-    return Card(
-      elevation: 0.0,
-      child: Container(
-        padding: EdgeInsets.all(20.0),
-        height: 200.0,
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.local_shipping, size: 40.0, color: kColorSecundario),
-            Text('Codigo Postal'),
-            Text('Toda la direccion aqui')
-          ],
-        ),
+  Widget _buildHeader(Cart cart, BuildContext context) {
+    return Container(
+      color: Theme.of(context).primaryColor,
+      padding: EdgeInsets.only(top: 20.0, bottom: 30.0, left: 20.0, right: 20.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Producto', style: textoS.copyWith(color: Colors.white),),
+              Text('\$ ${cart.total}0', style: textoS.copyWith(color: Colors.white),)
+            ],
+          ),
+          SizedBox(height: 10.0,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Envio', style: textoS.copyWith(color: Colors.white),),
+              Text('\$ ${cart.gastos}0', style: textoS.copyWith(color: Colors.white))
+            ],
+          ),
+          SizedBox(height: 15.0,),
+          Divider(color: Colors.white,),
+          SizedBox(height: 15.0,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Pagas', style: textoS.copyWith(color: Colors.white)),
+              Text('\$ ${cart.gastos + cart.total}0', style: textoS.copyWith(color: Colors.white))
+            ],
+          ),
+          SizedBox(height: 25.0,),
+          Container(
+            width: double.infinity,
+            height: 45.0,
+            child: RaisedButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0)
+              ),
+              color: kColorSecundario,
+              child: Text('Confirmar compra', style: TextStyle(color: Colors.white),),
+              onPressed: () {
+                _pay(context, (cart.total+cart.gastos).toString());
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -135,52 +168,27 @@ class ConfirmBuyPage extends StatelessWidget {
     )).toList());
   }
 
-  Widget _buildHeader(Cart cart, BuildContext context) {
-    return Container(
-      color: Theme.of(context).primaryColor,
-      padding: EdgeInsets.only(top: 20.0, bottom: 30.0, left: 20.0, right: 20.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Producto', style: textoS.copyWith(color: Colors.white),),
-              Text('\$ ${cart.total}0', style: textoS.copyWith(color: Colors.white),)
-            ],
-          ),
-          SizedBox(height: 10.0,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Envio', style: textoS.copyWith(color: Colors.white),),
-              Text('\$ ${cart.gastos}0', style: textoS.copyWith(color: Colors.white))
-            ],
-          ),
-          SizedBox(height: 15.0,),
-          Divider(color: Colors.white,),
-          SizedBox(height: 15.0,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Pagas', style: textoS.copyWith(color: Colors.white)),
-              Text('\$ ${cart.gastos + cart.total}0', style: textoS.copyWith(color: Colors.white))
-            ],
-          ),
-          SizedBox(height: 25.0,),
-          Container(
-            width: double.infinity,
-            height: 45.0,
-            child: RaisedButton(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)
-              ),
-              color: kColorSecundario,
-              onPressed: () {},
-              child: Text('Confirmar compra', style: TextStyle(color: Colors.white),),
-            ),
-          ),
-        ],
+  Widget _buildShippingDirection() {
+    return Card(
+      elevation: 0.0,
+      child: Container(
+        padding: EdgeInsets.all(20.0),
+        height: 200.0,
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.local_shipping, size: 40.0, color: kColorSecundario),
+            Text('Codigo Postal'),
+            Text('Toda la direccion aqui')
+          ],
+        ),
       ),
     );
   }
+
+  _pay(BuildContext context, String total) {
+    Navigator.pushNamed(context, 'payment', arguments: total);
+  }
+
 }

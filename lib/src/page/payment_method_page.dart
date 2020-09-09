@@ -22,7 +22,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
   @override
   Widget build(BuildContext context) {
 
-    final amount = ModalRoute.of(context).settings.arguments;
+    final String amount = ModalRoute.of(context).settings.arguments;
 
     ThemeData theme = Theme.of(context);
 
@@ -82,8 +82,6 @@ class _PaymentMethodState extends State<PaymentMethod> {
 
         if (response.success) {
           await cartsProvider.updateShoppingCart(
-            // directionId: null,
-            // cartId: prefs.idActiveCart.toString(),
             estado: 'Pagado'
           );
         }
