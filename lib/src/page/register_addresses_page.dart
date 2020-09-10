@@ -13,9 +13,6 @@ class RegisterAddresses extends StatefulWidget {
   _RegisterAddressesState createState() => _RegisterAddressesState();
 }
 
-final directionsProvider = new DirectionsProvider();
-final prefs = UserPreferences();
-
 class _RegisterAddressesState extends State<RegisterAddresses> {
 
   final textControllerNombre            = TextEditingController();
@@ -29,6 +26,9 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
   final textControllerNomInterior       = TextEditingController();
   final textControllerTelefonoContacto  = TextEditingController();
   final textControllerReferencia        = TextEditingController();
+
+  final directionsProvider = new DirectionsProvider();
+  final prefs = UserPreferences();
 
   @override
   void dispose() { 
@@ -356,7 +356,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
       textControllerNomInterior.clear();
       textControllerTelefonoContacto.clear();
       textControllerReferencia.clear();
-      return Navigator.pop(context);
+      return Navigator.pop(context, true);
     } else {
       showDialog(
         context: context,

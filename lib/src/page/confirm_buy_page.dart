@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/cart_compuesto.dart';
+import 'package:flutter_oso_test/src/models/direction_model.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 
 class ConfirmBuyPage extends StatelessWidget {
@@ -19,14 +20,16 @@ class ConfirmBuyPage extends StatelessWidget {
         }
 
         final cartMap = snapshot.data;
+
         final cartDetail = cartMap.data;
         final cart = cartMap.total;
+        final direction = cartMap.direction;
 
         if (cartDetail.length == 0) {
           return _emptyCart();
         }
         
-        return _buildScaffold(context, cart, cartDetail); 
+        return _buildScaffold(context, cart, cartDetail, direction); 
       },
     );
   }
@@ -60,7 +63,7 @@ class ConfirmBuyPage extends StatelessWidget {
     );
   }
 
-  Widget _buildScaffold(BuildContext context, Cart cart, List<CartDetail> cartDetail) {
+  Widget _buildScaffold(BuildContext context, Cart cart, List<CartDetail> cartDetail, Direction direction) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -71,7 +74,7 @@ class ConfirmBuyPage extends StatelessWidget {
         children: [
           _buildHeader(cart, context),
           _builCardItem(cartDetail),
-          _buildShippingDirection(cart),
+          _buildShippingDirection(cart, direction),
         ],
       ) 
     );
@@ -168,22 +171,29 @@ class ConfirmBuyPage extends StatelessWidget {
     )).toList());
   }
 
-  Widget _buildShippingDirection(Cart cart) {
+  Widget _buildShippingDirection(Cart cart, Direction direction) {
     return Card(
       elevation: 0.0,
       child: Container(
         padding: EdgeInsets.all(20.0),
         height: 180.0,
         width: double.infinity,
-        child: Column(
+        child: cart.directionId == 0? Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.local_shipping, size: 40.0, color: kColorSecundario),
-            if (cart.metodoEntrega == 'Domicilio')Text('Codigo Postal'),
-            if (cart.metodoEntrega == 'Domicilio')Text('Toda la direccion aqui'),
-            if (cart.metodoEntrega == 'Tienda') Text('\nEl cliente lo recogera en tienda')
+            Icon(Icons.store, size: 40.0, color: kColorSecundario),
+            Text('\nEl cliente lo recogera en tienda')
           ],
-        ),
+        ) : Column(
+          children: [
+            Icon(Icons.local_shipping, size: 40.0, color: kColorSecundario),
+            Text(direction.zip.toString()),
+            Text(
+              '\n${direction.street} - ${direction.numberExt} - ${direction.colony} - ${direction.receive} - ${direction.receivePhone}',
+              textAlign: TextAlign.center
+            ),
+          ],
+        )
       ),
     );
   }

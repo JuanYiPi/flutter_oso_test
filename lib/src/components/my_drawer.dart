@@ -26,7 +26,7 @@ class _MyDrawerState extends State<MyDrawer> {
           DrawerHeader(
             padding: EdgeInsets.all(0.0),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
+              color: kColorPrimario,
             ),
             child: Stack(
               children: [
@@ -39,7 +39,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
           ListTile(
             onTap: ()=> Navigator.pushNamed(context, 'home'),
-            leading: Icon(Icons.home, color: kColorSecundario),
+            leading: Icon(Icons.home, color: kColorPrimario),
             title: Text('Inicio'),
           ),
 
@@ -47,30 +47,30 @@ class _MyDrawerState extends State<MyDrawer> {
             onTap: () {
               Navigator.pushNamed(context, 'fav');
             },
-            leading: Icon(Icons.favorite, color: kColorSecundario),
+            leading: Icon(Icons.favorite, color: kColorPrimario),
             title: Text('Favoritos'),
           ),
 
           ListTile(
             onTap: () => Navigator.pushNamed(context, 'my_shopping'),
-            leading: Icon(Icons.shopping_basket, color: kColorSecundario),
+            leading: Icon(Icons.shopping_basket, color: kColorPrimario),
             title: Text('Mis compras'),
           ),
 
           ListTile(
             onTap: () => Navigator.pushNamed(context, 'user_det', arguments: prefs.idUsuario),
-            leading: Icon(Icons.account_circle, color: kColorSecundario),
+            leading: Icon(Icons.account_circle, color: kColorPrimario),
             title: Text('Mi cuenta'),
           ),
 
           ListTile(
             onTap: () {},
-            leading: Icon(Icons.notifications, color: kColorSecundario),
+            leading: Icon(Icons.notifications, color: kColorPrimario),
             title: Text('Notificaciones'),
           ),
 
           ListTile(
-            leading: Icon(Icons.power_settings_new, color: kColorSecundario),
+            leading: Icon(Icons.power_settings_new, color: kColorPrimario),
             title: prefs.idUsuario == 0? Text('Iniciar sesión') : Text('Cerrar sesión'),
             onTap: () {
               prefs.rememberMe = false;

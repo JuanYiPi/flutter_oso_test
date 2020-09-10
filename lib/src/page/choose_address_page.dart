@@ -16,9 +16,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
   final directionsProvider = new DirectionsProvider();
   final cartsProvider = new CartsProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  // final prefs = UserPreferences();
 
-  // double total = 150.0;
   int _directionId;
   bool _isLoading;
 
@@ -125,7 +123,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
     if (resp == true) {
       Navigator.pushNamed(context, 'confirm');      
     } else {
-      _mostrarSnackbar('Algo salio mal, intentelo de nuevo mas tarde');
+      _mostrarSnackbar('Algo salio mal, inténtelo de nuevo más tarde');
     }
   }
 
@@ -135,7 +133,24 @@ class _ChooseAddressState extends State<ChooseAddress> {
         centerTitle: true,
         title: Text('Mis direcciones'),
       ),
-      body: Center(child: Text('No ha registrado ninguna direccion'),),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('No ha registrado ninguna dirección\n'),
+            OutlineButton(
+              child: Text('Agregar dirección'),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(kDefaultRadius)
+              ),
+              textColor: kColorSecundario,
+              onPressed: () {
+                _navigateToNewAddress();
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -189,5 +204,10 @@ class _ChooseAddressState extends State<ChooseAddress> {
     );
 
     scaffoldKey.currentState.showSnackBar(snackbar);
+  }
+
+  void _navigateToNewAddress() async {
+    final resp = await Navigator.pushNamed(context, 'register_addresses');
+    setState(() {});
   }
 }

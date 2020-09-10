@@ -50,6 +50,23 @@ class DirectionsProvider {
     return null;
   }
 
+  Future<Direction> getDirectionById(String id) async {
+    final url = Uri.http(authority, 'api/directions/$id', {
+      'api_key': apiKey
+    });
+
+    final response = await http.post(url);
+
+    try {
+      final decodedData = json.decode(response.body);
+      final direction = Direction.fromJsonMap(decodedData['data']);
+      return direction;
+    } catch (err) {
+      print(err.toString());
+    }
+    return null;
+  }
+
   Future<dynamic> addNewDirection(Direction direction) async {
 
     final url = Uri.http(authority, 'api/directions',{

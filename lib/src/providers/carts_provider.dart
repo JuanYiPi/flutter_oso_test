@@ -4,7 +4,6 @@ import 'package:flutter_oso_test/src/models/cart_compuesto.dart';
 import 'package:flutter_oso_test/src/models/cart_detail_list_model.dart';
 import 'package:flutter_oso_test/src/models/cart_detail_model.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
-// import 'package:flutter_oso_test/src/page/register_addresses_page.dart';
 import 'package:flutter_oso_test/src/providers/directions_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,7 +18,7 @@ class CartsProvider {
   String apiKey    = DotEnv().env['OSO_API_KEY'];
 
   final prefs      = new UserPreferences();
-  final directionProvider = DirectionsProvider();
+  final directionsProvider = DirectionsProvider();
   
   static Map<String, String> headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -36,16 +35,18 @@ class CartsProvider {
   }
   //STREAM
 
-  Future<List<Cart>> getPurchasesById() async {
+  Future<List<Cart>> getAllPurchases() async {
 
     final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/carts', {
       'api_key'               : apiKey,
     });
+
+    final resp = await http.get(url);
+
     try {
-      final resp = await http.get(url);
       final decodedData = json.decode(resp.body);
-      final purchasesById = new Carts.fromJsonList(decodedData['data']);
-      return purchasesById.items;
+      final purchases = new Carts.fromJsonList(decodedData['data']);
+      return purchases.items;
     } catch (err) {
       print(err.toString());
     }
@@ -67,11 +68,21 @@ class CartsProvider {
 
         final shoppingList = CartDetailList.fromJsonList(decodedData['data']);
         final cartInfo = Cart.fromJsonMap(decodedData['total']);
-        // final direction = directionsProvider.
+        
+        if (cartInfo.directionId != 0) {
+          final direction = await directionsProvider.getDirectionById(cartInfo.directionId.toString());
+          final cartCompuesto = new CartMap(
+            data: shoppingList.items,
+            total: cartInfo,
+            direction: direction
+          );
+          shoppingCartInfoSink(cartCompuesto);        //STREAM
+          return shoppingList.items;
+        }
 
         final cartCompuesto = new CartMap(
           data: shoppingList.items,
-          total: cartInfo
+          total: cartInfo,
         );
 
         shoppingCartInfoSink(cartCompuesto);        //STREAM

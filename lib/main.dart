@@ -16,7 +16,7 @@ import 'src/page/det_compra_page.dart';
 import 'src/page/det_product_page.dart';
 import 'src/page/addresses_page.dart';
 import 'src/page/login_page.dart';
-import 'src/page/my_shopping.dart';
+import 'src/page/my_purchases.dart';
 import 'src/page/products_by_category_page.dart';
 import 'src/page/register_addresses_page.dart';
 import 'src/page/registro_page.dart';
