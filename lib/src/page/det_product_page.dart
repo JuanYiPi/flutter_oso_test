@@ -5,6 +5,7 @@ import 'package:flutter_oso_test/src/components/cart_counter.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 class DetProductPage extends StatefulWidget {
 
@@ -17,6 +18,7 @@ class _DetProductPageState extends State<DetProductPage> {
   final cartsProvider = new CartsProvider();
   final productsProvider = new ProductsProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final prefs = UserPreferences();
 
   bool _isLoading;
 
@@ -56,7 +58,7 @@ class _DetProductPageState extends State<DetProductPage> {
   }
 
   AppBar _buildAppBarDet(BuildContext context) {
-    return AppBar(
+    return prefs.idUsuario !=0? AppBar(
       title: Text('Producto'),
       actions: <Widget>[
         IconButton(
@@ -71,6 +73,8 @@ class _DetProductPageState extends State<DetProductPage> {
           }
         ),
       ],
+    ) : AppBar(
+      title: Text('Producto'),
     );
   }
 
@@ -159,44 +163,52 @@ class _DetProductPageState extends State<DetProductPage> {
     );
   }
 
-  _builPayCartButtons(BuildContext context, Product product) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        children: <Widget>[
+  Widget _builPayCartButtons(BuildContext context, Product product) {
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          child: prefs.idUsuario != 0? Column(
+            children: <Widget>[
 
-          Stack(
-            children: [
               _buildFlatButton(
                 texto: 'Comprar ahora',
-                btnColor: kColorSecundario,
+                btnColor: kColorPrimario,
                 txtColor: Colors.white,
                 press: !_isLoading? () {
                   _addProductAndPay(product);
                 } : null
               ),
-              _loadingIndicator()
-            ],
-          ),
 
-          SizedBox(height: kDefaultPaddin/2),
+              SizedBox(height: kDefaultPaddin/2),
 
-          Stack(
-            children: [
               _buildFlatButton(
                 texto: 'Agregar al carrito',
-                btnColor: Colors.white,
-                txtColor: kColorSecundario,
-                press: () {
+                btnColor: kColorPrimario,
+                txtColor: Colors.white,
+                press: !_isLoading? () {
                   _addToShoppingCart(context, product);
-                }
+                } : null
               ),
-              _loadingIndicator()
             ],
+          ) : Container(
+            height: 45.0,
+            child: RaisedButton(
+              color: kColorPrimario,
+              onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
+              },
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(kDefaultRadius)
+              ),
+              child: Text('Inicia sesión para comprar', style: TextStyle(color: Colors.white),),
+            ),
           )
-        ],
-      ),
+        ),
+        _loadingIndicator()
+      ],
     );
+    
   }
 
   Widget _buildFlatButton({String texto, Color btnColor, Color txtColor, Function press}) {

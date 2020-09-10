@@ -97,7 +97,7 @@ class ConfirmBuyPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Envio', style: textoS.copyWith(color: Colors.white),),
+              Text('Gastos de envío', style: textoS.copyWith(color: Colors.white),),
               Text('\$ ${cart.gastos}0', style: textoS.copyWith(color: Colors.white))
             ],
           ),
@@ -182,7 +182,7 @@ class ConfirmBuyPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.store, size: 40.0, color: kColorSecundario),
-            Text('\nEl cliente lo recogera en tienda')
+            Text('\nEl cliente lo recogerá en tienda')
           ],
         ) : Column(
           children: [

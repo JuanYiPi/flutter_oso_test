@@ -55,7 +55,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Registrar una dirección de envio'),
+        title: Text('Agregar una dirección de envío'),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
@@ -141,7 +141,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
           controller: textControllerPais,
           textCapitalization: TextCapitalization.words,
           decoration: InputDecoration(
-            labelText: 'Pais',
+            labelText: 'País',
           ),
           onChanged: bloc.changePais,
         );
@@ -275,7 +275,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
 
      return TextField(
       controller: textControllerReferencia,
-      textCapitalization: TextCapitalization.none,
+      textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
         labelText: 'Referencia',
       ),
@@ -295,7 +295,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
           child: RaisedButton(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kDefaultRadius)),
             child: Text('Guardar'),
-            color: kColorSecundario,
+            color: kColorPrimario,
             textColor: Colors.white,
             onPressed: snapshot.hasData ? (){
               _addNewDirection(context);
@@ -317,7 +317,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
       child: RaisedButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kDefaultRadius)),
         child: Text('Cancelar'),
-        color: kColorSecundario,
+        color: kColorPrimario,
         textColor: Colors.white,
         onPressed: ()=>Navigator.pop(context),
       ),

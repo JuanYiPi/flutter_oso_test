@@ -29,7 +29,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Metodo de pago'),
+        title: Text('Método de pago'),
       ),
       body: Container(
         padding: EdgeInsets.all(20.0),
@@ -82,7 +82,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
           await cartsProvider.updateShoppingCart(
             estado: 'Pagado'
           );
-          Navigator.pushReplacementNamed(context, 'finish');
+          Navigator.of(context).pushNamedAndRemoveUntil('finish', ModalRoute.withName('home'));
         } else {
           Scaffold.of(context).showSnackBar(
             SnackBar(
@@ -97,7 +97,21 @@ class _PaymentMethodState extends State<PaymentMethod> {
 
         break;
       case 1:
-        // Navigator.pushNamed(context, 'cardPage');
+        final response = await cartsProvider.updateShoppingCart(
+          estado: 'Pendiente de pago',
+          payReference: 'No aplica'
+        );
+        if (response == true) {
+          Navigator.of(context).pushNamedAndRemoveUntil('finish', ModalRoute.withName('home'));
+        } else {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Text('Algo salio mal, intente de nuevo más tarde'),
+              duration: new Duration(milliseconds: 3000),
+            ),
+          );
+        }
         break;
     }
   }

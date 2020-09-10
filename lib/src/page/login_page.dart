@@ -127,8 +127,8 @@ class _LoginPageState extends State<LoginPage> {
           decoration: InputDecoration(
             icon: Icon( Icons.alternate_email, color: Theme.of(context).primaryColor),
             hintText: 'ejemplo@correo.com',
-            labelText: 'Correo electronico',   
-            errorText: snapshot.error
+            labelText: 'Correo electrónico',   
+            errorText: snapshot.error,
           ),
           onChanged: bloc.changeEmailLogin,
         ),
@@ -213,7 +213,7 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(kDefaultRadius)
             ),
             // elevation: 0.0,
-            color: kColorSecundario,
+            color: kColorPrimario,
             textColor: Colors.white,
             onPressed: snapshot.hasData ? () {
               _login();

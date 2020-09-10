@@ -80,7 +80,7 @@ class AddressesPage extends StatelessWidget {
 
     return FloatingActionButton(  
       child: Icon(Icons.add),
-      backgroundColor: kColorSecundario,
+      backgroundColor: kColorPrimario,
       onPressed: () => _navigateToRegisterPage(context),
     );
   }

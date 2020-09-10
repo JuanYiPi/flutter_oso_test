@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/list_categories.dart';
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
 import 'package:flutter_oso_test/src/providers/categories_provider.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 
 class CategoriesPage extends StatefulWidget {
@@ -13,6 +14,7 @@ class CategoriesPage extends StatefulWidget {
 
 class _CategoriesPageState extends State<CategoriesPage> {
   final categoriesProvider = CategoriasProvider();
+  final prefs = UserPreferences();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       title: Text(
-        'Categorias'
+        'Categorías'
       ),
       leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: ()=> Navigator.pop(context)),
       actions: <Widget>[
@@ -65,7 +67,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
           }
         ),
 
-        IconButton(
+        if (prefs.idUsuario != 0) IconButton(
           icon: Icon(Icons.shopping_cart), 
           onPressed: () {
             Navigator.pushNamed(context, 'shopping_cart');

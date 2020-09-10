@@ -47,6 +47,7 @@ class DirectionsProvider {
     } catch (err) {
       print(err.toString());
     }
+    print("getAllDirections");
     return null;
   }
 
@@ -92,7 +93,6 @@ class DirectionsProvider {
     try {
       final direction = new Direction.fromJsonMap(decodedData['data']);
       print(decodedData['error']);
-      getAllDirections();  //STREAM
       return direction;
     } catch (err) {
 

@@ -179,7 +179,7 @@ class _RegistroPageState extends State<RegistroPage> {
             decoration: InputDecoration(
               icon: Icon( Icons.alternate_email, color: Theme.of(context).primaryColor),
               hintText: 'ejemplo@correo.com',
-              labelText: 'Correo electronico',
+              labelText: 'Correo electrónico',
               errorText: snapshot.error,
             ),
             onChanged: bloc.changeEmail,
@@ -301,7 +301,7 @@ class _RegistroPageState extends State<RegistroPage> {
     return Container(
       width: size.width * 0.6,
       height: 45.0,
-      child: RaisedButton(
+      child: OutlineButton(
         child: Text('Cancelar'),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius)
@@ -361,7 +361,7 @@ class _RegistroPageState extends State<RegistroPage> {
               style: TextStyle(color: Colors.black,),
               children: [
                 TextSpan(text: "Usuario creado exitosamente!\n"),
-                TextSpan(text: 'Se le ha enviado un correo electronico para verificar su cuenta', style: TextStyle(fontWeight: FontWeight.w500)),
+                TextSpan(text: 'Se le ha enviado un correo electrónico para verificar su cuenta', style: TextStyle(fontWeight: FontWeight.w500)),
               ]
             ),
             textAlign: TextAlign.center,

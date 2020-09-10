@@ -95,7 +95,7 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
       decoration: InputDecoration(
         icon: Icon( Icons.alternate_email, color: Theme.of(context).primaryColor),
         hintText: 'ejemplo@correo.com',
-        labelText: 'Correo electronico',
+        labelText: 'Correo electrónico',
       ),
       onChanged: (value){
         setState(() {
@@ -118,9 +118,9 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
           borderRadius: BorderRadius.circular(5.0)
         ),
         // elevation: 0.0,
-        color: kColorSecundario,
+        color: kColorPrimario,
         textColor: Colors.white,
-        onPressed: () {
+        onPressed: (name == prefs.userName && email == prefs.userEmail)? null : () {
           _updateUser(user, context);
         }, 
       ),
@@ -133,15 +133,11 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
       name: name,
       id: user.id.toString()
     );
-    // print(updatedUser);
-    // Navigator.pop(context, true);
+
     if (updatedUser is User) {
 
-      // prefs.id = response.id;
       prefs.userName = updatedUser.name;
       prefs.userEmail = updatedUser.email;
-
-      // setState(() {});
 
       showDialog(
         context: context,
@@ -152,7 +148,6 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
               child: Text('Aceptar'),
               onPressed: () {
                 Navigator.pop(context);
-                // Navigator.pushReplacementNamed(context, 'login');
               },
             )
           ],
@@ -161,7 +156,6 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
               style: TextStyle(color: Colors.black,),
               children: [
                 TextSpan(text: "Sus datos se han actualizado exitosamente!"),
-                // TextSpan(text: 'Se le ha enviado un correo electronico para verificar su cuenta', style: TextStyle(fontWeight: FontWeight.w500)),
               ]
             ),
             textAlign: TextAlign.center,
@@ -204,7 +198,7 @@ class _UpdateMyDataPageState extends State<UpdateMyDataPage> {
           borderRadius: BorderRadius.circular(kDefaultRadius)
         ),
         // elevation: 0.0,
-        color: kColorSecundario,
+        color: kColorPrimario,
         textColor: Colors.white,
         onPressed: ()=> Navigator.pop(context)
       ),

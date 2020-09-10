@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
         ),
         SizedBox(height: kDefaultPaddin,),
         FlatButton(
-          child: Text('Lista de categorias'),
+          child: Text('Lista de categorías'),
           onPressed: (){
           Navigator.pushNamed(context, 'cat_page');
         })
@@ -55,7 +55,6 @@ class HomePage extends StatelessWidget {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-      centerTitle: true,
       title: Text('Osoonline'),
       actions: <Widget>[
         IconButton(

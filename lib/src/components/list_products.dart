@@ -4,6 +4,7 @@ import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 
 class MyCustomScrollView extends StatelessWidget {
@@ -18,6 +19,7 @@ class MyCustomScrollView extends StatelessWidget {
 
   final ScrollController _scrollController = new ScrollController();
   final productsProvider = new ProductsProvider();
+  final prefs = UserPreferences();
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,7 @@ class MyCustomScrollView extends StatelessWidget {
           }
         ),
 
-        IconButton(
+        if (prefs.idUsuario != 0) IconButton(
           icon: Icon(Icons.shopping_cart), 
           onPressed: () {
             Navigator.pushNamed(context, 'shopping_cart');

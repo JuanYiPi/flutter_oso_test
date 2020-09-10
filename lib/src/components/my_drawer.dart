@@ -37,33 +37,33 @@ class _MyDrawerState extends State<MyDrawer> {
             // ),
           ),
 
-          ListTile(
+          if (prefs.idUsuario != 0) ListTile(
             onTap: ()=> Navigator.pushNamed(context, 'home'),
             leading: Icon(Icons.home, color: kColorPrimario),
             title: Text('Inicio'),
           ),
 
-          ListTile(
+          if (prefs.idUsuario != 0) ListTile(
             onTap: () {
-              Navigator.pushNamed(context, 'fav');
+              // Navigator.pushNamed(context, 'fav');
             },
             leading: Icon(Icons.favorite, color: kColorPrimario),
             title: Text('Favoritos'),
           ),
 
-          ListTile(
+          if (prefs.idUsuario != 0) ListTile(
             onTap: () => Navigator.pushNamed(context, 'my_shopping'),
             leading: Icon(Icons.shopping_basket, color: kColorPrimario),
             title: Text('Mis compras'),
           ),
 
-          ListTile(
+          if (prefs.idUsuario != 0) ListTile(
             onTap: () => Navigator.pushNamed(context, 'user_det', arguments: prefs.idUsuario),
             leading: Icon(Icons.account_circle, color: kColorPrimario),
             title: Text('Mi cuenta'),
           ),
 
-          ListTile(
+          if (prefs.idUsuario != 0) ListTile(
             onTap: () {},
             leading: Icon(Icons.notifications, color: kColorPrimario),
             title: Text('Notificaciones'),
@@ -74,7 +74,7 @@ class _MyDrawerState extends State<MyDrawer> {
             title: prefs.idUsuario == 0? Text('Iniciar sesión') : Text('Cerrar sesión'),
             onTap: () {
               prefs.rememberMe = false;
-              Navigator.pushReplacementNamed(context, 'login');
+              Navigator.of(context).pushNamedAndRemoveUntil('login', (Route<dynamic> route) => false);
             },
           ),
         ],

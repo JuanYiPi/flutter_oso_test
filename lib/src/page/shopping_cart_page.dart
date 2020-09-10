@@ -68,7 +68,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
         text: TextSpan(
           children: [
             TextSpan(text: 'Tu carrito esta vacío\n\n', style: textoLight),
-            TextSpan(text: '¿No sabes que comprar?\nRevisa las categorias de productos\nque tenemos disponibles para ti', 
+            TextSpan(text: '¿No sabes que comprar?\nRevisa las categorías de productos\nque tenemos disponibles para ti', 
               style: textoLightColor.copyWith(fontWeight: FontWeight.normal)
             ),
           ]
