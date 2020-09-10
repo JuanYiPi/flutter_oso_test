@@ -50,13 +50,58 @@ class _ChooseAddressState extends State<ChooseAddress> {
         centerTitle: true,
         title: Text('Mis direcciones'),
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          return _directionCard(directions[index]);
-        },
-        itemCount: directions.length,
-      ),
+      body: ListView(
+        children: [
+          _builDirections(directions),
+          _addDirectionButton(),
+          SizedBox(height: 20.0,),
+        ],
+      ), 
+      // ListView.builder(
+      //   itemBuilder: (context, index) {
+          // return _directionCard(directions[index]);
+      //   },
+      //   itemCount: directions.length,
+      // ),
       bottomNavigationBar: _bottomNavigationBar(context),
+    );
+  }
+
+  _builDirections(List<Direction> directions) {
+    return Column(children: directions.map((direction) => 
+    new Card(
+      elevation: 0.0,
+      child:  RadioListTile(
+        value: direction.id, 
+        groupValue: _directionId, 
+        onChanged: _setSelectedRadio,
+        title: ListTile(
+          title: Text('${direction.street} - ${direction.numberExt}', style: Theme.of(context).textTheme.subtitle2,),
+          subtitle: RichText(
+            text: TextSpan(
+              style: TextStyle(color: kTextLightColor,),
+              children: [
+                TextSpan(text: '\n${direction.colony} - ${direction.city}\n'),
+                TextSpan(text: '${direction.state} - ${direction.country}\n${direction.reference}\n'),
+                TextSpan(text: '${direction.receive}\n${direction.receivePhone}\n')
+              ]
+            )
+          ),
+        ),
+      ),
+    )).toList());
+  }
+
+  _addDirectionButton() {
+    return FlatButton(
+      child: Text('Agregar dirección'),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(kDefaultRadius)
+      ),
+      textColor: kColorSecundario,
+      onPressed: () {
+        _navigateToNewAddress();
+      },
     );
   }
 
@@ -163,32 +208,32 @@ class _ChooseAddressState extends State<ChooseAddress> {
     );
   }
 
-  Widget _directionCard(Direction direction) {
-    return Card(
-      elevation: 0.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5.0)
-      ),
-      child: RadioListTile(
-        value: direction.id, 
-        groupValue: _directionId, 
-        onChanged: _setSelectedRadio,
-        title: ListTile(
-          title: Text('${direction.street} - ${direction.numberExt}', style: Theme.of(context).textTheme.subtitle2,),
-          subtitle: RichText(
-            text: TextSpan(
-              style: TextStyle(color: kTextLightColor,),
-              children: [
-                TextSpan(text: '\n${direction.colony} - ${direction.city}\n'),
-                TextSpan(text: '${direction.state} - ${direction.country}\n${direction.reference}\n'),
-                TextSpan(text: '${direction.receive}\n${direction.receivePhone}\n')
-              ]
-            )
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _directionCard(Direction direction) {
+  //   return Card(
+  //     elevation: 0.0,
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.circular(5.0)
+  //     ),
+  //     child: RadioListTile(
+  //       value: direction.id, 
+  //       groupValue: _directionId, 
+  //       onChanged: _setSelectedRadio,
+  //       title: ListTile(
+  //         title: Text('${direction.street} - ${direction.numberExt}', style: Theme.of(context).textTheme.subtitle2,),
+  //         subtitle: RichText(
+  //           text: TextSpan(
+  //             style: TextStyle(color: kTextLightColor,),
+  //             children: [
+  //               TextSpan(text: '\n${direction.colony} - ${direction.city}\n'),
+  //               TextSpan(text: '${direction.state} - ${direction.country}\n${direction.reference}\n'),
+  //               TextSpan(text: '${direction.receive}\n${direction.receivePhone}\n')
+  //             ]
+  //           )
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   void _setSelectedRadio(int value) {
     _directionId = value;

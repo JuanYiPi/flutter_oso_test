@@ -76,18 +76,29 @@ class _MyShoppingPageState extends State<MyShoppingPage> {
     );
   }
 
-  Widget _purchaseCard(BuildContext context, Cart purchas) {
+  Widget _purchaseCard(BuildContext context, Cart purchase) {
     final card = Card(
       elevation: 0.0,
       child: Container(
-        height: 100.0,
+        alignment: Alignment.centerLeft,
+        // padding: EdgeInsets.all(20.0),
+        // height: 100.0,
+        child: ListTile(
+          leading: Icon(Icons.featured_play_list),
+          title: Text('${purchase.estado}'),
+          subtitle: Text('Tipo de entrega: ${purchase.metodoEntrega}'),
+          onTap: () {
+            Navigator.pushNamed(context, 'purchase_det', arguments: purchase);
+          },
+        )
       ),
     );
-
-    return GestureDetector(
-      child: card,
-      onTap: () {},
-    );
+    
+    return card;
+    // return GestureDetector(
+    //   child: card,
+    //   onTap: () {},
+    // );
   }
 
 }

@@ -53,6 +53,21 @@ class CartsProvider {
     return null;
   }
 
+  Future<List<CartDetail>> getCartDetailList({String cartId}) async {
+    final url = Uri.http(authority, 'api/carts/$cartId/details', {'api_key': apiKey});
+    
+    final response = await http.get(url);
+
+    try {
+      final decodedData = json.decode(response.body);
+      final cartDetailList = CartDetailList.fromJsonList(decodedData['data']);
+      return cartDetailList.items;
+    } catch (err) {
+      print(err.toString());
+    }
+    return null;
+  }
+
   Future<List<CartDetail>> getShoppingCart() async {
 
     final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails', {

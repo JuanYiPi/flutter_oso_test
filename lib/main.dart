@@ -7,6 +7,7 @@ import 'package:flutter_oso_test/src/page/buy_success.dart';
 import 'package:flutter_oso_test/src/page/choose_address_page.dart';
 import 'package:flutter_oso_test/src/page/confirm_buy_page.dart';
 import 'package:flutter_oso_test/src/page/payment_method_page.dart';
+import 'package:flutter_oso_test/src/page/purchase_det.dart';
 import 'package:flutter_oso_test/src/page/shipping_method_page.dart';
 
 //Pages
@@ -75,6 +76,7 @@ class MyApp extends StatelessWidget {
           'confirm'            :  ( BuildContext context ) => ConfirmBuyPage(),
           'update_address'     :  ( BuildContext context ) => UpdateAddress(),
           'finish'             :  ( BuildContext context ) => BuySuccess(),
+          'purchase_det'       :  ( BuildContext context ) => PurchaseDetPage(),
         },
         theme: ThemeData(
           primaryColor: kColorPrimario,

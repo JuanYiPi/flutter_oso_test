@@ -187,7 +187,7 @@ class ConfirmBuyPage extends StatelessWidget {
         ) : Column(
           children: [
             Icon(Icons.local_shipping, size: 40.0, color: kColorSecundario),
-            Text(direction.zip.toString()),
+            Text('CP ${direction.zip}'),
             Text(
               '\n${direction.street} - ${direction.numberExt} - ${direction.colony} - ${direction.receive} - ${direction.receivePhone}',
               textAlign: TextAlign.center
