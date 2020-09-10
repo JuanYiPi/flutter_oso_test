@@ -55,7 +55,7 @@ class DirectionsProvider {
       'api_key': apiKey
     });
 
-    final response = await http.post(url);
+    final response = await http.get(url);
 
     try {
       final decodedData = json.decode(response.body);

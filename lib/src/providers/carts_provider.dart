@@ -68,17 +68,6 @@ class CartsProvider {
 
         final shoppingList = CartDetailList.fromJsonList(decodedData['data']);
         final cartInfo = Cart.fromJsonMap(decodedData['total']);
-        
-        if (cartInfo.directionId != 0) {
-          final direction = await directionsProvider.getDirectionById(cartInfo.directionId.toString());
-          final cartCompuesto = new CartMap(
-            data: shoppingList.items,
-            total: cartInfo,
-            direction: direction
-          );
-          shoppingCartInfoSink(cartCompuesto);        //STREAM
-          return shoppingList.items;
-        }
 
         final cartCompuesto = new CartMap(
           data: shoppingList.items,
@@ -128,6 +117,17 @@ class CartsProvider {
         print(decodedData);
         final shoppingList = CartDetailList.fromJsonList(decodedData['data']);
         final cartInfo = Cart.fromJsonMap(decodedData['total']);
+
+        if (cartInfo.directionId != 0) {
+          final direction = await directionsProvider.getDirectionById(cartInfo.directionId.toString());
+          final cartCompuesto = new CartMap(
+            data: shoppingList.items,
+            total: cartInfo,
+            direction: direction
+          );
+
+          return cartCompuesto;
+        }
 
         final cartMap = new CartMap(
           data: shoppingList.items,

@@ -60,6 +60,7 @@ class ShippingMethod extends StatelessWidget {
     final resp = await cartsProvider.updateShoppingCart(
       gastos  : gastos.toString(),
       mEntrega: mEntrega,
+      directionId: '0'
     );
     if (resp == true){
       Navigator.pushNamed(context, 'confirm');
