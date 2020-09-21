@@ -30,4 +30,22 @@ class FavoritesProvider {
 
   }
 
+  Future<bool> addToFavorite(String productId) async {
+
+    final url = Uri.http(authority, 'api/favorites');
+
+    final resp = await http.post(url, body: {
+      'api_key'   : apiKey,
+      'user_id'   : prefs.idUsuario.toString(),
+      'product_id': productId
+    });
+
+    if (resp.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+    
+  }
+
 }

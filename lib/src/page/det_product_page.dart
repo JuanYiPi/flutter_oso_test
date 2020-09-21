@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 import 'package:flutter_oso_test/src/components/cart_counter.dart';
@@ -15,8 +16,9 @@ class DetProductPage extends StatefulWidget {
 
 class _DetProductPageState extends State<DetProductPage> {
 
-  final cartsProvider = new CartsProvider();
-  final productsProvider = new ProductsProvider();
+  final cartsProvider = CartsProvider();
+  final productsProvider = ProductsProvider();
+  final favProvider = FavoritesProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final prefs = UserPreferences();
 
@@ -38,7 +40,7 @@ class _DetProductPageState extends State<DetProductPage> {
   
     return Scaffold(
       key: scaffoldKey,
-      appBar: _buildAppBarDet(context),
+      appBar: _buildAppBarDet(context, product),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -57,13 +59,15 @@ class _DetProductPageState extends State<DetProductPage> {
     }
   }
 
-  AppBar _buildAppBarDet(BuildContext context) {
+  AppBar _buildAppBarDet(BuildContext context, Product product) {
     return prefs.idUsuario !=0? AppBar(
       title: Text('Producto'),
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.favorite_border), 
-          onPressed: () {}
+          onPressed: () {
+            favProvider.addToFavorite(product.id.toString());
+          }
         ),
 
         IconButton(
