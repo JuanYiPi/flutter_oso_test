@@ -45,7 +45,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
           if (prefs.idUsuario != 0) ListTile(
             onTap: () {
-              // Navigator.pushNamed(context, 'fav');
+              Navigator.pushNamed(context, 'favorites');
             },
             leading: Icon(Icons.favorite, color: kColorPrimario),
             title: Text('Favoritos'),
