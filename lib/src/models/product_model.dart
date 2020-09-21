@@ -41,10 +41,12 @@ class Product {
   }
 
   String getImg() {
+    
     if (imagen == null) {
       return null;
     } else {
-      final url = 'http://imposo.ddns.net:81/quickstart/img/products/$imagen';
+      // final url = 'http://imposo.ddns.net:81/quickstart/img/products/$imagen';
+      final url = 'http://192.168.0.2:8001/img/products/$imagen';
       return url;
     }
   }
