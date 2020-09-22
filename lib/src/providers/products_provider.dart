@@ -38,7 +38,8 @@ class ProductsProvider {
     final url = Uri.http(authority, 'api/categories/${prefs.idCategoria}/products',{
       'api_key'               : apiKey,
       'page': _productPage.toString(),
-      'rows': '20'
+      'rows': '20',
+      'user_id': prefs.idUsuario.toString()
     });
 
     final resp = await _procesarResp(url);
@@ -104,7 +105,8 @@ class ProductsProvider {
     final url = Uri.http(authority, 'api/categories/$id/products',{
       'api_key'               : apiKey,
       'page': '1',
-      'rows': '20'
+      'rows': '20',
+      'user_id': prefs.idUsuario.toString()
     });
 
     try {

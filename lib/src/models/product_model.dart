@@ -41,6 +41,7 @@ class Product {
     stock            = json['Stock'];
     precio           = json['Precio'] != null ? json['Precio'] /1 : 0.0;
     imagen           = json['Imagen'];
+    favorite         = json["Favorite"];
   }
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(

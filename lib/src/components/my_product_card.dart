@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/components/favorite_button.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
@@ -97,7 +98,7 @@ class MyProductCard extends StatelessWidget {
           SizedBox(height: 8.0),
 
           Text(
-            'Disponibilidad: ${product.stock}',
+            'Disponibilidad: ${product.stock} - Favorite ${product.favorite}',
             style: TextStyle(
               fontSize: 12.0,
               color: kTextGreenColor
@@ -111,12 +112,9 @@ class MyProductCard extends StatelessWidget {
   Column _buildLoveIcon(BuildContext context) {
     return Column(
       children: <Widget>[
-        IconButton(
-          icon: Icon(Icons.favorite_border, size: 16.0, color: Theme.of(context).primaryColor), 
-          onPressed: () {
-            favProvider.addToFavorite(this.product.id.toString());
-          }
-        ),
+
+        FavoriteButton(product: product),
+
       ],
     );
   }

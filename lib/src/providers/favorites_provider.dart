@@ -41,11 +41,33 @@ class FavoritesProvider {
     });
 
     if (resp.statusCode == 201) {
+      print('agregado a favoritos');
       return true;
     } else {
+      print('no se pudo agregar a favoritos');
       return false;
     }
-    
+
+  }
+
+  Future<bool> deleteFavorite(String productId) async {
+
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/products/$productId', {
+      'api_key'   : apiKey,
+      'user_id'   : prefs.idUsuario.toString(),
+      'product_id': productId
+    });
+
+    final resp = await http.delete(url);
+
+    if (resp.statusCode == 200) {
+      print('eliminado de favoritos');
+      return true;
+    } else {
+      print('no se pudo eliminar de favoritos');
+      return false;
+    }
+
   }
 
 }

@@ -47,7 +47,7 @@ class _MyDrawerState extends State<MyDrawer> {
             onTap: () {
               Navigator.pushNamed(context, 'favorites');
             },
-            leading: Icon(Icons.favorite, color: kColorPrimario),
+            leading: Icon(Icons.star, color: kColorPrimario),
             title: Text('Favoritos'),
           ),
 

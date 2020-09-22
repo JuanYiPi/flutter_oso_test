@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/components/favorite_button.dart';
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
@@ -63,12 +64,14 @@ class _DetProductPageState extends State<DetProductPage> {
     return prefs.idUsuario !=0? AppBar(
       title: Text('Producto'),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.favorite_border), 
-          onPressed: () {
-            favProvider.addToFavorite(product.id.toString());
-          }
-        ),
+
+        FavoriteButton(product: product, littleSize: false,),
+        // IconButton(
+        //   icon: Icon(Icons.favorite_border), 
+        //   onPressed: () {
+        //     favProvider.addToFavorite(product.id.toString());
+        //   }
+        // ),
 
         IconButton(
           icon: Icon(Icons.shopping_cart), 

@@ -100,7 +100,7 @@ class HomePage extends StatelessWidget {
           }       
         ),
         SizedBox(width: 10.0),
-        Icon(Icons.favorite),
+        Icon(Icons.star),
         SizedBox(width: 10.0),
       ],
     );
