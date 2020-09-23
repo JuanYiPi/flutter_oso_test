@@ -27,7 +27,7 @@ class User {
     email             = json['email'];
     emailVerifiedAt   = json['email_verified_at'];
     verified          = json['verified'];
-    role              = json['role'];
+    role              = (json['role'] is String) ? int.parse(json['role']) : json['role'];
     createdAt         = json['created_at'];
     updatedAt         = json['updated_at'];
   }
