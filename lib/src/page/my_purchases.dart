@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_oso_test/src/components/list_carts.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/cart_model.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
@@ -77,7 +76,7 @@ class _MyShoppingPageState extends State<MyShoppingPage> {
   }
 
   Widget _purchaseCard(BuildContext context, Cart purchase) {
-    final card = Card(
+    return Card(
       elevation: 0.0,
       child: Container(
         alignment: Alignment.centerLeft,
@@ -93,12 +92,6 @@ class _MyShoppingPageState extends State<MyShoppingPage> {
         )
       ),
     );
-    
-    return card;
-    // return GestureDetector(
-    //   child: card,
-    //   onTap: () {},
-    // );
   }
 
 }

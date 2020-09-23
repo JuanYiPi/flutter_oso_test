@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
+import 'package:flutter_oso_test/src/components/server_img.dart';
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
@@ -66,12 +67,6 @@ class _DetProductPageState extends State<DetProductPage> {
       actions: <Widget>[
 
         FavoriteButton(product: product, littleSize: false,),
-        // IconButton(
-        //   icon: Icon(Icons.favorite_border), 
-        //   onPressed: () {
-        //     favProvider.addToFavorite(product.id.toString());
-        //   }
-        // ),
 
         IconButton(
           icon: Icon(Icons.shopping_cart), 
@@ -124,26 +119,11 @@ class _DetProductPageState extends State<DetProductPage> {
     );
   }
 
-  ClipRRect _productImg(Size screenSize, Product product) {
-    return ClipRRect(
-      clipBehavior: Clip.antiAlias,
-      borderRadius: BorderRadius.circular(10.0),
-      child: FadeInImage(
-        imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-          print('Error Handler');
-          return Container(
-            width: screenSize.width * 0.9,
-            height: screenSize.width * 0.9,
-            child: Image.asset('assets/img/no_disponible.jpg'),
-          );
-        },
-        placeholder: AssetImage('assets/img/loading.gif'), 
-        image: product.getImg() != null? 
-          NetworkImage(product.getImg()) : AssetImage('assets/img/no_disponible'),
-        fit: BoxFit.cover,
-        height: screenSize.width * 0.9,
-        width: screenSize.width * 0.9,
-      ), 
+  Widget _productImg(Size screenSize, Product product) {
+    return ServerImage(
+      width: screenSize.width * 0.9, 
+      heigt: screenSize.width * 0.9, 
+      imageUrl: product.getImg()
     );
   }
 
