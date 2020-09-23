@@ -38,7 +38,8 @@ class ProductsProvider {
     final url = Uri.http(authority, 'api/categories/${prefs.idCategoria}/products',{
       'api_key'               : apiKey,
       'page': _productPage.toString(),
-      'rows': '20'
+      'rows': '20',
+      'user_id': prefs.idUsuario.toString()
     });
 
     final resp = await _procesarResp(url);
@@ -80,12 +81,32 @@ class ProductsProvider {
     return null;
   }
 
+  Future<List<Product>> getRecentProducts() async {
+
+    final url = Uri.http(authority, 'api/recentproducts', {
+      'api_key': apiKey,
+    });
+    
+    try {
+      final resp = await http.get(url);
+      final decodedData = json.decode(resp.body);
+      final allProducts = new Products.fromJsonList(decodedData['data']);
+      print(decodedData['data']);
+      return allProducts.items;
+    } catch (err) {
+      print(err.toString());
+      print('error');
+    }
+    return null;
+  }
+
   Future<List<Product>> getAllProductsByCategoryID(String id) async {
 
     final url = Uri.http(authority, 'api/categories/$id/products',{
       'api_key'               : apiKey,
       'page': '1',
-      'rows': '20'
+      'rows': '20',
+      'user_id': prefs.idUsuario.toString()
     });
 
     try {

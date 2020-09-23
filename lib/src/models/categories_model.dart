@@ -46,8 +46,8 @@ class Categoria {
       // return 'http://192.168.0.2:8001/img/categories/${imagen}wwww';
       return null;
     } else {
-      // final url = 'http://192.168.0.2:8001/img/categories/$imagen';
-      final url = 'http://imposo.ddns.net:81/quickstart/img/categories/$imagen';
+      final url = 'http://192.168.0.2:8001/img/categories/$imagen';
+      // final url = 'http://imposo.ddns.net:81/quickstart/img/categories/$imagen';
       return url;
     }
   }

@@ -6,6 +6,7 @@ import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/page/buy_success.dart';
 import 'package:flutter_oso_test/src/page/choose_address_page.dart';
 import 'package:flutter_oso_test/src/page/confirm_buy_page.dart';
+import 'package:flutter_oso_test/src/page/favorites_page.dart';
 import 'package:flutter_oso_test/src/page/payment_method_page.dart';
 import 'package:flutter_oso_test/src/page/purchase_det.dart';
 import 'package:flutter_oso_test/src/page/shipping_method_page.dart';
@@ -57,26 +58,27 @@ class MyApp extends StatelessWidget {
         // 'finish', 
         prefs.rememberMe? 'home' : 'login',
         routes: {
-          'login'              :  ( BuildContext context ) => LoginPage(),
-          'registro'           :  ( BuildContext context ) => RegistroPage(),
-          'home'               :  ( BuildContext context ) => HomePage(),
-          'user_det'           :  ( BuildContext context ) => UserDetPage(),
-          'update_data'        :  ( BuildContext context ) => UpdateMyDataPage(),
-          'cat_page'           :  ( BuildContext context ) => CategoriesPage(),
-          'det_product'        :  ( BuildContext context ) => DetProductPage(),
-          'products_by_cat'    :  ( BuildContext context ) => ProductsByCategoryPage(),
-          'shipping_addresses' :  ( BuildContext context ) => AddressesPage(),
-          'register_addresses' :  ( BuildContext context ) => RegisterAddresses(),
-          'my_shopping'        :  ( BuildContext context ) => MyShoppingPage(),
-          'det_shopping'       :  ( BuildContext context ) => DetCompraPage(),
-          'shopping_cart'      :  ( BuildContext context ) => ShoppingCartPage(),
-          'shipping'           :  ( BuildContext context ) => ShippingMethod(),
-          'address'            :  ( BuildContext context ) => ChooseAddress(),
-          'payment'            :  ( BuildContext context ) => PaymentMethod(),
-          'confirm'            :  ( BuildContext context ) => ConfirmBuyPage(),
-          'update_address'     :  ( BuildContext context ) => UpdateAddress(),
-          'finish'             :  ( BuildContext context ) => BuySuccess(),
-          'purchase_det'       :  ( BuildContext context ) => PurchaseDetPage(),
+          'login'              : ( BuildContext context ) => LoginPage(),
+          'registro'           : ( BuildContext context ) => RegistroPage(),
+          'home'               : ( BuildContext context ) => HomePage(),
+          'user_det'           : ( BuildContext context ) => UserDetPage(),
+          'update_data'        : ( BuildContext context ) => UpdateMyDataPage(),
+          'cat_page'           : ( BuildContext context ) => CategoriesPage(),
+          'det_product'        : ( BuildContext context ) => DetProductPage(),
+          'products_by_cat'    : ( BuildContext context ) => ProductsByCategoryPage(),
+          'shipping_addresses' : ( BuildContext context ) => AddressesPage(),
+          'register_addresses' : ( BuildContext context ) => RegisterAddresses(),
+          'my_shopping'        : ( BuildContext context ) => MyShoppingPage(),
+          'det_shopping'       : ( BuildContext context ) => DetCompraPage(),
+          'shopping_cart'      : ( BuildContext context ) => ShoppingCartPage(),
+          'shipping'           : ( BuildContext context ) => ShippingMethod(),
+          'address'            : ( BuildContext context ) => ChooseAddress(),
+          'payment'            : ( BuildContext context ) => PaymentMethod(),
+          'confirm'            : ( BuildContext context ) => ConfirmBuyPage(),
+          'update_address'     : ( BuildContext context ) => UpdateAddress(),
+          'finish'             : ( BuildContext context ) => BuySuccess(),
+          'purchase_det'       : ( BuildContext context ) => PurchaseDetPage(),
+          'favorites'          : ( BuildContext context ) => FavoritesPage(),
         },
         theme: ThemeData(
           primaryColor: kColorPrimario,

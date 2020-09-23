@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/components/favorite_button.dart';
+import 'package:flutter_oso_test/src/components/server_img.dart';
+import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 import 'package:flutter_oso_test/src/components/cart_counter.dart';
@@ -15,8 +18,9 @@ class DetProductPage extends StatefulWidget {
 
 class _DetProductPageState extends State<DetProductPage> {
 
-  final cartsProvider = new CartsProvider();
-  final productsProvider = new ProductsProvider();
+  final cartsProvider = CartsProvider();
+  final productsProvider = ProductsProvider();
+  final favProvider = FavoritesProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final prefs = UserPreferences();
 
@@ -38,7 +42,7 @@ class _DetProductPageState extends State<DetProductPage> {
   
     return Scaffold(
       key: scaffoldKey,
-      appBar: _buildAppBarDet(context),
+      appBar: _buildAppBarDet(context, product),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -57,14 +61,12 @@ class _DetProductPageState extends State<DetProductPage> {
     }
   }
 
-  AppBar _buildAppBarDet(BuildContext context) {
+  AppBar _buildAppBarDet(BuildContext context, Product product) {
     return prefs.idUsuario !=0? AppBar(
       title: Text('Producto'),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.favorite_border), 
-          onPressed: () {}
-        ),
+
+        FavoriteButton(product: product, littleSize: false,),
 
         IconButton(
           icon: Icon(Icons.shopping_cart), 
@@ -117,26 +119,11 @@ class _DetProductPageState extends State<DetProductPage> {
     );
   }
 
-  ClipRRect _productImg(Size screenSize, Product product) {
-    return ClipRRect(
-      clipBehavior: Clip.antiAlias,
-      borderRadius: BorderRadius.circular(10.0),
-      child: FadeInImage(
-        imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-          print('Error Handler');
-          return Container(
-            width: screenSize.width * 0.9,
-            height: screenSize.width * 0.9,
-            child: Image.asset('assets/img/no_disponible.jpg'),
-          );
-        },
-        placeholder: AssetImage('assets/img/loading.gif'), 
-        image: product.getImg() != null? 
-          NetworkImage(product.getImg()) : AssetImage('assets/img/no_disponible'),
-        fit: BoxFit.cover,
-        height: screenSize.width * 0.9,
-        width: screenSize.width * 0.9,
-      ), 
+  Widget _productImg(Size screenSize, Product product) {
+    return ServerImage(
+      width: screenSize.width * 0.9, 
+      heigt: screenSize.width * 0.9, 
+      imageUrl: product.getImg()
     );
   }
 

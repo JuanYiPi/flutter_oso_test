@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/categories_swiper.dart';
 
 import 'package:flutter_oso_test/src/components/my_drawer.dart';
+import 'package:flutter_oso_test/src/components/recent_products.dart';
+import 'package:flutter_oso_test/src/models/categories_model.dart';
+import 'package:flutter_oso_test/src/models/product_model.dart';
+import 'package:flutter_oso_test/src/providers/products_provider.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 import '../components/search_delegate.dart';
@@ -12,6 +16,7 @@ class HomePage extends StatelessWidget {
 
   final prefs = new UserPreferences();
   final catProvider = new CategoriasProvider();
+  final productsProvider = new ProductsProvider();
 
   @override
   Widget build(BuildContext context) {
@@ -26,31 +31,52 @@ class HomePage extends StatelessWidget {
     return ListView(
       children: [
         SizedBox(height: kDefaultPaddin,),
-        FutureBuilder(
-          future: catProvider.getAllCategorias(),
-          builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-            if (snapshot.hasData) {
-              return CategoriesSwiper(
-                categorias: snapshot.data
-              );
-            } else {
-              return Container(
-                height: 400.0,
-                child: Center(
-                  child: CircularProgressIndicator()
-                )
-              );
-            }  
-          },
-        ),
+        _categorias(),
         SizedBox(height: kDefaultPaddin,),
         FlatButton(
           child: Text('Lista de categorías'),
           onPressed: (){
           Navigator.pushNamed(context, 'cat_page');
-        })
+        }),
+        SizedBox(height: kDefaultPaddin,),
+        Column(
+          children: [
+            Text('Agregados recientemente', style: TextStyle(fontWeight: FontWeight.bold)),
+            SizedBox(height: 10.0,),
+            FutureBuilder(
+              future: productsProvider.getRecentProducts(),
+              builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot) {
+                if (snapshot.hasData) {
+                  return RecentProducts(productos: snapshot.data);
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
+          ],
+        ),
       ],
     );
+  }
+
+  FutureBuilder<List<Categoria>> _categorias() {
+    return FutureBuilder(
+        future: catProvider.getAllCategorias(),
+        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+          if (snapshot.hasData) {
+            return CategoriesSwiper(
+              categorias: snapshot.data
+            );
+          } else {
+            return Container(
+              height: 400.0,
+              child: Center(
+                child: CircularProgressIndicator()
+              )
+            );
+          }  
+        },
+      );
   }
 
   AppBar _buildAppBar(BuildContext context) {
@@ -74,7 +100,7 @@ class HomePage extends StatelessWidget {
           }       
         ),
         SizedBox(width: 10.0),
-        Icon(Icons.favorite),
+        Icon(Icons.star),
         SizedBox(width: 10.0),
       ],
     );

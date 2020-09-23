@@ -1,3 +1,4 @@
+
 class Product {
   int cantidadCompra = 1;
   int categoryId;
@@ -11,6 +12,7 @@ class Product {
   int stock;
   double precio;
   String imagen;
+  int favorite;
 
   Product({
     this.categoryId,
@@ -24,6 +26,7 @@ class Product {
     this.stock,
     this.precio,
     this.imagen,
+    this.favorite
   });
 
   Product.fromJsonMap(Map<String, dynamic> json ) {
@@ -38,13 +41,46 @@ class Product {
     stock            = json['Stock'];
     precio           = json['Precio'] != null ? json['Precio'] /1 : 0.0;
     imagen           = json['Imagen'];
+    favorite         = json["Favorite"];
   }
 
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+    categoryId      : json["category_id"],
+    idProductoCodigo: json["IdProductoCodigo"],
+    idProductoPres  : json["IdProductoPres"],
+    idProductoDesc  : json["IdProductoDesc"],
+    id              : json["id"],
+    codigo          : json["Codigo"],
+    descripcion     : json["Descripcion"],
+    unidad          : json["Unidad"],
+    stock           : json["Stock"],
+    precio          : json['Precio'] != null ? json['Precio'] /1 : 0.0,
+    imagen          : json["Imagen"] == null ? null : json["Imagen"],
+    favorite        : json["Favorite"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "category_id": categoryId,
+    "IdProductoCodigo": idProductoCodigo,
+    "IdProductoPres": idProductoPres,
+    "IdProductoDesc": idProductoDesc,
+    "id": id,
+    "Codigo": codigo,
+    "Descripcion": descripcion,
+    "Unidad": unidad,
+    "Stock": stock,
+    "Precio": precio,
+    "Imagen": imagen == null ? null : imagen,
+    "Favorite": favorite,
+  };
+
   String getImg() {
+    
     if (imagen == null) {
       return null;
     } else {
-      final url = 'http://imposo.ddns.net:81/quickstart/img/products/$imagen';
+      // final url = 'http://imposo.ddns.net:81/quickstart/img/products/$imagen';
+      final url = 'http://192.168.0.2:8001/img/products/$imagen';
       return url;
     }
   }
