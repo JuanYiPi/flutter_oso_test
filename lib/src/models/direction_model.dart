@@ -13,7 +13,7 @@ class Direction {
   String state;
   String country;
   String reference;
-  int selection;
+  String selection;
   String createdAt;
   String updatedAt;
 
