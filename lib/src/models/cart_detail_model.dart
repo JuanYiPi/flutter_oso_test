@@ -54,9 +54,11 @@ class CartDetail {
 
   String getImg() {
     if (imagen == null) {
-      return 'http://imposo.ddns.net:81/quickstart/img/products/${imagen}wwww';
+      // return 'http://imposo.ddns.net:81/quickstart/img/products/${imagen}wwww';
+      return 'http://192.168.0.2:8001/img/products/${imagen}wwww';
     } else {
-      final url = 'http://imposo.ddns.net:81/quickstart/img/products/$imagen';
+      // final url = 'http://imposo.ddns.net:81/quickstart/img/products/$imagen';
+      final url = 'http://192.168.0.2:8001/img/products/$imagen';
       return url;
     }
   }
