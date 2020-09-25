@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_oso_test/src/components/server_img.dart';
+import 'package:flutter_oso_test/src/components/server_image.dart';
 
 import 'package:flutter_oso_test/src/models/categories_model.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';

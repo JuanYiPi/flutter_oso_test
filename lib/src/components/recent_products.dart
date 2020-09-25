@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_oso_test/src/components/server_img.dart';
+import 'package:flutter_oso_test/src/components/server_image.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 
@@ -60,25 +60,5 @@ class RecentProducts extends StatelessWidget {
       heigt: 150.0,
       imageUrl: product.getImg()
     );
-
-    // ClipRRect(
-    //   clipBehavior: Clip.antiAlias,
-    //   borderRadius: BorderRadius.circular(10.0),
-    //   child: FadeInImage(
-    //     imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-    //       print('Error Handler');
-    //       return Container(
-    //         height: 150.0,
-    //         child: Image.asset('assets/img/no_disponible.jpg'),
-    //       );
-    //     },
-    //     placeholder: AssetImage('assets/img/loading.gif'), 
-    //     image: product.getImg() != null? 
-    //       NetworkImage(product.getImg()) : AssetImage('assets/img/no_disponible'),
-    //     fit: BoxFit.cover,
-    //     // width: ,
-    //     height: 150.0,
-    //   ), 
-    // );
   }
 }

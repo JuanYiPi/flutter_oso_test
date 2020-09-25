@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
-import 'package:flutter_oso_test/src/components/server_img.dart';
+import 'package:flutter_oso_test/src/components/server_image.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
