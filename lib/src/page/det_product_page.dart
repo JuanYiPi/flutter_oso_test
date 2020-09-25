@@ -44,6 +44,7 @@ class _DetProductPageState extends State<DetProductPage> {
       key: scaffoldKey,
       appBar: _buildAppBarDet(context, product),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Stack(
           children: [
             _buildProductTitleImgPrice(context, screenSize, product),

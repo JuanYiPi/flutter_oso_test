@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     return ListView(
+      physics: BouncingScrollPhysics(),
       children: [
         SizedBox(height: kDefaultPaddin,),
         _categorias(),
@@ -100,7 +101,10 @@ class HomePage extends StatelessWidget {
           }       
         ),
         SizedBox(width: 10.0),
-        Icon(Icons.star),
+        IconButton(
+          icon: Icon(Icons.star),
+          onPressed: () => Navigator.pushNamed(context, 'favorites'),
+        ),
         SizedBox(width: 10.0),
       ],
     );
