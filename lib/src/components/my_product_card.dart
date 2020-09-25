@@ -55,8 +55,8 @@ class MyProductCard extends StatelessWidget {
             )
           )
         ),
-        onDismissed: (_) {
-          favProvider.deleteFavorite(this.product.id.toString());
+        onDismissed: (_) async {
+          await favProvider.deleteFavorite(this.product.id.toString());
           this.onDelete();
         },
         child: cardProduct
