@@ -1,4 +1,6 @@
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class CartDetail {
   int id;
   int cartId;
@@ -53,12 +55,17 @@ class CartDetail {
   }
 
   String getImg() {
+
+    final String uncodedPath = DotEnv().env['IMG_API_PATH_DEV'];
+
     if (imagen == null) {
       // return 'http://imposo.ddns.net:81/quickstart/img/products/${imagen}wwww';
-      return 'http://192.168.0.2:8001/img/products/${imagen}wwww';
+      // return 'http://192.168.0.2:8001/img/products/${imagen}wwww';
+      return null;
     } else {
       // final url = 'http://imposo.ddns.net:81/quickstart/img/products/$imagen';
-      final url = 'http://192.168.0.2:8001/img/products/$imagen';
+      // final url = 'http://192.168.0.2:8001/img/products/$imagen';
+      final url = 'http://$uncodedPath/img/products/$imagen';
       return url;
     }
   }
