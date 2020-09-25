@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/components/server_img.dart';
 
 import 'package:flutter_oso_test/src/models/categories_model.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
@@ -39,23 +40,11 @@ class CategoriesSwiper extends StatelessWidget {
 
     final queryData = MediaQuery.of(context);
 
-    final caratulaCategoria = Container(
-      height: double.infinity,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: FadeInImage(
-          imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-            print('Error Handler');
-            return Container(
-              child: Image.asset('assets/img/no-image.jpg'),
-            );
-          },
-          placeholder: AssetImage('assets/img/loading2.gif'), 
-          image: categoria.getImg() != null? 
-            NetworkImage(categoria.getImg()) : AssetImage('assets/img/no-image.jpg'),
-          fit: BoxFit.cover,
-        ),
-      ),
+    final caratulaCategoria = ServerImage(
+      heigt: double.infinity,
+      width: double.infinity,
+      imageUrl: categoria.getImg(),
+      errorImagePath: 'assets/img/white.jpg',
     );
 
     final categoryName = Center(

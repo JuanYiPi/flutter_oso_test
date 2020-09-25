@@ -116,6 +116,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     );
 
     return Dismissible(
+      direction: DismissDirection.startToEnd,
       key: UniqueKey(),
       background: Container(
         color: Colors.redAccent, 
@@ -126,7 +127,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           )
         )
       ),
-      onDismissed: (direction) {
+      onDismissed: (_) {
         cartsProvider.deleteFromShoppingCart(cartItem);
       },
       child: cardProduct
@@ -139,25 +140,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
       heigt: 85.0, 
       imageUrl: cartItem.getImg()
     ); 
-    // ClipRRect(
-    //   clipBehavior: Clip.antiAlias,
-    //   borderRadius: BorderRadius.circular(10.0),
-    //   child: FadeInImage(
-    //     imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-    //       print('Error Handler');
-    //       return Container(
-    //         width: 85.0,
-    //         height: 85.0,
-    //         child: Image.asset('assets/img/no_disponible.jpg'),
-    //       );
-    //     },
-    //     placeholder: AssetImage('assets/img/loading.gif'), 
-    //     image: NetworkImage(cartItem.getImg()),
-    //     fit: BoxFit.cover,
-    //     height: 85.0,
-    //     width: 85.0,
-    //   ),  
-    // );
   }
 
   Widget _buildProductText(BuildContext context, CartDetail cartItem) {

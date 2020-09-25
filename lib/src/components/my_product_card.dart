@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
+import 'package:flutter_oso_test/src/components/server_img.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
@@ -46,26 +47,12 @@ class MyProductCard extends StatelessWidget {
 
   }
 
-  ClipRRect _buildProductImg() {
-    return ClipRRect(
-      clipBehavior: Clip.antiAlias,
-      borderRadius: BorderRadius.circular(10.0),
-      child: FadeInImage(
-        imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-          print('Error Handler');
-          return Container(
-            width: 100.0,
-            height: 100.0,
-            child: Image.asset('assets/img/no_disponible.jpg'),
-          );
-        },
-        placeholder: AssetImage('assets/img/loading.gif'), 
-        image: product.getImg() != null? NetworkImage(product.getImg()): AssetImage('assets/img/no_disponible.jpg'),
-        fit: BoxFit.cover,
-        height: 100.0,
-        width: 100.0,
-      ), 
-    );
+  Widget _buildProductImg() {
+    return ServerImage(
+      width: 100.0, 
+      heigt: 100.0, 
+      imageUrl: product.getImg()
+    ); 
   }
 
   Expanded _buildProductText(BuildContext context) {
@@ -98,7 +85,7 @@ class MyProductCard extends StatelessWidget {
           SizedBox(height: 8.0),
 
           Text(
-            'Disponibilidad: ${product.stock} - Favorite ${product.favorite}',
+            'Disponibilidad: ${product.stock}',
             style: TextStyle(
               fontSize: 12.0,
               color: kTextGreenColor

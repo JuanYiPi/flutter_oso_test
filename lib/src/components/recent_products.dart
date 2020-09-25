@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/components/server_img.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 
@@ -23,30 +24,12 @@ class RecentProducts extends StatelessWidget {
     return Container(
       height: 250.0,
       child: _buildProducts(context, this.productos)
-      
-      //  PageView(
-      //   scrollDirection: Axis.horizontal,
-      //   pageSnapping: false,
-      //   controller: _pageController,
-      //   children: [
-      //     _buildProducts(context ,this.productos),
-      //   ],
-      // ), 
-
-      // PageView.builder(
-      //   pageSnapping: false,
-      //   controller: _pageController,
-      //   itemCount: productos.length,
-      //   itemBuilder: (context, i) {
-      //     return _createProduct(context, productos[i]);
-      //   },
-      //   // children: _tarjetas(context),
-      // ),
     );
   }
 
   Widget _buildProducts(BuildContext context, List<Product> products) {
     return PageView(
+      physics: BouncingScrollPhysics(),
       controller: _pageController,
       pageSnapping: false,
       children: products.map((product) => 
@@ -69,48 +52,33 @@ class RecentProducts extends StatelessWidget {
       )
     ).toList());
   }
-  // Widget _createProduct(BuildContext context, Product product) {
-  //   final caratulaMovie = Container(
 
-  //     margin: EdgeInsets.only(right: 15.0),
-  //     child: Column(
-  //       children: [
-  //         Text(product.descripcion, overflow: TextOverflow.ellipsis,),
-  //         SizedBox(height: 5.0,),
-  //         _img(product),
-  //         SizedBox(height: 5.0,),
-  //         Text('\$${product.getPrice()[0]}.${product.getPrice()[1]}', style: priceLight)
-  //       ],
-  //     )
-  //   );
 
-  //   return GestureDetector(
-  //     child: caratulaMovie,
-  //     onTap: () {
-  //       Navigator.pushNamed(context, 'det_product', arguments: product);
-  //     },
-  //   );
-  // }
-
-  ClipRRect _img(Product product) {
-    return ClipRRect(
-      clipBehavior: Clip.antiAlias,
-      borderRadius: BorderRadius.circular(10.0),
-      child: FadeInImage(
-        imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-          print('Error Handler');
-          return Container(
-            height: 150.0,
-            child: Image.asset('assets/img/no_disponible.jpg'),
-          );
-        },
-        placeholder: AssetImage('assets/img/loading.gif'), 
-        image: product.getImg() != null? 
-          NetworkImage(product.getImg()) : AssetImage('assets/img/no_disponible'),
-        fit: BoxFit.cover,
-        // width: ,
-        height: 150.0,
-      ), 
+  Widget _img(Product product) {
+    return ServerImage(
+      width: double.infinity, 
+      heigt: 150.0,
+      imageUrl: product.getImg()
     );
+
+    // ClipRRect(
+    //   clipBehavior: Clip.antiAlias,
+    //   borderRadius: BorderRadius.circular(10.0),
+    //   child: FadeInImage(
+    //     imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+    //       print('Error Handler');
+    //       return Container(
+    //         height: 150.0,
+    //         child: Image.asset('assets/img/no_disponible.jpg'),
+    //       );
+    //     },
+    //     placeholder: AssetImage('assets/img/loading.gif'), 
+    //     image: product.getImg() != null? 
+    //       NetworkImage(product.getImg()) : AssetImage('assets/img/no_disponible'),
+    //     fit: BoxFit.cover,
+    //     // width: ,
+    //     height: 150.0,
+    //   ), 
+    // );
   }
 }
