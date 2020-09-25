@@ -82,7 +82,7 @@ class HomePage extends StatelessWidget {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-      title: Text('Osoonline'),
+      title: Text('Inicio'),
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.search),
@@ -100,7 +100,7 @@ class HomePage extends StatelessWidget {
             }
           }       
         ),
-        SizedBox(width: 10.0),
+        // SizedBox(width: 10.0),
         IconButton(
           icon: Icon(Icons.star),
           onPressed: () => Navigator.pushNamed(context, 'favorites'),

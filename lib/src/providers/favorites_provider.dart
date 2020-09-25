@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_oso_test/src/models/favorites_response.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +14,17 @@ class FavoritesProvider {
   String authority = DotEnv().env['OSO_BASE_URL'];
   String apiKey    = DotEnv().env['OSO_API_KEY'];
 
+  // FAVORITES STREAM
+  List<Product> _favoritos = new List();
+  final _favoritosStreamController = StreamController<List<Product>>.broadcast();
+  Function(List<Product>) get favoritosSink => _favoritosStreamController.sink.add;
+  Stream<List<Product>> get favoritosStream => _favoritosStreamController.stream;
+
+  void disposeStream() {
+    _favoritosStreamController?.close();
+  }
+  // FAVORITES STREAM
+
   Future<List<Product>> getFavorites() async {
 
     final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/favorites', {
@@ -22,6 +35,11 @@ class FavoritesProvider {
 
     try {
       final favoritos = favoritesFromJson(resp.body);
+      // STREAM
+      _favoritos = [];
+      _favoritos.addAll(favoritos.data);
+      favoritosSink(_favoritos);
+      // STREAM
       return favoritos.data;
     } catch (e) {
       print(e.toString());
