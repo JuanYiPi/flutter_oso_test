@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_oso_test/src/components/server_img.dart';
+import 'package:flutter_oso_test/src/components/shopping_cart_product.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
@@ -91,114 +91,11 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
   Widget _listCartDetail({List<CartDetail> cartItems}) {
     return ListView.builder(
-      itemBuilder: (context, index) => _cartDetail(context, cartItems[index]),
+      itemBuilder: (context, index) => ShoppingCartProduct(
+        cartItem: cartItems[index], 
+        onDelete: cartsProvider.getShoppingCart
+      ),
       itemCount: cartItems.length,
-    );
-  }
-
-  Widget _cartDetail(BuildContext context, CartDetail cartItem) {
-
-    final cardProduct = Card(
-      elevation: 0.0,
-      child: Container(
-        padding: EdgeInsets.only(left: kDefaultPaddin/2),
-        height: 120.0,
-        width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            _buildProductImg(cartItem),
-            SizedBox(width: kDefaultPaddin/2,),
-            _buildProductText(context, cartItem),
-          ],
-        ),
-      ),
-    );
-
-    return Dismissible(
-      key: UniqueKey(),
-      background: Container(
-        color: Colors.redAccent, 
-        child: Center(
-          child: Text(
-            'Eliminar', 
-            style: TextStyle(color: Colors.white),
-          )
-        )
-      ),
-      onDismissed: (direction) {
-        cartsProvider.deleteFromShoppingCart(cartItem);
-      },
-      child: cardProduct
-    );
-  }
-
-  Widget _buildProductImg(CartDetail cartItem) {
-    return ServerImage(
-      width: 85.0, 
-      heigt: 85.0, 
-      imageUrl: cartItem.getImg()
-    ); 
-    // ClipRRect(
-    //   clipBehavior: Clip.antiAlias,
-    //   borderRadius: BorderRadius.circular(10.0),
-    //   child: FadeInImage(
-    //     imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-    //       print('Error Handler');
-    //       return Container(
-    //         width: 85.0,
-    //         height: 85.0,
-    //         child: Image.asset('assets/img/no_disponible.jpg'),
-    //       );
-    //     },
-    //     placeholder: AssetImage('assets/img/loading.gif'), 
-    //     image: NetworkImage(cartItem.getImg()),
-    //     fit: BoxFit.cover,
-    //     height: 85.0,
-    //     width: 85.0,
-    //   ),  
-    // );
-  }
-
-  Widget _buildProductText(BuildContext context, CartDetail cartItem) {
-    return Flexible( 
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: Text(
-                  cartItem.descripcion.toLowerCase(),
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: kTextColor,
-                  ),
-                ),
-              ),
-              IconButton(icon: Icon(Icons.delete, color: kTextLightColor,), onPressed: () {
-                cartsProvider.deleteFromShoppingCart(cartItem);
-              })
-            ],
-          ),
-          SizedBox(height: 15.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              FlatButton(
-                onPressed: (){}, 
-                child: Text('Cantidad: ${cartItem.cantidad}', style: textoLight,)
-              ),
-              Text(
-                '\$${cartItem.total}0',
-                style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 

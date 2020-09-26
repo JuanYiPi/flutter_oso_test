@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     return ListView(
+      physics: BouncingScrollPhysics(),
       children: [
         SizedBox(height: kDefaultPaddin,),
         _categorias(),
@@ -81,7 +82,7 @@ class HomePage extends StatelessWidget {
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
-      title: Text('Osoonline'),
+      title: Text('Inicio'),
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.search),
@@ -99,8 +100,11 @@ class HomePage extends StatelessWidget {
             }
           }       
         ),
-        SizedBox(width: 10.0),
-        Icon(Icons.star),
+        // SizedBox(width: 10.0),
+        IconButton(
+          icon: Icon(Icons.star),
+          onPressed: () => Navigator.pushNamed(context, 'favorites'),
+        ),
         SizedBox(width: 10.0),
       ],
     );

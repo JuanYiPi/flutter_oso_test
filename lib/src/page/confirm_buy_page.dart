@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_oso_test/src/components/server_image.dart';
 
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/cart_compuesto.dart';
@@ -145,20 +146,11 @@ class ConfirmBuyPage extends StatelessWidget {
             Container(
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(shape: BoxShape.circle),
-              child: FadeInImage(
-                imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                  print('Error Handler');
-                  return Container(
-                    width: 60.0,
-                    height: 60.0,
-                    child: Image.asset('assets/img/no_disponible.jpg'),
-                  );
-                },
-                placeholder: AssetImage('assets/img/loading.gif'), 
-                image: item.getImg() != null? NetworkImage(item.getImg()): AssetImage('assets/img/no_disponible.jpg'),
-                fit: BoxFit.cover,
-                height: 60.0,
-                width: 60.0,
+              child: ServerImage(
+                width: 60.0, 
+                heigt: 60.0, 
+                imageUrl: item.getImg(), 
+                errorImagePath: 'assets/img/no_disponible.jpg',
               ),
             ),
             SizedBox(height: 10.0,),

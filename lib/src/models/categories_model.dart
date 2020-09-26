@@ -1,4 +1,6 @@
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class Categorias {
 
   List<Categoria> items = new List();
@@ -42,11 +44,13 @@ class Categoria {
   }
 
   String getImg() {
+
+    final String uncodedPath = DotEnv().env['IMG_API_PATH_DEV'];
+
     if (imagen == null) {
-      // return 'http://192.168.0.2:8001/img/categories/${imagen}wwww';
       return null;
     } else {
-      final url = 'http://192.168.0.2:8001/img/categories/$imagen';
+      final url = 'http://$uncodedPath/img/categories/$imagen';
       // final url = 'http://imposo.ddns.net:81/quickstart/img/categories/$imagen';
       return url;
     }

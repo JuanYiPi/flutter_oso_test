@@ -1,4 +1,6 @@
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class Product {
   int cantidadCompra = 1;
   int categoryId;
@@ -75,12 +77,14 @@ class Product {
   };
 
   String getImg() {
+    final String uncodedPath = DotEnv().env['IMG_API_PATH_DEV'];
     
     if (imagen == null) {
       return null;
     } else {
       // final url = 'http://imposo.ddns.net:81/quickstart/img/products/$imagen';
-      final url = 'http://192.168.0.2:8001/img/products/$imagen';
+      // final url = 'http://192.168.0.2:8001/img/products/$imagen';
+      final url = 'http://$uncodedPath/img/products/$imagen';
       return url;
     }
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
-import 'package:flutter_oso_test/src/components/server_img.dart';
+import 'package:flutter_oso_test/src/components/server_image.dart';
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
@@ -44,6 +44,7 @@ class _DetProductPageState extends State<DetProductPage> {
       key: scaffoldKey,
       appBar: _buildAppBarDet(context, product),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Stack(
           children: [
             _buildProductTitleImgPrice(context, screenSize, product),

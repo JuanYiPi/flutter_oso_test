@@ -31,6 +31,7 @@ class MyCustomScrollView extends StatelessWidget {
     });
 
     return CustomScrollView(
+      physics: BouncingScrollPhysics(),
       controller: _scrollController,
       slivers: [
         _mySliverAppBar(context, title),
@@ -38,10 +39,6 @@ class MyCustomScrollView extends StatelessWidget {
           delegate: SliverChildListDelegate(
             List.generate(products.length, (index) => _myProductCard(context, products[index]))
           )
-          // SliverChildBuilderDelegate(
-          //   (context, index) => _myProductCard(context, products[index]),
-          //   childCount: products.length,
-          // ),
         ),
       ],
     );

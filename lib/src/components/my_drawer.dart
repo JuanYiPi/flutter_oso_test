@@ -31,7 +31,15 @@ class _MyDrawerState extends State<MyDrawer> {
             child: Stack(
               children: [
                 _buildFondo(),
-                Center(child: Icon(Icons.person, size: 120.0,color:  Colors.white,))                
+                // Center(child: Icon(Icons.person, size: 120.0,color:  Colors.white,)),
+                Center(
+                  child: prefs.idUsuario != 0 ?
+                  CircleAvatar(
+                    radius: 50.0,
+                    backgroundColor: Colors.white.withOpacity(0.5),
+                    child: Text(prefs.userName.substring(0,2), style: Theme.of(context).textTheme.headline3,),
+                  ) : Icon(Icons.person, size: 120.0,color:  Colors.white,)
+                )                    
               ],
             ),
             // ),
@@ -70,7 +78,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
 
           ListTile(
-            leading: Icon(Icons.power_settings_new, color: kColorPrimario),
+            leading: Icon(Icons.exit_to_app, color: kColorPrimario),
             title: prefs.idUsuario == 0? Text('Iniciar sesión') : Text('Cerrar sesión'),
             onTap: () {
               prefs.rememberMe = false;
