@@ -1,4 +1,4 @@
-package com.example.login_oso_prueba_uno
+package mx.com.importadoraoso
 
 import io.flutter.embedding.android.FlutterActivity
 
