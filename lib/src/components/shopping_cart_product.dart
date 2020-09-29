@@ -48,9 +48,9 @@ class ShoppingCartProduct extends StatelessWidget {
           )
         )
       ),
-      onDismissed: (_) {
-        cartsProvider.deleteFromShoppingCart(this.cartItem);
-        // onDelete();
+      onDismissed: (_) async {
+        await cartsProvider.deleteFromShoppingCart(this.cartItem);
+        onDelete();
       },
       child: cardProduct
     );
