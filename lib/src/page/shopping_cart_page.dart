@@ -93,7 +93,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     return ListView.builder(
       itemBuilder: (context, index) => ShoppingCartProduct(
         cartItem: cartItems[index], 
-        onDelete: cartsProvider.getShoppingCart
       ),
       itemCount: cartItems.length,
     );
@@ -128,7 +127,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             width: double.infinity,
             height: 45.0,
             child: RaisedButton(
-              // elevation: 5.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(kDefaultRadius)
               ),

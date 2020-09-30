@@ -29,9 +29,11 @@ class _ChooseAddressState extends State<ChooseAddress> {
   @override
   Widget build(BuildContext context) {
 
-    return FutureBuilder<List<Direction>>(
-      future: directionsProvider.getAllDirections(),
-      builder: (BuildContext context, AsyncSnapshot<List<Direction>> snapshot) {
+    directionsProvider.getAllDirections();
+
+    return StreamBuilder(
+      stream: directionsProvider.addressStream,
+      builder: (BuildContext context, AsyncSnapshot<List<Direction>> snapshot){
         if (!snapshot.hasData){
           return _buildLoadingScreen();
         }
@@ -57,12 +59,6 @@ class _ChooseAddressState extends State<ChooseAddress> {
           SizedBox(height: 20.0,),
         ],
       ), 
-      // ListView.builder(
-      //   itemBuilder: (context, index) {
-          // return _directionCard(directions[index]);
-      //   },
-      //   itemCount: directions.length,
-      // ),
       bottomNavigationBar: _bottomNavigationBar(context),
     );
   }
@@ -99,9 +95,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
         borderRadius: BorderRadius.circular(kDefaultRadius)
       ),
       textColor: kColorSecundario,
-      onPressed: () {
-        _navigateToNewAddress();
-      },
+      onPressed: () => Navigator.pushNamed(context, 'register_addresses'),
     );
   }
 
@@ -189,9 +183,7 @@ class _ChooseAddressState extends State<ChooseAddress> {
                 borderRadius: BorderRadius.circular(kDefaultRadius)
               ),
               textColor: kColorSecundario,
-              onPressed: () {
-                _navigateToNewAddress();
-              },
+              onPressed: () => Navigator.pushNamed(context, 'register_addresses'),
             )
           ],
         ),
@@ -208,33 +200,6 @@ class _ChooseAddressState extends State<ChooseAddress> {
     );
   }
 
-  // Widget _directionCard(Direction direction) {
-  //   return Card(
-  //     elevation: 0.0,
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(5.0)
-  //     ),
-  //     child: RadioListTile(
-  //       value: direction.id, 
-  //       groupValue: _directionId, 
-  //       onChanged: _setSelectedRadio,
-  //       title: ListTile(
-  //         title: Text('${direction.street} - ${direction.numberExt}', style: Theme.of(context).textTheme.subtitle2,),
-  //         subtitle: RichText(
-  //           text: TextSpan(
-  //             style: TextStyle(color: kTextLightColor,),
-  //             children: [
-  //               TextSpan(text: '\n${direction.colony} - ${direction.city}\n'),
-  //               TextSpan(text: '${direction.state} - ${direction.country}\n${direction.reference}\n'),
-  //               TextSpan(text: '${direction.receive}\n${direction.receivePhone}\n')
-  //             ]
-  //           )
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   void _setSelectedRadio(int value) {
     _directionId = value;
     print('$_directionId');
@@ -249,10 +214,5 @@ class _ChooseAddressState extends State<ChooseAddress> {
     );
 
     scaffoldKey.currentState.showSnackBar(snackbar);
-  }
-
-  void _navigateToNewAddress() async {
-    final resp = await Navigator.pushNamed(context, 'register_addresses');
-    setState(() {});
   }
 }

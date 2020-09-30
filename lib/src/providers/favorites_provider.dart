@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_oso_test/src/models/favorites_response.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
+import 'package:flutter_oso_test/src/providers/recent_products_provider.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -9,7 +10,16 @@ import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 class FavoritesProvider {
 
+  static final FavoritesProvider _instancia = new FavoritesProvider._internal();
+
+  factory FavoritesProvider() {
+    return _instancia;
+  }
+
+  FavoritesProvider._internal();
+
   final prefs = new UserPreferences();
+  final recentProductsProvider = RecentProductsProvider(); 
 
   String authority = DotEnv().env['OSO_BASE_URL'];
   String apiKey    = DotEnv().env['OSO_API_KEY'];
@@ -60,6 +70,7 @@ class FavoritesProvider {
 
     if (resp.statusCode == 201) {
       print('agregado a favoritos');
+      recentProductsProvider.getRecentProducts();
       return true;
     } else {
       print('no se pudo agregar a favoritos');
@@ -80,6 +91,7 @@ class FavoritesProvider {
 
     if (resp.statusCode == 200) {
       print('eliminado de favoritos');
+      recentProductsProvider.getRecentProducts();
       return true;
     } else {
       print('no se pudo eliminar de favoritos');

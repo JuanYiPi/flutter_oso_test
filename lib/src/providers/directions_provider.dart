@@ -11,6 +11,14 @@ import 'package:flutter_oso_test/src/models/direction_model.dart';
 
 class DirectionsProvider {
 
+  static final DirectionsProvider _instancia = new DirectionsProvider._internal();
+
+  factory DirectionsProvider() {
+    return _instancia;
+  }
+
+  DirectionsProvider._internal();
+
   final prefs = new UserPreferences();
 
   String authority = DotEnv().env['OSO_BASE_URL'];
@@ -93,6 +101,7 @@ class DirectionsProvider {
     try {
       final direction = new Direction.fromJsonMap(decodedData['data']);
       print(decodedData['error']);
+      getAllDirections();
       return direction;
     } catch (err) {
 
@@ -107,7 +116,7 @@ class DirectionsProvider {
 
     final response = await http.delete(url);
     if (response.statusCode == 200) {
-      // getAllDirections();
+      getAllDirections();
       return true;
     } else {
       return false;

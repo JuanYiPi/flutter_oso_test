@@ -14,6 +14,14 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class CartsProvider {
 
+  static final CartsProvider _instancia = new CartsProvider._internal();
+
+  factory CartsProvider() {
+    return _instancia;
+  }
+
+  CartsProvider._internal();
+
   String authority = DotEnv().env['OSO_BASE_URL'];
   String apiKey    = DotEnv().env['OSO_API_KEY'];
 
@@ -30,10 +38,18 @@ class CartsProvider {
   Stream<CartMap> get shoppingCartInfoStream => _shoppingCartInfoStreamController.stream;
   // CARTMAP STREAM
 
-  void disposeStreams() {
+  // TOTAL ITEMS STREAM
+  final _totalItemsStreamController = StreamController<int>.broadcast();
+  Function(int) get itemsSink => _totalItemsStreamController.sink.add;
+  Stream<int> get itemsStream => _totalItemsStreamController.stream;
+  // TOTAL ITEMS STREAM
+
+    void disposeStreams() {
     _shoppingCartInfoStreamController?.close();
+    _totalItemsStreamController?.close();
   }
   //STREAM
+
 
   Future<List<Cart>> getAllPurchases() async {
 
@@ -66,6 +82,30 @@ class CartsProvider {
       print(err.toString());
     }
     return null;
+  }
+
+  getNumbOfItemOfCart() async {
+
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails', {
+      'api_key': apiKey
+    });
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      try {
+        final decodedData = json.decode(response.body);
+        print(decodedData);
+
+        final shoppingList = CartDetailList.fromJsonList(decodedData['data']);
+
+        itemsSink(shoppingList.items.length);       //STREAM
+
+      } catch (err) {
+        print(err.toString());
+      }
+    }
+
   }
 
   Future<List<CartDetail>> getShoppingCart() async {
@@ -174,6 +214,7 @@ class CartsProvider {
       }
     );
     if (response.statusCode == 201) {
+      this.getNumbOfItemOfCart();
       return true;
     } else {
       return false;
@@ -185,7 +226,8 @@ class CartsProvider {
 
     final response = await http.delete(url);
     if (response.statusCode == 200) {
-      getShoppingCart();  // STREAM
+      this.getShoppingCart();  // STREAM
+      this.getNumbOfItemOfCart();
       return true;
     } else {
       return false;

@@ -22,12 +22,12 @@ class FavoritesPage extends StatelessWidget {
           return _loading();
         }
 
-        final _directions = snapshot.data;
+        final _products = snapshot.data;
 
-        if (_directions.length == 0) {
+        if (_products.length == 0) {
           return _emptyPage(context);
         }
-        return _buildScaffold(_directions, context); 
+        return _buildScaffold(_products, context); 
       },
     );
   }
