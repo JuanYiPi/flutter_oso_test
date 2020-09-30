@@ -122,7 +122,9 @@ class HomePage extends StatelessWidget {
         
         IconButton(
           icon: Icon(Icons.star),
-          onPressed: () => Navigator.pushNamed(context, 'favorites'),
+          onPressed: (prefs.idUsuario == 0) 
+          ? () => Navigator.pushNamed(context, 'login') 
+          : () => Navigator.pushReplacementNamed(context, 'favorites'),
         ),
         
       ],
