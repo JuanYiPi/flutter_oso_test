@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_oso_test/src/components/my_product_card.dart';
+import 'package:flutter_oso_test/src/components/favorite_product_card.dart';
+import 'package:flutter_oso_test/src/components/my_drawer.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
@@ -27,7 +28,7 @@ class FavoritesPage extends StatelessWidget {
         if (_products.length == 0) {
           return _emptyPage(context);
         }
-        return _buildScaffold(_products, context); 
+        return _buildScaffold(context, _products); 
       },
     );
   }
@@ -44,7 +45,6 @@ class FavoritesPage extends StatelessWidget {
   Scaffold _emptyPage(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         title: Text('Mis favoritos'),
       ),
       body: Center(child: RichText(
@@ -61,21 +61,27 @@ class FavoritesPage extends StatelessWidget {
     );
   }
 
-  Scaffold _buildScaffold(List<Product> products, BuildContext context) {
+  Scaffold _buildScaffold(BuildContext context, List<Product> products) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back), 
+          onPressed: () => Navigator.pop(context)
+        ),
         title: Text('Mis favoritos'),
       ),
       body: ListView.builder(
         physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) => MyProductCard(
-          product: products[index], 
-          isFavoriteCard: true,
-          onDelete: favsProvider.getFavorites,
+        itemBuilder: (context, index) => FavoriteProductCard(
+          product: products[index],
+          onPress: () => Navigator.pushNamed(context, 'det_product', arguments: products[index]),
+          onDelete: () async {
+            await favsProvider.deleteFavorite(products[index].id.toString());
+          }
         ),
         itemCount: products.length,
-      ),   
+      ), 
+      drawer: MyDrawer(),  
     );
   }
 }
