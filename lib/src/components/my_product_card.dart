@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_oso_test/src/components/delete_button.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
 import 'package:flutter_oso_test/src/components/server_image.dart';
+
 import 'package:flutter_oso_test/src/constants/constants.dart';
+
 import 'package:flutter_oso_test/src/models/product_model.dart';
+
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
-class MyProductCard extends StatelessWidget {
+class MyProductCard extends StatefulWidget {
   
   final Product product;
   final bool isFavoriteCard;
@@ -19,7 +24,13 @@ class MyProductCard extends StatelessWidget {
     this.onDelete,
   });
 
+  @override
+  _MyProductCardState createState() => _MyProductCardState();
+}
+
+class _MyProductCardState extends State<MyProductCard> {
   final productProvider = ProductsProvider();
+
   final favProvider = FavoritesProvider();
 
   @override
@@ -44,7 +55,7 @@ class MyProductCard extends StatelessWidget {
     );
 
     return GestureDetector(
-      child: (this.isFavoriteCard) ? Dismissible(
+      child: (this.widget.isFavoriteCard) ? Dismissible(
         key: UniqueKey(),
         background: Container(
           color: Colors.redAccent, 
@@ -56,13 +67,14 @@ class MyProductCard extends StatelessWidget {
           )
         ),
         onDismissed: (_) async {
-          await favProvider.deleteFavorite(this.product.id.toString());
-          this.onDelete();
+          await favProvider.deleteFavorite(this.widget.product.id.toString());
+          this.widget.onDelete();
         },
         child: cardProduct
       ) : cardProduct,
-      onTap: () {
-        Navigator.pushNamed(context, 'det_product', arguments: product);
+      onTap: () async {
+        await Navigator.pushNamed(context, 'det_product', arguments: widget.product);
+        setState(() {});
       },
     );
   }
@@ -71,11 +83,12 @@ class MyProductCard extends StatelessWidget {
     return ServerImage(
       width: 100.0, 
       heigt: 100.0, 
-      imageUrl: product.getImg()
+      imageUrl: widget.product.getImg()
     ); 
   }
 
   Expanded _buildProductText(BuildContext context) {
+
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +96,7 @@ class MyProductCard extends StatelessWidget {
         children: <Widget>[
           // mostrar el nombre del producto
           Text(
-            product.descripcion.toLowerCase(),
+            widget.product.descripcion.toLowerCase(),
             style: TextStyle(
               fontSize: 14.0,
               color: kTextColor,
@@ -96,8 +109,8 @@ class MyProductCard extends StatelessWidget {
           RichText(
             text: TextSpan(
               children: [
-                TextSpan(text: '\$${product.getPrice()[0]}.', style: price.copyWith(fontSize: 20.0)),
-                TextSpan(text: '${product.getPrice()[1]}',style: price.copyWith(fontSize: 15.0)),
+                TextSpan(text: '\$${widget.product.getPrice()[0]}.', style: price.copyWith(fontSize: 20.0)),
+                TextSpan(text: '${widget.product.getPrice()[1]}',style: price.copyWith(fontSize: 15.0)),
               ]
             )
           ),
@@ -105,7 +118,7 @@ class MyProductCard extends StatelessWidget {
           SizedBox(height: 8.0),
 
           Text(
-            'Disponibilidad: ${product.stock}',
+            'Disponibilidad: ${widget.product.stock}',
             style: TextStyle(
               fontSize: 12.0,
               color: kTextGreenColor
@@ -120,56 +133,14 @@ class MyProductCard extends StatelessWidget {
     return Column(
       children: <Widget>[
 
-        (this.isFavoriteCard) ? 
+        (this.widget.isFavoriteCard) ? 
           DeleteButton(
-            onDelete: this.onDelete,
-            productId: this.product.id.toString(),
-          ) : FavoriteButton(product: product)
+            onDelete: this.widget.onDelete,
+            productId: this.widget.product.id.toString(),
+          ) : FavoriteButton(
+            product: widget.product
+          )
       ],
-    );
-  }
-}
-
-class DeleteButton extends StatefulWidget {
-
-  final Function onDelete;
-  final String productId;
-
-  DeleteButton({
-    Key key, 
-    this.onDelete, 
-    @required this.productId
-  }) : super(key: key);
-
-  @override
-  _DeleteButtonState createState() => _DeleteButtonState();
-}
-
-class _DeleteButtonState extends State<DeleteButton> {
-
-  final favsProvider = FavoritesProvider();
-  bool isLoading;
-
-  @override
-  void initState() {
-    isLoading = false;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(Icons.delete, color: Colors.black38,), 
-      onPressed: (isLoading) ? null : () async {
-        setState(() {
-          isLoading = true;
-        });
-        await favsProvider.deleteFavorite(widget.productId);
-        setState(() {
-          isLoading = false;
-        });
-        widget.onDelete();
-      }
     );
   }
 }

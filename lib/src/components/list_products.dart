@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/my_product_card.dart';
+import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
@@ -61,12 +62,8 @@ class MyCustomScrollView extends StatelessWidget {
           }
         ),
 
-        if (prefs.idUsuario != 0) IconButton(
-          icon: Icon(Icons.shopping_cart), 
-          onPressed: () {
-            Navigator.pushNamed(context, 'shopping_cart');
-          },
-        ),
+        ShoppingCartButton(),
+        
       ],
     );
   }

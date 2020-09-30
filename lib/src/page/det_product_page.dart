@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
+import 'package:flutter_oso_test/src/components/search_delegate.dart';
 import 'package:flutter_oso_test/src/components/server_image.dart';
+import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
@@ -63,18 +65,21 @@ class _DetProductPageState extends State<DetProductPage> {
   }
 
   AppBar _buildAppBarDet(BuildContext context, Product product) {
-    return prefs.idUsuario !=0? AppBar(
+    return (prefs.idUsuario != 0) ? AppBar(
       title: Text('Producto'),
       actions: <Widget>[
 
-        FavoriteButton(product: product, littleSize: false,),
-
         IconButton(
-          icon: Icon(Icons.shopping_cart), 
+          icon: Icon(Icons.search),
           onPressed: () {
-            Navigator.pushNamed(context, 'shopping_cart');
+            showSearch(context: context, delegate: DataSearch());
           }
         ),
+
+        ShoppingCartButton(),
+
+        FavoriteButton(product: product, littleSize: false,),
+
       ],
     ) : AppBar(
       title: Text('Producto'),
@@ -87,29 +92,32 @@ class _DetProductPageState extends State<DetProductPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: kDefaultPaddin,),
           _productDescription(product),
           _productID(product),
-          SizedBox(height: kDefaultPaddin,),
           _productImg(screenSize, product),
-          SizedBox(height: kDefaultPaddin,),
           _productPrice(product),
-          SizedBox(height: kDefaultPaddin * 1.5,),
           _productStock(product),
-          SizedBox(height: kDefaultPaddin/2,),
-          CartCounter(product: product, stock: product.stock,),
-          SizedBox(height: kDefaultPaddin * 2,),
+          _productCuantity(product),
           _builPayCartButtons(context, product,),
-          SizedBox(height: kDefaultPaddin * 2,)
         ],
       ),
     );
   }
 
-  Text _productDescription(Product product) {
-    return Text(
-      product.descripcion.toLowerCase(),
-      style: TextStyle(color: kTextColor, fontWeight: FontWeight.w500, fontSize: 20.0),
+  Container _productCuantity(Product product) {
+    return Container(
+      margin: EdgeInsets.only(top: 10.0),
+      child: CartCounter(product: product, stock: product.stock,)
+    );
+  }
+
+  Widget _productDescription(Product product) {
+    return Container(
+      margin: EdgeInsets.only(top: 20.0),
+      child: Text(
+        product.descripcion.toLowerCase(),
+        style: TextStyle(color: kTextColor, fontWeight: FontWeight.w500, fontSize: 20.0),
+      ),
     );
   }
 
@@ -121,80 +129,92 @@ class _DetProductPageState extends State<DetProductPage> {
   }
 
   Widget _productImg(Size screenSize, Product product) {
-    return ServerImage(
-      width: screenSize.width * 0.9, 
-      heigt: screenSize.width * 0.9, 
-      imageUrl: product.getImg()
+    return Container(
+      margin: EdgeInsets.only(top: 20.0),
+      child: ServerImage(
+        width: screenSize.width * 0.9, 
+        heigt: screenSize.width * 0.9, 
+        imageUrl: product.getImg()
+      ),
     );
   }
 
-  RichText _productPrice(Product product) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(text: '\$${product.getPrice()[0]}.', style: price),
-          TextSpan(text: '${product.getPrice()[1]} MXN\n',style: price.copyWith(fontSize: 20.0)),
-          TextSpan(text: 'IVA Incluido', style: textoLightColor),
-        ]
-      )
+  Widget _productPrice(Product product) {
+    return Container(
+      margin: EdgeInsets.only(top: 20.0),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(text: '\$${product.getPrice()[0]}.', style: price),
+            TextSpan(text: '${product.getPrice()[1]} MXN\n',style: price.copyWith(fontSize: 20.0)),
+            TextSpan(text: 'IVA Incluido', style: textoLightColor),
+          ]
+        )
+      ),
     );
   }
 
-  RichText _productStock(Product product) {
-    return RichText(
-      text: TextSpan(
-        children: [
-          TextSpan(text: 'Stock disponible: ', style: textoLight),
-          TextSpan(text: '${product.stock}', style: textoLightColor),
-        ]
-      )
+  Widget _productStock(Product product) {
+    return Container(
+      margin: EdgeInsets.only(top: 30.0),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(text: 'Stock disponible: ', style: textoLight),
+            TextSpan(text: '${product.stock}', style: textoLightColor),
+          ]
+        )
+      ),
     );
   }
 
   Widget _builPayCartButtons(BuildContext context, Product product) {
-    return Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          child: prefs.idUsuario != 0? Column(
-            children: <Widget>[
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 40.0),
+      child: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            child: prefs.idUsuario != 0? Column(
+              children: <Widget>[
 
-              _buildFlatButton(
-                texto: 'Comprar ahora',
-                btnColor: kColorPrimario,
-                txtColor: Colors.white,
-                press: !_isLoading? () {
-                  _addProductAndPay(product);
-                } : null
-              ),
+                _buildFlatButton(
+                  texto: 'Comprar ahora',
+                  btnColor: kColorPrimario,
+                  txtColor: Colors.white,
+                  press: !_isLoading? () {
+                    _addProductAndPay(product);
+                  } : null
+                ),
 
-              SizedBox(height: kDefaultPaddin/2),
+                SizedBox(height: kDefaultPaddin/2),
 
-              _buildFlatButton(
-                texto: 'Agregar al carrito',
-                btnColor: kColorPrimario,
-                txtColor: Colors.white,
-                press: !_isLoading? () {
-                  _addToShoppingCart(context, product);
-                } : null
+                _buildFlatButton(
+                  texto: 'Agregar al carrito',
+                  btnColor: kColorPrimario,
+                  txtColor: Colors.white,
+                  press: !_isLoading? () {
+                    _addToShoppingCart(context, product);
+                  } : null
+                ),
+              ],
+            ) : Container(
+              height: 45.0,
+              child: RaisedButton(
+                color: kColorPrimario,
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(kDefaultRadius)
+                ),
+                child: Text('Inicia sesión para comprar', style: TextStyle(color: Colors.white),),
               ),
-            ],
-          ) : Container(
-            height: 45.0,
-            child: RaisedButton(
-              color: kColorPrimario,
-              onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
-              },
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(kDefaultRadius)
-              ),
-              child: Text('Inicia sesión para comprar', style: TextStyle(color: Colors.white),),
-            ),
-          )
-        ),
-        _loadingIndicator()
-      ],
+            )
+          ),
+          _loadingIndicator()
+        ],
+      ),
     );
     
   }

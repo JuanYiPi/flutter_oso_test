@@ -7,12 +7,10 @@ import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 class ShoppingCartProduct extends StatelessWidget {
 
   final CartDetail cartItem;
-  final Function onDelete;
 
   ShoppingCartProduct({
     Key key, 
     @required this.cartItem, 
-    this.onDelete
   }) : super(key: key);
 
   final cartsProvider = CartsProvider();
@@ -37,7 +35,6 @@ class ShoppingCartProduct extends StatelessWidget {
     );
 
     return Dismissible(
-      // direction: DismissDirection.endToStart,
       key: UniqueKey(),
       background: Container(
         color: Colors.redAccent, 
@@ -48,9 +45,8 @@ class ShoppingCartProduct extends StatelessWidget {
           )
         )
       ),
-      onDismissed: (_) {
-        cartsProvider.deleteFromShoppingCart(this.cartItem);
-        // onDelete();
+      onDismissed: (_) async {
+        await cartsProvider.deleteFromShoppingCart(this.cartItem);
       },
       child: cardProduct
     );
@@ -68,7 +64,6 @@ class ShoppingCartProduct extends StatelessWidget {
     return Flexible( 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +79,6 @@ class ShoppingCartProduct extends StatelessWidget {
               ),
               IconButton(icon: Icon(Icons.delete, color: kTextLightColor,), onPressed: () async {
                 await cartsProvider.deleteFromShoppingCart(this.cartItem);
-                onDelete();
               })
             ],
           ),

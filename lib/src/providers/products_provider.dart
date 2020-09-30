@@ -81,24 +81,24 @@ class ProductsProvider {
     return null;
   }
 
-  Future<List<Product>> getRecentProducts() async {
+  // Future<List<Product>> getRecentProducts() async {
 
-    final url = Uri.http(authority, 'api/recentproducts', {
-      'api_key': apiKey,
-    });
+  //   final url = Uri.http(authority, 'api/recentproducts', {
+  //     'api_key': apiKey,
+  //   });
     
-    try {
-      final resp = await http.get(url);
-      final decodedData = json.decode(resp.body);
-      final allProducts = new Products.fromJsonList(decodedData['data']);
-      print(decodedData['data']);
-      return allProducts.items;
-    } catch (err) {
-      print(err.toString());
-      print('error');
-    }
-    return null;
-  }
+  //   try {
+  //     final resp = await http.get(url);
+  //     final decodedData = json.decode(resp.body);
+  //     final allProducts = new Products.fromJsonList(decodedData['data']);
+  //     print(decodedData['data']);
+  //     return allProducts.items;
+  //   } catch (err) {
+  //     print(err.toString());
+  //     print('error');
+  //   }
+  //   return null;
+  // }
 
   Future<List<Product>> getAllProductsByCategoryID(String id) async {
 
