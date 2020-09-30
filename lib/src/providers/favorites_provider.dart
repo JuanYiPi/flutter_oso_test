@@ -70,6 +70,7 @@ class FavoritesProvider {
 
     if (resp.statusCode == 201) {
       print('agregado a favoritos');
+      getFavorites();
       recentProductsProvider.getRecentProducts();
       return true;
     } else {
@@ -92,6 +93,7 @@ class FavoritesProvider {
     if (resp.statusCode == 200) {
       print('eliminado de favoritos');
       recentProductsProvider.getRecentProducts();
+      getFavorites();
       return true;
     } else {
       print('no se pudo eliminar de favoritos');
