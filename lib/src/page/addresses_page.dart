@@ -81,12 +81,7 @@ class AddressesPage extends StatelessWidget {
     return FloatingActionButton(  
       child: Icon(Icons.add),
       backgroundColor: kColorPrimario,
-      onPressed: () => _navigateToRegisterPage(context),
+      onPressed: () => Navigator.pushNamed(context, 'register_addresses')
     );
-  }
-
-  _navigateToRegisterPage(BuildContext context) async {
-    final result = await Navigator.pushNamed(context, 'register_addresses');
-    directionsProvider.getAllDirections();
   }
 }
