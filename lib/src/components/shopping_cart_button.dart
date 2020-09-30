@@ -15,18 +15,20 @@ class ShoppingCartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    cartsProvider.getNumbOfItemOfCart();
+
     return (prefs.idUsuario == 0) ? Container() : StreamBuilder(
       stream: cartsProvider.itemsStream,
       builder: (BuildContext context, AsyncSnapshot<int> snapshot){
 
         if (!snapshot.hasData) {
-          return Icon(Icons.shopping_cart);
+          return _buildButton(context, null);
         }
 
         final items = snapshot.data;
 
         if (items == 0) {
-          return Icon(Icons.shopping_cart);
+          return _buildButton(context, null);
         }
 
         if (items > 9) {
