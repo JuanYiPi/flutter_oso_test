@@ -52,7 +52,7 @@ class AddressesPage extends StatelessWidget {
         text: TextSpan(
           children: [
             TextSpan(text: 'Sin direcciones\n\n', style: textoLight),
-            TextSpan(text: 'Agrega una direccion de envio\npara poder realizar compras', 
+            TextSpan(text: 'Agrega una dirección de envío\npara poder realizar compras', 
               style: textoLightColor.copyWith(fontWeight: FontWeight.normal)
             ),
           ]
