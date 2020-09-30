@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 
 class DeleteButton extends StatefulWidget {
 
-  final Function onDelete;
-  final String productId;
+  final Function onDeleteSuccess;
+  final Function onPress;
 
   DeleteButton({
     Key key, 
-    this.onDelete, 
-    @required this.productId
+    this.onDeleteSuccess, 
+    @required this.onPress
   }) : super(key: key);
 
   @override
@@ -18,12 +17,11 @@ class DeleteButton extends StatefulWidget {
 
 class _DeleteButtonState extends State<DeleteButton> {
 
-  final favsProvider = FavoritesProvider();
-  bool isLoading;
+  bool _isLoading;
 
   @override
   void initState() {
-    isLoading = false;
+    _isLoading = false;
     super.initState();
   }
 
@@ -31,16 +29,13 @@ class _DeleteButtonState extends State<DeleteButton> {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.delete, color: Colors.black38,), 
-      onPressed: (isLoading) ? null : () async {
-        setState(() {
-          isLoading = true;
-        });
-        await favsProvider.deleteFavorite(widget.productId);
-        setState(() {
-          isLoading = false;
-        });
-        widget.onDelete();
-      }
+      onPressed: (_isLoading) ? null : _deleteFunction
     );
+  }
+
+  void _deleteFunction() async {
+    setState(() {_isLoading = true;});
+    await widget.onPress();
+    setState(() {_isLoading = false;});
   }
 }

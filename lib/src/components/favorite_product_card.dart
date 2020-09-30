@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_oso_test/src/components/delete_button.dart';
-import 'package:flutter_oso_test/src/components/favorite_button.dart';
 import 'package:flutter_oso_test/src/components/server_image.dart';
-
 import 'package:flutter_oso_test/src/constants/constants.dart';
-
 import 'package:flutter_oso_test/src/models/product_model.dart';
 
-import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
-import 'package:flutter_oso_test/src/providers/products_provider.dart';
+class FavoriteProductCard extends StatefulWidget {
 
-class MyProductCard extends StatefulWidget {
-  
   final Product product;
-  // final bool isFavoriteCard;
+  final Function onPress;
   final Function onDelete;
-  
-  MyProductCard({
-    Key key,
-    @required this.product, 
-    // this.isFavoriteCard = false, 
-    this.onDelete,
-  });
+  final Function onDeleteSuccess;
+
+  FavoriteProductCard({
+    Key key, 
+    this.onPress, 
+    this.product, 
+    this.onDelete, 
+    this.onDeleteSuccess
+  }) : super(key: key);
 
   @override
-  _MyProductCardState createState() => _MyProductCardState();
+  _FavoriteProductCardState createState() => _FavoriteProductCardState();
 }
 
-class _MyProductCardState extends State<MyProductCard> {
-  final productProvider = ProductsProvider();
+class _FavoriteProductCardState extends State<FavoriteProductCard> {
 
-  final favsProvider = FavoritesProvider();
+  bool _isLoading;
+
+  @override
+  void initState() {
+    _isLoading = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,31 +54,50 @@ class _MyProductCardState extends State<MyProductCard> {
       ),
     );
 
-    return GestureDetector(
-      child: 
-      // (this.widget.isFavoriteCard) ? Dismissible(
-      //   key: UniqueKey(),
-      //   background: Container(
-      //     color: Colors.redAccent, 
-      //     child: Center(
-      //       child: Text(
-      //         'Eliminar', 
-      //         style: TextStyle(color: Colors.white),
-      //       )
-      //     )
-      //   ),
-      //   onDismissed: (_) async {
-      //     await favsProvider.deleteFavorite(this.widget.product.id.toString());
-      //     this.widget.onDelete();
-      //   },
-      //   child: cardProduct
-      // ) : 
-      cardProduct,
-      onTap: () async {
-        await Navigator.pushNamed(context, 'det_product', arguments: widget.product);
-        setState(() {});
-      },
+    final gesture = GestureDetector(
+      onTap: widget.onPress,
+      child: Dismissible(
+        direction: DismissDirection.endToStart,
+        key: UniqueKey(),
+        background: Container(
+          padding: EdgeInsets.only(right: 30.0),
+          alignment: Alignment.centerRight,
+          color: Colors.redAccent, 
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.delete, color: Colors.white),
+              Text('Eliminar', style: TextStyle(color: Colors.white))
+            ],
+          )
+        ),
+        onDismissed: (_) async {
+          await this.widget.onDelete();
+        },
+        child: cardProduct
+      )
     );
+
+    return Stack(
+      children: [
+        gesture,
+        _loadingScreen()
+      ],
+    );
+  }
+
+  Widget _loadingScreen() {
+    if (_isLoading) {
+      return Container(
+        height: 120.0,
+        color: Colors.white70,
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ); 
+    } else {
+      return Container();
+    }
   }
 
   Widget _buildProductImg() {
@@ -134,9 +153,13 @@ class _MyProductCardState extends State<MyProductCard> {
   Column _buildIcon(BuildContext context) {
     return Column(
       children: <Widget>[
-        FavoriteButton(
-          product: widget.product
-        )
+        DeleteButton(
+          onPress: () async {
+            setState(() {_isLoading = true;});
+            await widget.onDelete();
+            setState(() {_isLoading = false;});
+          },
+        ) 
       ],
     );
   }
