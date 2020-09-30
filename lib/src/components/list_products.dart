@@ -47,6 +47,10 @@ class MyCustomScrollView extends StatelessWidget {
 
   _mySliverAppBar(BuildContext context, String title) {
     return SliverAppBar(
+      leading: IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: ()=> Navigator.pop(context)
+      ),
       floating: true,
       pinned: false,
       snap: false,

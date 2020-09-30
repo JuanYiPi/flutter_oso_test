@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/list_products.dart';
+import 'package:flutter_oso_test/src/components/my_drawer.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 
@@ -15,6 +16,7 @@ class ProductsByCategoryPage extends StatelessWidget {
 
     return Scaffold(
       body: _buildBody(title),
+      drawer: MyDrawer(),
     );
   }
 

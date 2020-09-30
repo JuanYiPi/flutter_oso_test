@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
+import 'package:flutter_oso_test/src/components/my_drawer.dart';
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
 import 'package:flutter_oso_test/src/components/server_image.dart';
 import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
@@ -43,6 +44,7 @@ class _DetProductPageState extends State<DetProductPage> {
     product.cantidadCompra = 1;
   
     return Scaffold(
+      drawer: MyDrawer(),
       key: scaffoldKey,
       appBar: _buildAppBarDet(context, product),
       body: SingleChildScrollView(
@@ -67,6 +69,11 @@ class _DetProductPageState extends State<DetProductPage> {
   AppBar _buildAppBarDet(BuildContext context, Product product) {
     return (prefs.idUsuario != 0) ? AppBar(
       title: Text('Producto'),
+      leading: IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: ()=> Navigator.pop(context)
+      ),
+
       actions: <Widget>[
 
         IconButton(
