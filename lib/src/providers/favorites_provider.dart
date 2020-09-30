@@ -10,6 +10,14 @@ import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 class FavoritesProvider {
 
+  static final FavoritesProvider _instancia = new FavoritesProvider._internal();
+
+  factory FavoritesProvider() {
+    return _instancia;
+  }
+
+  FavoritesProvider._internal();
+
   final prefs = new UserPreferences();
   final recentProductsProvider = RecentProductsProvider(); 
 
