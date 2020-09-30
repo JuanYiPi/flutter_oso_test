@@ -40,11 +40,26 @@ class CategoriesSwiper extends StatelessWidget {
 
     final queryData = MediaQuery.of(context);
 
-    final caratulaCategoria = ServerImage(
-      heigt: double.infinity,
-      width: double.infinity,
-      imageUrl: categoria.getImg(),
-      errorImagePath: 'assets/img/white.jpg',
+    final caratulaCategoria = Container(
+      margin: EdgeInsets.symmetric(vertical: 6.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: <BoxShadow> [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 5.0,
+            offset: Offset(0.0, 0.0),
+            spreadRadius: 3.0,
+          ),
+        ]
+      ),
+      child: ServerImage(
+        heigt: double.infinity,
+        width: double.infinity,
+        imageUrl: categoria.getImg(),
+        errorImagePath: 'assets/img/white.jpg',
+      ),
     );
 
     final categoryName = Center(
