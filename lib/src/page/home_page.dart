@@ -4,6 +4,7 @@ import 'package:flutter_oso_test/src/components/categories_swiper.dart';
 import 'package:flutter_oso_test/src/components/my_drawer.dart';
 import 'package:flutter_oso_test/src/components/recent_products.dart';
 import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
+import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 import '../components/search_delegate.dart';
 
 import 'package:flutter_oso_test/src/models/product_model.dart';
@@ -17,11 +18,13 @@ class HomePage extends StatelessWidget {
   final prefs = UserPreferences();
   final catProvider = CategoriasProvider();
   final recentProductsProvider = RecentProductsProvider();
+  final cartsProvider = CartsProvider();
 
   @override
   Widget build(BuildContext context) {
 
     recentProductsProvider.getRecentProducts();
+    cartsProvider.getNumbOfItemOfCart();
 
     return Scaffold(
       appBar: _buildAppBar(context),
@@ -115,9 +118,7 @@ class HomePage extends StatelessWidget {
           }
         ),
 
-        ShoppingCartButton(
-          totalItems: '3',
-        ),
+        ShoppingCartButton(),
         
         IconButton(
           icon: Icon(Icons.star),
