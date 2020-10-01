@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_oso_test/src/components/categories_swiper.dart';
 import 'package:flutter_oso_test/src/components/my_drawer.dart';
-import 'package:flutter_oso_test/src/components/recent_products.dart';
 import 'package:flutter_oso_test/src/components/recent_products_beta.dart';
 import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';

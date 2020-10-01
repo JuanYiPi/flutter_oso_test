@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_oso_test/src/components/cart_counter_beta.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
 import 'package:flutter_oso_test/src/components/my_drawer.dart';
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
 import 'package:flutter_oso_test/src/components/server_image.dart';
 import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
+
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
-
-import 'package:flutter_oso_test/src/components/cart_counter.dart';
-import 'package:flutter_oso_test/src/constants/constants.dart';
-import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
+
+import 'package:flutter_oso_test/src/constants/constants.dart';
+
+import 'package:flutter_oso_test/src/models/product_model.dart';
 
 class DetProductPage extends StatefulWidget {
 
