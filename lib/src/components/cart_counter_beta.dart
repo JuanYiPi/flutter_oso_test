@@ -19,58 +19,28 @@ class CartCounterBeta extends StatefulWidget {
 
 class _CartCounterBetaState extends State<CartCounterBeta> {
 
-  final textController = new TextEditingController();
-  // final _focusNode = new FocusNode();
+  int cantidadCompra;
+
+  @override
+  void initState() {
+    cantidadCompra = 1;
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
 
-    String cantidad = widget.product.cantidadCompra.toString();
+    widget.product.cantidadCompra = cantidadCompra;
 
     return RaisedButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kDefaultRadius)),
       elevation: 0.0,
-      onPressed: (){
-        showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (_) => AlertDialog(
-            title: Text('Introduzca la cantidad'),
-            content: TextField(
-              controller: textController,
-              autofocus: true,
-              keyboardType: TextInputType.number,
-              onChanged: (value) {
-                cantidad = value;
-                print(cantidad);
-              },
-            ),
-            actions: [
-              MaterialButton(
-                child: Text('Aceptar'),
-                textColor: Colors.blue,
-                onPressed: () {
-                  textController.clear();
-                  _verificar(cantidad);
-                  Navigator.pop(context);
-                }
-              ),
-              MaterialButton(
-                child: Text('Cancelar'),
-                textColor: Colors.blue,
-                onPressed: () {
-                  textController.clear();
-                  Navigator.pop(context);
-                }
-              )
-            ],
-          )
-        );
-      },
+      onPressed: _insertCuantity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text('Cantidad: $cantidad', 
+          Text('Cantidad: $cantidadCompra', 
             style: TextStyle(
               fontWeight: FontWeight.bold, 
               color: Colors.black87
@@ -82,18 +52,53 @@ class _CartCounterBetaState extends State<CartCounterBeta> {
     );
   }
 
-  void _verificar(String input) {
-    try {
-      final cantidad = int.parse(input);
-      if(cantidad <= widget.product.stock) {
-        widget.product.cantidadCompra = cantidad;
-      } else {
-        print('Stock insuficiente');
-      }
+  _insertCuantity() {
 
-    } catch (e) {
-      print('No se pudo agregar la cantidad seleccionada');
+    final textController = new TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Introduzca la cantidad'),
+        content: TextField(
+          decoration: InputDecoration(
+            hintText: '  (${widget.product.stock} disponibles)'
+          ),
+          controller: textController,
+          autofocus: true,
+          keyboardType: TextInputType.number,
+          onSubmitted: (_){
+            _verificar(textController.text);
+          },
+        ),
+        actions: [
+          MaterialButton(
+            child: Text('Cancelar'),
+            textColor: Colors.blue,
+            onPressed: () => Navigator.pop(context)
+          ),
+        ],
+      )
+    );
+  }
+
+  void _verificar(String input) {
+
+    if(input.length >= 1) {
+      try {
+        final cantidad = int.parse(input);
+        if(cantidad <= widget.product.stock) {
+          setState(() {
+            cantidadCompra = cantidad;
+          });
+        } else {
+          print('Stock insuficiente');
+        }
+      } catch (e) {
+        print('No se pudo agregar la cantidad seleccionada');
+      }
     }
+    Navigator.pop(context);
     setState(() {});
   }
 }

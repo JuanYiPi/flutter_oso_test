@@ -16,8 +16,7 @@ class RecentProductBeta extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      // margin: EdgeInsets.only(bottom: 10.0),
-      height: 250.0,
+      height: 260.0,
       child: _buildProducts(context, this.productos)
     );
   }
@@ -32,7 +31,6 @@ class RecentProductBeta extends StatelessWidget {
 
       children: products.map((product) => GestureDetector(
         child: Container(
-          // margin: EdgeInsets.only(left: 20.0),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(5.0),
@@ -71,37 +69,6 @@ class RecentProductBeta extends StatelessWidget {
       )
     ).toList());
   }
-  
-
-  // Widget _items(BuildContext context, List<Product> items) {
-  //   return Row(children: items.map((product) => 
-  //     GestureDetector(
-  //       child: Card(
-  //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-  //         margin: EdgeInsets.only(left: 15.0),
-  //         elevation: 3.0,
-  //         child: Container(
-  //           width: 200.0,
-  //           height: 220.0,
-  //           padding: EdgeInsets.all(10.0),
-  //           // margin: EdgeInsets.only(right: 15.0),
-  //           child: Column(
-  //             children: [
-  //               Text(product.descripcion, overflow: TextOverflow.ellipsis,),
-  //               SizedBox(height: 5.0,),
-  //               _img(product),
-  //               SizedBox(height: 5.0,),
-  //               Text('\$${product.getPrice()[0]}.${product.getPrice()[1]}', style: priceLight)
-  //             ],
-  //           )
-  //         ),
-  //       ),
-  //       onTap: () {
-  //         Navigator.pushNamed(context, 'det_product', arguments: product);
-  //       },
-  //   )).toList());
-  // }
-
 
   Widget _img(Product product) {
     return ServerImage(
