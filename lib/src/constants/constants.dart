@@ -4,7 +4,7 @@ const kTextColor = Color(0xFF535353);
 const kTextLightColor = Color(0xFFACACAC);
 const kTextGreenColor = Color(0xFF34B454);
 
-const kColorPrimario = Colors.teal;
+const kColorPrimario = Colors.deepPurple;
 const kColorSecundario = Color(0xFF007296);
 const kColorTerciario = Color(0xFF880096);
 

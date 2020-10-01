@@ -23,7 +23,7 @@ class _UserDetPageState extends State<UserDetPage> {
       key: scaffoldKey,
       appBar: AppBar(
         leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () {Navigator.pop(context, true);}),
-        centerTitle: true,
+        // centerTitle: true,
         title: Text('Mi cuenta'),
       ),
       body: FutureBuilder(
@@ -61,7 +61,7 @@ class _UserDetPageState extends State<UserDetPage> {
   Widget myData(BuildContext context){
 
     return ListTile(
-      leading: Icon(Icons.person, color: kColorPrimario,),
+      leading: Icon(Icons.person),
       title: Text('Mis datos'),
       trailing: Icon(Icons.chevron_right, color: kColorPrimario),
       onTap: ()=> Navigator.pushNamed(context, 'update_data'),
@@ -71,7 +71,7 @@ class _UserDetPageState extends State<UserDetPage> {
   Widget shippingAddresses(){
     
     return ListTile(
-      leading: Icon(Icons.home, color: kColorPrimario),
+      leading: Icon(Icons.home),
       title: Text('Mis direcciones de envío'),
       trailing: Icon(Icons.chevron_right, color: kColorPrimario),
       onTap: ()=> Navigator.pushNamed(context, 'shipping_addresses'),
@@ -81,7 +81,7 @@ class _UserDetPageState extends State<UserDetPage> {
   Widget billingData(){
 
     return ListTile(
-      leading: Icon(Icons.note, color: kColorPrimario),
+      leading: Icon(Icons.note),
       title: Text('Mis datos de facturación'),
       trailing: Icon(Icons.chevron_right, color: kColorPrimario),
       onTap: (){},
@@ -91,7 +91,7 @@ class _UserDetPageState extends State<UserDetPage> {
   Widget changePassword(){
 
     return ListTile(
-      leading: Icon(Icons.lock, color: kColorPrimario),
+      leading: Icon(Icons.lock),
       title: Text('Cambiar contraseña'),
       trailing: Icon(Icons.chevron_right, color: kColorPrimario),
       onTap: (){},
