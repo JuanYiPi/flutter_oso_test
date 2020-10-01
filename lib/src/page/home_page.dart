@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/categories_swiper.dart';
 import 'package:flutter_oso_test/src/components/my_drawer.dart';
 import 'package:flutter_oso_test/src/components/recent_products.dart';
+import 'package:flutter_oso_test/src/components/recent_products_beta.dart';
 import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 import '../components/search_delegate.dart';
@@ -39,23 +40,54 @@ class HomePage extends StatelessWidget {
       children: [
         _categorias(),
         _listaCategorias(context),
-        _productosRecientes(),
+        // _productosRecientes(),
+        _productosRecientesBeta(),
       ],
     );
   }
 
   Widget _listaCategorias(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 20.0),
-      child: FlatButton(
+    return Column(
+      children: [
+        SizedBox(height: 20.0,),
+        OutlineButton(
           child: Text('Lista de categorías'),
           onPressed: (){
           Navigator.pushNamed(context, 'cat_page');
         }),
+      ],
     );
   }
 
-  Widget _productosRecientes() {
+  // Widget _productosRecientes() {
+  //   return Container(
+  //     margin: EdgeInsets.only(top: 20.0),
+  //     child: Column(
+  //         children: [
+  //           Text('Agregados recientemente', style: TextStyle(fontWeight: FontWeight.bold)),
+  //           SizedBox(height: 10.0,),
+  //           StreamBuilder(
+  //             stream: recentProductsProvider.productosRecientesStream,
+  //             builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot){
+  //               if (!snapshot.hasData) {
+  //                 return Center(child: CircularProgressIndicator());
+  //               }
+
+  //               final productosRecientes = snapshot.data;
+
+  //               if (productosRecientes.length == 0) {
+  //                 return Center(child: Text('No hay productos recientes'));
+  //               }
+
+  //               return RecentProducts(productos: productosRecientes);
+  //             },
+  //           ),
+  //         ],
+  //       ),
+  //   );
+  // }
+
+  Widget _productosRecientesBeta() {
     return Container(
       margin: EdgeInsets.only(top: 20.0),
       child: Column(
@@ -75,7 +107,7 @@ class HomePage extends StatelessWidget {
                   return Center(child: Text('No hay productos recientes'));
                 }
 
-                return RecentProducts(productos: productosRecientes);
+                return RecentProductBeta(productos: productosRecientes);
               },
             ),
           ],
