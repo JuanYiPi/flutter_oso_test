@@ -93,6 +93,9 @@ class _CartCounterBetaState extends State<CartCounterBeta> {
           });
         } else {
           print('Stock insuficiente');
+          setState(() {
+            cantidadCompra = widget.product.stock;
+          });
         }
       } catch (e) {
         print('No se pudo agregar la cantidad seleccionada');
