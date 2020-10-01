@@ -41,7 +41,7 @@ class CategoriesSwiper extends StatelessWidget {
     final queryData = MediaQuery.of(context);
 
     final caratulaCategoria = Container(
-      margin: EdgeInsets.symmetric(vertical: 6.0),
+      margin: EdgeInsets.only(bottom: 10.0, top: 6.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.0),
@@ -49,8 +49,8 @@ class CategoriesSwiper extends StatelessWidget {
           BoxShadow(
             color: Colors.black26,
             blurRadius: 5.0,
-            offset: Offset(0.0, 0.0),
-            spreadRadius: 3.0,
+            offset: Offset(0.0, 2.0),
+            spreadRadius: 2.0,
           ),
         ]
       ),
