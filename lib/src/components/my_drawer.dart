@@ -31,7 +31,6 @@ class _MyDrawerState extends State<MyDrawer> {
             child: Stack(
               children: [
                 _buildFondo(),
-                // Center(child: Icon(Icons.person, size: 120.0,color:  Colors.white,)),
                 Center(
                   child: prefs.idUsuario != 0 ?
                   CircleAvatar(
@@ -46,7 +45,7 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
 
           if (prefs.idUsuario != 0) ListTile(
-            onTap: ()=> Navigator.pushNamed(context, 'home'),
+            onTap: ()=> Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false),
             leading: Icon(Icons.home, color: kColorPrimario),
             title: Text('Inicio'),
           ),
