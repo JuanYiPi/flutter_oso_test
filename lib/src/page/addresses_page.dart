@@ -44,8 +44,8 @@ class AddressesPage extends StatelessWidget {
   Scaffold _emptyPage(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text('Carrito de compras'),
+        // centerTitle: true,
+        title: Text('Direcciones'),
       ),
       body: Center(child: RichText(
         textAlign: TextAlign.center,
@@ -65,8 +65,8 @@ class AddressesPage extends StatelessWidget {
   Scaffold _buildScaffold(List<Direction> items, BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text('Mis direcciones de envio'),
+        // centerTitle: true,
+        title: Text('Direcciones'),
       ),
       body: ListAllDirections(
         directions: items, 
@@ -80,7 +80,7 @@ class AddressesPage extends StatelessWidget {
 
     return FloatingActionButton(  
       child: Icon(Icons.add),
-      backgroundColor: kColorPrimario,
+      backgroundColor: kColorPrimario.shade700,
       onPressed: () => Navigator.pushNamed(context, 'register_addresses')
     );
   }

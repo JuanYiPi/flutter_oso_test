@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_oso_test/src/components/delete_button.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
 import 'package:flutter_oso_test/src/components/server_image.dart';
 

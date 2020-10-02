@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+
+import 'package:flutter_oso_test/src/components/cart_counter_beta.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
 import 'package:flutter_oso_test/src/components/my_drawer.dart';
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
 import 'package:flutter_oso_test/src/components/server_image.dart';
 import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
+
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
-
-import 'package:flutter_oso_test/src/components/cart_counter.dart';
-import 'package:flutter_oso_test/src/constants/constants.dart';
-import 'package:flutter_oso_test/src/models/product_model.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
+
+import 'package:flutter_oso_test/src/constants/constants.dart';
+
+import 'package:flutter_oso_test/src/models/product_model.dart';
 
 class DetProductPage extends StatefulWidget {
 
@@ -60,7 +63,11 @@ class _DetProductPageState extends State<DetProductPage> {
 
   Widget _loadingIndicator() {
     if (_isLoading == true) {
-      return Center(child: CircularProgressIndicator(),);
+      return Container(
+        margin: EdgeInsets.only(top: 40.0),
+        height: 60.0,
+        child: Center(child: CircularProgressIndicator()),
+      );
     } else {
       return Container();
     }
@@ -105,6 +112,7 @@ class _DetProductPageState extends State<DetProductPage> {
           _productPrice(product),
           _productStock(product),
           _productCuantity(product),
+          _loadingIndicator(),
           _builPayCartButtons(context, product,),
         ],
       ),
@@ -113,8 +121,11 @@ class _DetProductPageState extends State<DetProductPage> {
 
   Container _productCuantity(Product product) {
     return Container(
+      width: double.infinity,
+      height: 45.0,
       margin: EdgeInsets.only(top: 10.0),
-      child: CartCounter(product: product, stock: product.stock,)
+      child: CartCounterBeta(stock: product.stock, product: product) 
+      // CartCounter(product: product, stock: product.stock,)
     );
   }
 
@@ -178,65 +189,61 @@ class _DetProductPageState extends State<DetProductPage> {
   Widget _builPayCartButtons(BuildContext context, Product product) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 40.0),
-      child: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            child: prefs.idUsuario != 0? Column(
-              children: <Widget>[
+      child: Container(
+        width: double.infinity,
+        child: prefs.idUsuario != 0? Column(
+          children: <Widget>[
 
-                _buildFlatButton(
-                  texto: 'Comprar ahora',
-                  btnColor: kColorPrimario,
-                  txtColor: Colors.white,
-                  press: !_isLoading? () {
-                    _addProductAndPay(product);
-                  } : null
-                ),
+            _buildFlatButton(
+              texto: 'Comprar ahora',
+              btnColor: kColorPrimario,
+              txtColor: Colors.white,
+              press: !_isLoading? () {
+                _addProductAndPay(product);
+              } : null
+            ),
 
-                SizedBox(height: kDefaultPaddin/2),
+            SizedBox(height: kDefaultPaddin/2),
 
-                _buildFlatButton(
-                  texto: 'Agregar al carrito',
-                  btnColor: kColorPrimario,
-                  txtColor: Colors.white,
-                  press: !_isLoading? () {
-                    _addToShoppingCart(context, product);
-                  } : null
-                ),
-              ],
-            ) : Container(
-              height: 45.0,
-              child: RaisedButton(
-                color: kColorPrimario,
-                onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(kDefaultRadius)
-                ),
-                child: Text('Inicia sesión para comprar', style: TextStyle(color: Colors.white),),
-              ),
-            )
+            _buildFlatButton(
+              texto: 'Agregar al carrito',
+              btnColor: kColorPrimario.withOpacity(0.2),
+              txtColor: kColorPrimario,
+              press: !_isLoading? () {
+                _addToShoppingCart(context, product);
+              } : null
+            ),
+          ],
+        ) : Container(
+          height: 45.0,
+          child: RaisedButton(
+            color: kColorPrimario,
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil('login', (route) => false);
+            },
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kDefaultRadius)
+            ),
+            child: Text('Inicia sesión para comprar', style: TextStyle(color: Colors.white),),
           ),
-          _loadingIndicator()
-        ],
+        )
       ),
     );
-    
   }
 
   Widget _buildFlatButton({String texto, Color btnColor, Color txtColor, Function press}) {
-    return SizedBox(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(kDefaultRadius),
+        color: btnColor,
+      ),
       height: 45.0,
       width: double.infinity,
-      child: RaisedButton(
+      child: OutlineButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0)
+          borderRadius: BorderRadius.circular(kDefaultRadius)
         ),
-        // elevation: 3.0,
         onPressed: press,
-        color: btnColor,
         child: Text(texto, style: TextStyle(color: txtColor)),
       )
     );

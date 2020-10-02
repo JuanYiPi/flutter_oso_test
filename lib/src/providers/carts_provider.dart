@@ -204,7 +204,6 @@ class CartsProvider {
       url, 
       body: {
         'api_key'         : apiKey,
-        'cart_id'         : '37',
         'product_id'      : producto.id.toString(),
         'IdProductoCodigo': producto.idProductoCodigo.toString(),
         'IdProductoDesc'  : producto.idProductoDesc.toString(),

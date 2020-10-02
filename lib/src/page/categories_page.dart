@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_oso_test/src/components/list_categories.dart';
+import 'package:flutter_oso_test/src/components/my_drawer.dart';
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
+import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
 import 'package:flutter_oso_test/src/providers/categories_provider.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
@@ -21,7 +23,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: _buildAllCategories(),
-      // drawer: MyDrawer(),
+      drawer: MyDrawer(),
     );
   }
 
@@ -67,12 +69,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
           }
         ),
 
-        if (prefs.idUsuario != 0) IconButton(
-          icon: Icon(Icons.shopping_cart), 
-          onPressed: () {
-            Navigator.pushNamed(context, 'shopping_cart');
-          },
-        ),
+        ShoppingCartButton()
 
       ],
     );

@@ -31,7 +31,6 @@ class _MyDrawerState extends State<MyDrawer> {
             child: Stack(
               children: [
                 _buildFondo(),
-                // Center(child: Icon(Icons.person, size: 120.0,color:  Colors.white,)),
                 Center(
                   child: prefs.idUsuario != 0 ?
                   CircleAvatar(
@@ -46,8 +45,8 @@ class _MyDrawerState extends State<MyDrawer> {
           ),
 
           if (prefs.idUsuario != 0) ListTile(
-            onTap: ()=> Navigator.pushNamed(context, 'home'),
-            leading: Icon(Icons.home, color: kColorPrimario),
+            onTap: ()=> Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false),
+            leading: Icon(Icons.home),
             title: Text('Inicio'),
           ),
 
@@ -55,30 +54,30 @@ class _MyDrawerState extends State<MyDrawer> {
             onTap: () {
               Navigator.pushNamed(context, 'favorites');
             },
-            leading: Icon(Icons.star, color: kColorPrimario),
+            leading: Icon(Icons.star),
             title: Text('Favoritos'),
           ),
 
           if (prefs.idUsuario != 0) ListTile(
             onTap: () => Navigator.pushNamed(context, 'my_shopping'),
-            leading: Icon(Icons.shopping_basket, color: kColorPrimario),
+            leading: Icon(Icons.shopping_basket),
             title: Text('Mis compras'),
           ),
 
           if (prefs.idUsuario != 0) ListTile(
             onTap: () => Navigator.pushNamed(context, 'user_det', arguments: prefs.idUsuario),
-            leading: Icon(Icons.account_circle, color: kColorPrimario),
+            leading: Icon(Icons.account_circle,),
             title: Text('Mi cuenta'),
           ),
 
           if (prefs.idUsuario != 0) ListTile(
             onTap: () {},
-            leading: Icon(Icons.notifications, color: kColorPrimario),
+            leading: Icon(Icons.notifications),
             title: Text('Notificaciones'),
           ),
 
           ListTile(
-            leading: Icon(Icons.exit_to_app, color: kColorPrimario),
+            leading: Icon(Icons.exit_to_app),
             title: prefs.idUsuario == 0? Text('Iniciar sesión') : Text('Cerrar sesión'),
             onTap: () {
               prefs.rememberMe = false;
