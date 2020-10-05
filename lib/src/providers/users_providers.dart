@@ -91,7 +91,7 @@ class UsersProviders {
     String correo, 
     String clave, 
     String claveConfirmation,
-    String telefono
+    String phone
   }) async {
 
     final url = Uri.https(authority, 'api/users',{
@@ -100,7 +100,7 @@ class UsersProviders {
       'email'                 : correo,
       'password'              : clave,
       'password_confirmation' : claveConfirmation,
-      'phone'                 : (telefono.length == 0) ? ' ' : telefono
+      'phone'                 : (phone.length == 0) ? ' ' : phone
     });
 
     final resp = await http.post(url);
