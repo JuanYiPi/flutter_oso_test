@@ -67,8 +67,6 @@ class ConfirmBuyPage extends StatelessWidget {
   Widget _buildScaffold(BuildContext context, Cart cart, List<CartDetail> cartDetail, Direction direction) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        backgroundColor: kColorPrimario,
         centerTitle: true,
         title: Text('Confirma tu compra'),
       ),
@@ -85,7 +83,7 @@ class ConfirmBuyPage extends StatelessWidget {
 
   Widget _buildHeader(Cart cart, BuildContext context) {
     return Container(
-      color: kColorPrimario,
+      color: Theme.of(context).primaryColor,
       padding: EdgeInsets.only(top: 20.0, bottom: 30.0, left: 20.0, right: 20.0),
       child: Column(
         children: [
@@ -122,7 +120,7 @@ class ConfirmBuyPage extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(kDefaultRadius)
               ),
-              color: kColorTerciario,
+              color: kColorSecundario,
               child: Text('Confirmar compra', style: TextStyle(color: Colors.white),),
               onPressed: () {
                 _pay(context, (cart.total+cart.gastos).toString());
@@ -175,7 +173,7 @@ class ConfirmBuyPage extends StatelessWidget {
         child: cart.directionId == 0? Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.store, size: 40.0, color: kColorTerciario),
+            Icon(Icons.store, size: 40.0, color: kColorSecundario),
             Text('\nEl cliente lo recogerá en tienda')
           ],
         ) : Column(

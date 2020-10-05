@@ -45,12 +45,12 @@ class Categoria {
 
   String getImg() {
 
-    final String uncodedPath = DotEnv().env['IMG_API_PATH'];
+    final String uncodedPath = DotEnv().env['IMG_API_PATH_DEV'];
 
     if (imagen == null) {
       return null;
     } else {
-      final url = 'https://$uncodedPath/img/categories/$imagen';
+      final url = 'http://$uncodedPath/img/categories/$imagen';
       // final url = 'http://imposo.ddns.net:81/quickstart/img/categories/$imagen';
       return url;
     }

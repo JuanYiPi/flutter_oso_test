@@ -53,7 +53,7 @@ class CartsProvider {
 
   Future<List<Cart>> getAllPurchases() async {
 
-    final url = Uri.https(authority, 'api/users/${prefs.idUsuario}/carts', {
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/carts', {
       'api_key'               : apiKey,
     });
 
@@ -70,7 +70,7 @@ class CartsProvider {
   }
 
   Future<List<CartDetail>> getCartDetailList({String cartId}) async {
-    final url = Uri.https(authority, 'api/carts/$cartId/details', {'api_key': apiKey});
+    final url = Uri.http(authority, 'api/carts/$cartId/details', {'api_key': apiKey});
     
     final response = await http.get(url);
 
@@ -86,7 +86,7 @@ class CartsProvider {
 
   getNumbOfItemOfCart() async {
 
-    final url = Uri.https(authority, 'api/users/${prefs.idUsuario}/cartdetails', {
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails', {
       'api_key': apiKey
     });
 
@@ -110,7 +110,7 @@ class CartsProvider {
 
   Future<List<CartDetail>> getShoppingCart() async {
 
-    final url = Uri.https(authority, 'api/users/${prefs.idUsuario}/cartdetails', {
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails', {
       'api_key': apiKey
     });
 
@@ -140,7 +140,7 @@ class CartsProvider {
   }
 
   Future<Cart> getActiveCart() async {
-    final url = Uri.https(authority, 'api/users/${prefs.idUsuario}/cartactive', {
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartactive', {
       'api_key': apiKey
     });
 
@@ -160,7 +160,7 @@ class CartsProvider {
   }
 
   Future<CartMap> getCartMap() async {
-    final url = Uri.https(authority, 'api/users/${prefs.idUsuario}/cartdetails', {
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails', {
       'api_key': apiKey
     });
 
@@ -198,7 +198,7 @@ class CartsProvider {
   }
 
   Future<bool> addToShoppingCart(Product producto) async {
-    final url = Uri.https(authority, 'api/users/${prefs.idUsuario}/cartdetails');
+    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/cartdetails');
 
     final response = await http.post(
       url, 
@@ -221,7 +221,7 @@ class CartsProvider {
   }
 
   Future<bool> deleteFromShoppingCart(CartDetail item) async {
-    final url = Uri.https(authority, 'api/cartdetail/${item.id}', {'api_key': apiKey});
+    final url = Uri.http(authority, 'api/cartdetail/${item.id}', {'api_key': apiKey});
 
     final response = await http.delete(url);
     if (response.statusCode == 200) {
@@ -234,7 +234,7 @@ class CartsProvider {
   }
 
   Future<bool> updateShoppingCart({String directionId, String estado, String gastos, String mEntrega, String payReference}) async {
-    final url = Uri.https(authority, 'api/carts/${prefs.idActiveCart}');
+    final url = Uri.http(authority, 'api/carts/${prefs.idActiveCart}');
 
     final body = {
       'api_key'         : apiKey,

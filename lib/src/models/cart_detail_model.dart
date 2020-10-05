@@ -56,7 +56,7 @@ class CartDetail {
 
   String getImg() {
 
-    final String uncodedPath = DotEnv().env['IMG_API_PATH'];
+    final String uncodedPath = DotEnv().env['IMG_API_PATH_DEV'];
 
     if (imagen == null) {
       // return 'http://imposo.ddns.net:81/quickstart/img/products/${imagen}wwww';
@@ -65,20 +65,8 @@ class CartDetail {
     } else {
       // final url = 'http://imposo.ddns.net:81/quickstart/img/products/$imagen';
       // final url = 'http://192.168.0.2:8001/img/products/$imagen';
-      final url = 'https://$uncodedPath/img/products/$imagen';
+      final url = 'http://$uncodedPath/img/products/$imagen';
       return url;
     }
   }
-
-  List<String> getPrice() {
-    final a = this.total.toString();
-    final b = a.split('.');
-    if (b[1].length == 1){
-      final d = '${b[1]}0';
-      final list = [b[0],d];
-      return list;
-    } else {
-      return b;
-    }
-  } 
 }

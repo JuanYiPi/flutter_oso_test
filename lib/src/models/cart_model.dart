@@ -54,28 +54,4 @@ class Cart {
     createdAt       = json['createdAt'];
     updatedAt       = json['updatedAt'];
   }
-
-  // List<String> getTotal() {
-  //   final a = this.total.toString();
-  //   final b = a.split('.');
-  //   if (b[1].length == 1){
-  //     final d = '${b[1]}0';
-  //     final list = [b[0],d];
-  //     return list;
-  //   } else {
-  //     return b;
-  //   }
-  // } 
-
-  List<String> get getTotal {
-    final a = this.total.toString();
-    final b = a.split('.');
-    if (b[1].length == 1){
-      final d = '${b[1]}0';
-      final list = [b[0],d];
-      return list;
-    } else {
-      return b;
-    }
-  }
 }

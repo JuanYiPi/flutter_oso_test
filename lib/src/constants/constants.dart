@@ -5,9 +5,8 @@ const kTextLightColor = Color(0xFFACACAC);
 const kTextGreenColor = Color(0xFF34B454);
 
 const kColorPrimario = Colors.deepPurple;
-// const kColorSecundario = Color(0xFF007296);
-const kColorSecundario = Colors.deepPurple;
-const kColorTerciario = Color(0xFFB3396E);
+const kColorSecundario = Color(0xFF007296);
+const kColorTerciario = Color(0xFF880096);
 
 const kDefaultPaddin = 20.0;
 const kDefaultRadius = 5.0;

@@ -58,7 +58,7 @@ class _RegisterAddressesState extends State<RegisterAddresses> {
         title: Text('Agregar una dirección de envío'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
         child: Column(
           children: <Widget>[
             nombre(bloc),

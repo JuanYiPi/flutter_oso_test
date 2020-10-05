@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/components/my_product_card.dart';
-// import 'package:flutter_oso_test/src/components/server_image.dart';
 import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
-import 'package:flutter_oso_test/src/models/categories_model.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
 
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
@@ -13,14 +11,11 @@ import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 class MyCustomScrollView extends StatelessWidget {
 
   final List<Product> products;
-  final Categoria categoria;
+  final String title;
   final Function nextPage;
 
   MyCustomScrollView({
-    Key key, 
-    @required this.products, 
-    @required this.nextPage, 
-    @required this.categoria,
+    Key key, @required this.products, @required this.title, @required this.nextPage,
   }) : super(key: key);
 
   final ScrollController _scrollController = new ScrollController();
@@ -40,7 +35,7 @@ class MyCustomScrollView extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       controller: _scrollController,
       slivers: [
-        _mySliverAppBar(context, categoria),
+        _mySliverAppBar(context, title),
         SliverList(
           delegate: SliverChildListDelegate(
             List.generate(products.length, (index) => _myProductCard(context, products[index]))
@@ -50,30 +45,16 @@ class MyCustomScrollView extends StatelessWidget {
     );
   }
 
-  _mySliverAppBar(BuildContext context, Categoria categoria) {
+  _mySliverAppBar(BuildContext context, String title) {
     return SliverAppBar(
       leading: IconButton(
-        icon: Icon(Icons.arrow_back),
-        onPressed: ()=> Navigator.pop(context)
+      icon: Icon(Icons.arrow_back),
+      onPressed: ()=> Navigator.pop(context)
       ),
       floating: true,
-      pinned: true,
+      pinned: false,
       snap: false,
-      // expandedHeight: MediaQuery.of(context).size.width * 0.65,
-      // flexibleSpace: FlexibleSpaceBar(
-      //   // centerTitle: true,
-      //   title: Text(
-      //     categoria.descripcion,
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      //   // background: ServerImage(
-      //   //   width: double.infinity, 
-      //   //   heigt: double.infinity, 
-      //   //   imageUrl: categoria.getImg(),
-      //   //   borderRadius: 0.0,
-      //   // )
-      // ),
-      title: Text(categoria.descripcion),
+      title: Text(title),
       actions: [
          IconButton(
           icon: Icon(Icons.search), 
