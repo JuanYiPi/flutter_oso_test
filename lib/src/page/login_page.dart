@@ -304,7 +304,7 @@ class _LoginPageState extends State<LoginPage> {
             (image: AssetImage('assets/icon/oso-icon.png'))
           ),
           SizedBox( width: double.infinity, height: kDefaultPaddin / 2.0),
-          Text('Osonline', style: TextStyle( color: Colors.white, fontSize: 25.0 ))
+          Text('Oso Online', style: TextStyle( color: Colors.white, fontSize: 25.0 ))
         ],
       ),
     );
