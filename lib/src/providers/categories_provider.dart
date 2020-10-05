@@ -12,7 +12,7 @@ class CategoriasProvider {
 
   Future<List<Categoria>> getAllCategorias() async {
 
-    final url = Uri.http(authority, 'api/categories', {
+    final url = Uri.https(authority, 'api/categories', {
       'api_key'               : apiKey,
     });
     try {
