@@ -25,7 +25,7 @@ class UsersProviders {
       "password": password
     };
 
-    final url = Uri.http(authority, 'api/login', {
+    final url = Uri.https(authority, 'api/login', {
       'api_key'               : apiKey,
     });
 
@@ -49,7 +49,7 @@ class UsersProviders {
 
   Future<List<User>> getAllUsers() async {
 
-    final url = Uri.http(authority, 'api/users', {
+    final url = Uri.https(authority, 'api/users', {
       'api_key'               : apiKey,
     });
     final resp = await http.get(url);
@@ -68,7 +68,7 @@ class UsersProviders {
 
   Future <User> getUserById(String idUser) async {
 
-    final url = Uri.http(authority, 'api/users/$idUser', {
+    final url = Uri.https(authority, 'api/users/$idUser', {
       'api_key'               : apiKey,
     });
 
@@ -86,14 +86,21 @@ class UsersProviders {
     return null;
   }
 
-  Future<dynamic> addNewUser({String nombre, String correo, String clave, String claveConfirmation}) async {
+  Future<dynamic> addNewUser({
+    String nombre, 
+    String correo, 
+    String clave, 
+    String claveConfirmation,
+    String telefono
+  }) async {
 
-    final url = Uri.http(authority, 'api/users',{
+    final url = Uri.https(authority, 'api/users',{
       'api_key'               : apiKey,
       'name'                  : nombre,
       'email'                 : correo,
       'password'              : clave,
-      'password_confirmation' : claveConfirmation
+      'password_confirmation' : claveConfirmation,
+      'phone'                 : (telefono.length == 0) ? ' ' : telefono
     });
 
     final resp = await http.post(url);
@@ -124,7 +131,7 @@ class UsersProviders {
       'email'   : email,
     };
 
-    final url = Uri.http(authority, 'api/users/$id',{
+    final url = Uri.https(authority, 'api/users/$id',{
       'api_key'               : apiKey,
     });
 
@@ -150,7 +157,7 @@ class UsersProviders {
   Future deleteUserById(String idUser) async {
 
     try {
-      final url = Uri.http(authority, 'api/users/$idUser', {
+      final url = Uri.https(authority, 'api/users/$idUser', {
         'api_key'               : apiKey,
       });
       

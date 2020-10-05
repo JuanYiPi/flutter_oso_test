@@ -35,7 +35,7 @@ class ProductsProvider {
     _productPage++;
     print("page: $_productPage");
 
-    final url = Uri.http(authority, 'api/categories/${prefs.idCategoria}/products',{
+    final url = Uri.https(authority, 'api/categories/${prefs.idCategoria}/products',{
       'api_key'               : apiKey,
       'page': _productPage.toString(),
       'rows': '20',
@@ -65,7 +65,7 @@ class ProductsProvider {
 
   Future<List<Product>> getAllProducts() async {
 
-    final url = Uri.http(authority, 'api/products', {
+    final url = Uri.https(authority, 'api/products', {
       'api_key'               : apiKey,
     });
     try {
@@ -83,7 +83,7 @@ class ProductsProvider {
 
   Future<List<Product>> getAllProductsByCategoryID(String id) async {
 
-    final url = Uri.http(authority, 'api/categories/$id/products',{
+    final url = Uri.https(authority, 'api/categories/$id/products',{
       'api_key'               : apiKey,
       'page': '1',
       'rows': '20',
@@ -105,7 +105,7 @@ class ProductsProvider {
 
   Future<Product> getProductById(String id) async {
     
-    final url = Uri.http(authority, 'api/products/$id');
+    final url = Uri.https(authority, 'api/products/$id');
     try {
       final resp = await http.get(url);
       final decodedData = json.decode(resp.body);
@@ -119,9 +119,10 @@ class ProductsProvider {
   }
 
   Future<List<Product>> searchProduct(String query) async {
-    final url = Uri.http(authority, 'api/products',{
+    final url = Uri.https(authority, 'api/products',{
       'api_key': apiKey,
-      'query'  : query
+      'query'  : query,
+      'user_id': prefs.idUsuario.toString()
     });
     return await _procesarResp(url);
   }

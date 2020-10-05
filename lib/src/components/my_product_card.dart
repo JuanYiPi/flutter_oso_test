@@ -13,13 +13,11 @@ import 'package:flutter_oso_test/src/providers/products_provider.dart';
 class MyProductCard extends StatefulWidget {
   
   final Product product;
-  // final bool isFavoriteCard;
   final Function onDelete;
   
   MyProductCard({
     Key key,
-    @required this.product, 
-    // this.isFavoriteCard = false, 
+    @required this.product,  
     this.onDelete,
   });
 
@@ -54,25 +52,7 @@ class _MyProductCardState extends State<MyProductCard> {
     );
 
     return GestureDetector(
-      child: 
-      // (this.widget.isFavoriteCard) ? Dismissible(
-      //   key: UniqueKey(),
-      //   background: Container(
-      //     color: Colors.redAccent, 
-      //     child: Center(
-      //       child: Text(
-      //         'Eliminar', 
-      //         style: TextStyle(color: Colors.white),
-      //       )
-      //     )
-      //   ),
-      //   onDismissed: (_) async {
-      //     await favsProvider.deleteFavorite(this.widget.product.id.toString());
-      //     this.widget.onDelete();
-      //   },
-      //   child: cardProduct
-      // ) : 
-      cardProduct,
+      child: cardProduct,
       onTap: () async {
         await Navigator.pushNamed(context, 'det_product', arguments: widget.product);
         setState(() {});

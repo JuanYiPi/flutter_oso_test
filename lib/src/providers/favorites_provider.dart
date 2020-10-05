@@ -37,7 +37,7 @@ class FavoritesProvider {
 
   Future<List<Product>> getFavorites() async {
 
-    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/favorites', {
+    final url = Uri.https(authority, 'api/users/${prefs.idUsuario}/favorites', {
       'api_key' : apiKey,
     });
 
@@ -60,7 +60,7 @@ class FavoritesProvider {
 
   Future<bool> addToFavorite(String productId) async {
 
-    final url = Uri.http(authority, 'api/favorites');
+    final url = Uri.https(authority, 'api/favorites');
 
     final resp = await http.post(url, body: {
       'api_key'   : apiKey,
@@ -82,7 +82,7 @@ class FavoritesProvider {
 
   Future<bool> deleteFavorite(String productId) async {
 
-    final url = Uri.http(authority, 'api/users/${prefs.idUsuario}/products/$productId', {
+    final url = Uri.https(authority, 'api/users/${prefs.idUsuario}/products/$productId', {
       'api_key'   : apiKey,
       'user_id'   : prefs.idUsuario.toString(),
       'product_id': productId

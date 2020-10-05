@@ -36,8 +36,8 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: <Widget>[
           _crearFondo( context ),
-          _loginForm( context ),
           _botonSkip( context ),
+          _loginForm( context ),
           _loadingIndicator()
         ],
       ),
@@ -63,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
   final size = MediaQuery.of(context).size;
 
    return SingleChildScrollView(
+    physics: BouncingScrollPhysics(),
     child: Column(
       children: <Widget>[
 
@@ -92,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: <Widget>[
               Text('Ingreso', style: TextStyle(fontSize: 20.0)),
-              SizedBox( height: kDefaultPaddin * 3.0 ),
+              SizedBox( height: kDefaultPaddin * 2.0 ),
               _crearEmail(context, bloc),
               SizedBox( height: kDefaultPaddin * 1.5 ),
               _crearPassword(context, bloc),
@@ -114,29 +115,27 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _crearEmail(BuildContext context, Blocs bloc) {
 
-  return StreamBuilder(
-    stream: bloc.emailStreamLogin,
-    builder: (BuildContext context, AsyncSnapshot snapshot){
+    return StreamBuilder(
+      stream: bloc.emailStreamLogin,
+      builder: (BuildContext context, AsyncSnapshot snapshot){
 
-      return Container(
-        padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
+        return Container(
+          padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
 
-        child: TextField(
-          controller: _emailController,
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            icon: Icon( Icons.alternate_email, color: Theme.of(context).primaryColor),
-            hintText: 'ejemplo@correo.com',
-            labelText: 'Correo electrónico',   
-            errorText: snapshot.error,
+          child: TextField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+              icon: Icon( Icons.alternate_email, color: Theme.of(context).primaryColor),
+              hintText: 'ejemplo@correo.com',
+              labelText: 'Correo electrónico',   
+              errorText: snapshot.error,
+            ),
+            onChanged: bloc.changeEmailLogin,
           ),
-          onChanged: bloc.changeEmailLogin,
-        ),
-      );
-    },
-  );
-
-  
+        );
+      },
+    );
   }
 
   Widget _crearPassword(BuildContext context, Blocs bloc) {

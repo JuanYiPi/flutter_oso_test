@@ -33,6 +33,7 @@ class _RegistroPageState extends State<RegistroPage> {
   final textControllerEmail                 = TextEditingController();
   final textControllerPassword              = TextEditingController();
   final textControllerPasswordConfirmation  = TextEditingController();
+  final textControllerTelefono              = TextEditingController();
 
   @override
   void initState() { 
@@ -118,6 +119,8 @@ class _RegistroPageState extends State<RegistroPage> {
                 SizedBox( height: kDefaultPaddin ),
                 _crearEmail(bloc),
                 SizedBox( height: kDefaultPaddin ),
+                _phoneNumber(bloc),
+                SizedBox( height: kDefaultPaddin * 2.0 ),
                 _crearPassword(bloc),
                 SizedBox( height: kDefaultPaddin ),
                 _confirmarPassword(bloc),
@@ -186,6 +189,22 @@ class _RegistroPageState extends State<RegistroPage> {
           ),
         );
       },
+    );
+  }
+
+  Widget _phoneNumber(Blocs bloc) {
+
+    return Container(
+      padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
+      child: TextField(
+        controller: textControllerTelefono,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          icon: Icon( Icons.phone, color: Theme.of(context).primaryColor),
+          labelText: 'Telefono personal (opcional)',
+          hintText: 'Ej: 2221234567',
+        ),
+      ),
     );
   }
 
@@ -277,13 +296,15 @@ class _RegistroPageState extends State<RegistroPage> {
         return Container(
           width: size.width * 0.6,
           height: 45.0,
-          child: RaisedButton(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(kDefaultRadius),
+            color: (snapshot.hasData && !_isLoading && _botonActivo) ? kColorPrimario : Colors.black38
+          ),
+          child: OutlineButton(
             child: Text('Registrar'),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(kDefaultRadius)
             ),
-            // elevation: 0.0,
-            color: kColorSecundario,
             textColor: Colors.white,
             onPressed: (snapshot.hasData && !_isLoading && _botonActivo) ? (){
               _addNewUser(context);
@@ -301,8 +322,12 @@ class _RegistroPageState extends State<RegistroPage> {
     return Container(
       width: size.width * 0.6,
       height: 45.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(kDefaultRadius),
+        color: kColorPrimario.withOpacity(0.2),
+      ),
       child: OutlineButton(
-        child: Text('Cancelar'),
+        child: Text('Cancelar', style: TextStyle(color: kColorPrimario),),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius)
         ),
@@ -325,7 +350,8 @@ class _RegistroPageState extends State<RegistroPage> {
       nombre           : textControllerName.text,
       correo           : textControllerEmail.text,
       clave            : textControllerPassword.text,
-      claveConfirmation: textControllerPasswordConfirmation.text,  
+      claveConfirmation: textControllerPasswordConfirmation.text,
+      telefono         : textControllerTelefono.text.trim()
     );
 
     setState(() {
