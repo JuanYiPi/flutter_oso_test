@@ -7,8 +7,6 @@ class ServerImage extends StatelessWidget {
   final String errorImagePath;
   final String imageUrl;
   final String placeholder;
-  final double borderRadius;
-  // final bool notRounded;
 
   const ServerImage({
     Key key, 
@@ -16,16 +14,14 @@ class ServerImage extends StatelessWidget {
     @required this.heigt, 
     @required this.imageUrl,
     this.errorImagePath = 'assets/img/no_disponible.jpg', 
-    this.placeholder = 'assets/img/loading.gif', 
-    this.borderRadius = 10.0, 
-    // this.notRounded = false
+    this.placeholder = 'assets/img/loading.gif'
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       clipBehavior: Clip.antiAlias,
-      borderRadius: BorderRadius.circular(this.borderRadius),
+      borderRadius: BorderRadius.circular(10.0),
       child: FadeInImage(
         imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
           print('Error Handler');

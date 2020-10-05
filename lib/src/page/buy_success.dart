@@ -46,7 +46,7 @@ class BuySuccess extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)
                   ),
-                  color: Color(0xFFB3396E),
+                  color: kColorSecundario,
                   child: Text('Ir a Inicio', style: TextStyle(color: Colors.white),),
                   onPressed: (){
                     Navigator.pushReplacementNamed(context, 'home');

@@ -61,6 +61,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
   Scaffold _emptyCart() {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Carrito de compras'),
       ),
       body: Center(child: RichText(
@@ -80,6 +81,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
   Scaffold _buildScaffold(List<CartDetail> items, BuildContext context, Cart total) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Carrito de compras'),
       ),
       body: _listCartDetail(cartItems: items),
@@ -89,7 +91,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
   Widget _listCartDetail({List<CartDetail> cartItems}) {
     return ListView.builder(
-      physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) => ShoppingCartProduct(
         cartItem: cartItems[index], 
       ),
@@ -118,7 +119,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Total:', style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor)),
-              Text('\$${cart.getTotal[0]}.${cart.getTotal[1]}', style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor),)
+              Text('\$${cart.total}0', style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor),)
             ],
           ),
           Divider(),
