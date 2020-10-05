@@ -35,7 +35,7 @@ class RecentProductsProvider {
 
   getRecentProducts() async {
 
-    final url = Uri.http(authority, 'api/recentproducts', {
+    final url = Uri.https(authority, 'api/recentproducts', {
       'api_key': apiKey,
       'user_id': prefs.idUsuario.toString()
     });

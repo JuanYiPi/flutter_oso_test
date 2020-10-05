@@ -38,7 +38,7 @@ class DirectionsProvider {
 
   Future<List<Direction>> getAllDirections() async {
 
-    final url = Uri.http(authority, 'api/directions', {
+    final url = Uri.https(authority, 'api/directions', {
       'api_key' : apiKey,
       'user_id' : prefs.idUsuario.toString(),
     });
@@ -60,7 +60,7 @@ class DirectionsProvider {
   }
 
   Future<Direction> getDirectionById(String id) async {
-    final url = Uri.http(authority, 'api/directions/$id', {
+    final url = Uri.https(authority, 'api/directions/$id', {
       'api_key': apiKey
     });
 
@@ -78,7 +78,7 @@ class DirectionsProvider {
 
   Future<dynamic> addNewDirection(Direction direction) async {
 
-    final url = Uri.http(authority, 'api/directions',{
+    final url = Uri.https(authority, 'api/directions',{
       'api_key'       : apiKey,
       'user_id'       : direction.userId.toString(),
       'receive'       : direction.receive,
@@ -112,7 +112,7 @@ class DirectionsProvider {
   }
 
   Future<bool> deleteDirections(String id) async {
-    final url = Uri.http(authority, 'api/directions/$id', {'api_key': apiKey});
+    final url = Uri.https(authority, 'api/directions/$id', {'api_key': apiKey});
 
     final response = await http.delete(url);
     if (response.statusCode == 200) {
@@ -141,7 +141,7 @@ class DirectionsProvider {
       if (direccion.type != null) 'type'                  : direccion.type.toString(),
     };
 
-    final url = Uri.http(authority, 'api/directions/${direccion.id}');
+    final url = Uri.https(authority, 'api/directions/${direccion.id}');
 
     final resp = await http.put(url, body: body, headers: UsersProviders.headers);
     final decodedData = json.decode(resp.body);
