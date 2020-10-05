@@ -33,6 +33,7 @@ class _RegistroPageState extends State<RegistroPage> {
   final textControllerEmail                 = TextEditingController();
   final textControllerPassword              = TextEditingController();
   final textControllerPasswordConfirmation  = TextEditingController();
+  final textControllerTelefono              = TextEditingController();
 
   @override
   void initState() { 
@@ -118,6 +119,8 @@ class _RegistroPageState extends State<RegistroPage> {
                 SizedBox( height: kDefaultPaddin ),
                 _crearEmail(bloc),
                 SizedBox( height: kDefaultPaddin ),
+                _phoneNumber(bloc),
+                SizedBox( height: kDefaultPaddin * 2.0 ),
                 _crearPassword(bloc),
                 SizedBox( height: kDefaultPaddin ),
                 _confirmarPassword(bloc),
@@ -186,6 +189,22 @@ class _RegistroPageState extends State<RegistroPage> {
           ),
         );
       },
+    );
+  }
+
+  Widget _phoneNumber(Blocs bloc) {
+
+    return Container(
+      padding: EdgeInsets.symmetric( horizontal: kDefaultPaddin ),
+      child: TextField(
+        controller: textControllerTelefono,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          icon: Icon( Icons.phone, color: Theme.of(context).primaryColor),
+          labelText: 'Telefono personal (opcional)',
+          hintText: 'Ej: 2221234567',
+        ),
+      ),
     );
   }
 
@@ -331,7 +350,8 @@ class _RegistroPageState extends State<RegistroPage> {
       nombre           : textControllerName.text,
       correo           : textControllerEmail.text,
       clave            : textControllerPassword.text,
-      claveConfirmation: textControllerPasswordConfirmation.text,  
+      claveConfirmation: textControllerPasswordConfirmation.text,
+      telefono         : textControllerTelefono.text.trim()
     );
 
     setState(() {

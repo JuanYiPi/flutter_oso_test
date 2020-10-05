@@ -86,14 +86,21 @@ class UsersProviders {
     return null;
   }
 
-  Future<dynamic> addNewUser({String nombre, String correo, String clave, String claveConfirmation}) async {
+  Future<dynamic> addNewUser({
+    String nombre, 
+    String correo, 
+    String clave, 
+    String claveConfirmation,
+    String telefono
+  }) async {
 
     final url = Uri.https(authority, 'api/users',{
       'api_key'               : apiKey,
       'name'                  : nombre,
       'email'                 : correo,
       'password'              : clave,
-      'password_confirmation' : claveConfirmation
+      'password_confirmation' : claveConfirmation,
+      'phone'                 : (telefono.length == 0) ? ' ' : telefono
     });
 
     final resp = await http.post(url);
