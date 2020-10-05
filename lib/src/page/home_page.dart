@@ -4,6 +4,7 @@ import 'package:flutter_oso_test/src/components/categories_swiper.dart';
 import 'package:flutter_oso_test/src/components/my_drawer.dart';
 import 'package:flutter_oso_test/src/components/recent_products_beta.dart';
 import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
+import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 import '../components/search_delegate.dart';
 
@@ -49,68 +50,50 @@ class HomePage extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 20.0,),
-        OutlineButton(
-          child: Text('Lista de categorías'),
-          onPressed: (){
-          Navigator.pushNamed(context, 'cat_page');
-        }),
+        Container(
+          height: 40.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(kDefaultRadius),
+            color: kColorPrimario.withOpacity(0.2),
+          ),
+          child: OutlineButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(kDefaultRadius)
+            ),
+            child: Text('Lista de categorías', style: TextStyle(color: kColorPrimario)),
+            onPressed: (){
+            Navigator.pushNamed(context, 'cat_page');
+          }),
+        ),
       ],
     );
   }
 
-  // Widget _productosRecientes() {
-  //   return Container(
-  //     margin: EdgeInsets.only(top: 20.0),
-  //     child: Column(
-  //         children: [
-  //           Text('Agregados recientemente', style: TextStyle(fontWeight: FontWeight.bold)),
-  //           SizedBox(height: 10.0,),
-  //           StreamBuilder(
-  //             stream: recentProductsProvider.productosRecientesStream,
-  //             builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot){
-  //               if (!snapshot.hasData) {
-  //                 return Center(child: CircularProgressIndicator());
-  //               }
-
-  //               final productosRecientes = snapshot.data;
-
-  //               if (productosRecientes.length == 0) {
-  //                 return Center(child: Text('No hay productos recientes'));
-  //               }
-
-  //               return RecentProducts(productos: productosRecientes);
-  //             },
-  //           ),
-  //         ],
-  //       ),
-  //   );
-  // }
-
   Widget _productosRecientesBeta() {
     return Container(
-      margin: EdgeInsets.only(top: 20.0),
+      margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
       child: Column(
-          children: [
-            Text('Agregados recientemente', style: TextStyle(fontWeight: FontWeight.bold)),
-            SizedBox(height: 10.0,),
-            StreamBuilder(
-              stream: recentProductsProvider.productosRecientesStream,
-              builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot){
-                if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
-                }
+        children: [
+          Text('Agregados recientemente', style: TextStyle(fontWeight: FontWeight.bold)),
+          SizedBox(height: 10.0,),
+          StreamBuilder(
+            stream: recentProductsProvider.productosRecientesStream,
+            builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot){
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              }
 
-                final productosRecientes = snapshot.data;
+              final productosRecientes = snapshot.data;
 
-                if (productosRecientes.length == 0) {
-                  return Center(child: Text('No hay productos recientes'));
-                }
+              if (productosRecientes.length == 0) {
+                return Center(child: Text('No hay productos recientes'));
+              }
 
-                return RecentProductBeta(productos: productosRecientes);
-              },
-            ),
-          ],
-        ),
+              return RecentProductBeta(productos: productosRecientes);
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -118,22 +101,22 @@ class HomePage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 20.0),
       child: FutureBuilder(
-          future: catProvider.getAllCategorias(),
-          builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-            if (snapshot.hasData) {
-              return CategoriesSwiper(
-                categorias: snapshot.data
-              );
-            } else {
-              return Container(
-                height: 400.0,
-                child: Center(
-                  child: CircularProgressIndicator()
-                )
-              );
-            }  
-          },
-        ),
+        future: catProvider.getAllCategorias(),
+        builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+          if (snapshot.hasData) {
+            return CategoriesSwiper(
+              categorias: snapshot.data
+            );
+          } else {
+            return Container(
+              height: 400.0,
+              child: Center(
+                child: CircularProgressIndicator()
+              )
+            );
+          }  
+        },
+      ),
     );
   }
 

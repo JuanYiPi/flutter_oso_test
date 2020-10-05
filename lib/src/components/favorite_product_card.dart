@@ -29,6 +29,7 @@ class _FavoriteProductCardState extends State<FavoriteProductCard> {
 
   @override
   void initState() {
+    widget.product.favorite = 1;
     _isLoading = false;
     super.initState();
   }

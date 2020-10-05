@@ -32,7 +32,7 @@ class ListAllCategories extends StatelessWidget {
       onTap: () {
         prefs.idCategoria = categoria.id;
         print(prefs.idCategoria);
-        Navigator.pushNamed(context, 'products_by_cat', arguments: categoria.descripcion);
+        Navigator.pushNamed(context, 'products_by_cat', arguments: categoria);
       },
     );
 

@@ -277,13 +277,15 @@ class _RegistroPageState extends State<RegistroPage> {
         return Container(
           width: size.width * 0.6,
           height: 45.0,
-          child: RaisedButton(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(kDefaultRadius),
+            color: (snapshot.hasData && !_isLoading && _botonActivo) ? kColorPrimario : Colors.black38
+          ),
+          child: OutlineButton(
             child: Text('Registrar'),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(kDefaultRadius)
             ),
-            // elevation: 0.0,
-            color: kColorSecundario,
             textColor: Colors.white,
             onPressed: (snapshot.hasData && !_isLoading && _botonActivo) ? (){
               _addNewUser(context);
@@ -301,8 +303,12 @@ class _RegistroPageState extends State<RegistroPage> {
     return Container(
       width: size.width * 0.6,
       height: 45.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(kDefaultRadius),
+        color: kColorPrimario.withOpacity(0.2),
+      ),
       child: OutlineButton(
-        child: Text('Cancelar'),
+        child: Text('Cancelar', style: TextStyle(color: kColorPrimario),),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(kDefaultRadius)
         ),

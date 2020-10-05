@@ -35,18 +35,22 @@ class ShoppingCartProduct extends StatelessWidget {
     );
 
     return Dismissible(
+      direction: DismissDirection.endToStart,
       key: UniqueKey(),
       background: Container(
-        color: Colors.redAccent, 
-        child: Center(
-          child: Text(
-            'Eliminar', 
-            style: TextStyle(color: Colors.white),
+          padding: EdgeInsets.only(right: 30.0),
+          alignment: Alignment.centerRight,
+          color: Colors.redAccent, 
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.delete, color: Colors.white),
+              Text('Eliminar', style: TextStyle(color: Colors.white))
+            ],
           )
-        )
-      ),
-      onDismissed: (_) async {
-        await cartsProvider.deleteFromShoppingCart(this.cartItem);
+        ),
+      onDismissed: (_) {
+        cartsProvider.deleteFromShoppingCart(this.cartItem);
       },
       child: cardProduct
     );
@@ -91,7 +95,7 @@ class ShoppingCartProduct extends StatelessWidget {
                 child: Text('Cantidad: ${this.cartItem.cantidad}', style: textoLight,)
               ),
               Text(
-                '\$${this.cartItem.total}0',
+                '\$${this.cartItem.getPrice()[0]}.${this.cartItem.getPrice()[1]}',
                 style: Theme.of(context).textTheme.headline6.copyWith(color: kTextColor),
               ),
             ],
