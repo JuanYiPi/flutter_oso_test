@@ -36,8 +36,8 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(
         children: <Widget>[
           _crearFondo( context ),
-          _botonSkip( context ),
           _loginForm( context ),
+          _botonSkip( context ),
           _loadingIndicator()
         ],
       ),
