@@ -7,6 +7,7 @@ import 'package:flutter_oso_test/src/page/buy_success.dart';
 import 'package:flutter_oso_test/src/page/choose_address_page.dart';
 import 'package:flutter_oso_test/src/page/confirm_buy_page.dart';
 import 'package:flutter_oso_test/src/page/favorites_page.dart';
+import 'package:flutter_oso_test/src/page/image_zoom.dart';
 import 'package:flutter_oso_test/src/page/payment_method_page.dart';
 import 'package:flutter_oso_test/src/page/purchase_det.dart';
 import 'package:flutter_oso_test/src/page/shipping_method_page.dart';
@@ -79,6 +80,7 @@ class MyApp extends StatelessWidget {
           'finish'             : ( BuildContext context ) => BuySuccess(),
           'purchase_det'       : ( BuildContext context ) => PurchaseDetPage(),
           'favorites'          : ( BuildContext context ) => FavoritesPage(),
+          'zoom'               : ( BuildContext context ) => ImageZoomPage(),
         },
         theme: ThemeData(
           primaryColor: kColorPrimario,

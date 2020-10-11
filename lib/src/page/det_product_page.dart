@@ -147,13 +147,16 @@ class _DetProductPageState extends State<DetProductPage> {
   }
 
   Widget _productImg(Size screenSize, Product product) {
-    return Container(
-      margin: EdgeInsets.only(top: 20.0),
-      child: ServerImage(
-        width: screenSize.width * 0.9, 
-        heigt: screenSize.width * 0.9, 
-        imageUrl: product.getImg()
+    return GestureDetector(
+      child: Container(
+        margin: EdgeInsets.only(top: 20.0),
+        child: ServerImage(
+          width: screenSize.width * 0.9, 
+          heigt: screenSize.width * 0.9, 
+          imageUrl: product.getImg()
+        ),
       ),
+      onTap: () => Navigator.pushNamed(context, 'zoom', arguments: product),
     );
   }
 
