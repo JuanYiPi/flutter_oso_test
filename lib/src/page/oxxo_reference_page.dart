@@ -91,9 +91,6 @@ class OxxoReferencePage extends StatelessWidget {
     return Container(
       child: Text(
         'Tienes 48 horas para realizar el pago, despues de ese tiempo, el numero de referencia perdera su validez',
-        // style: TextStyle(
-        //   // color: kTextLightColor
-        // ),
       )
     );
   }

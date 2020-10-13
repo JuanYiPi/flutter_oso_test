@@ -88,25 +88,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
         break;
     }
   }
-
-  Future _payWhenReceive(BuildContext context) async {
-    final response = await cartsProvider.updateShoppingCart(
-      estado: 'Pendiente de pago',
-      payReference: 'No aplica'
-    );
-    if (response == true) {
-      Navigator.of(context).pushNamedAndRemoveUntil('finish', ModalRoute.withName('home'));
-    } else {
-      Scaffold.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Colors.red,
-          content: Text('Algo salio mal, intente de nuevo más tarde'),
-          duration: new Duration(milliseconds: 3000),
-        ),
-      );
-    }
-  }
-
+  
   Future _payWithCard(List<String> total, BuildContext context) async {
     var response = await StripeService.payWithNewCard(
       amount: '${total[0]}${total[1]}0',
@@ -128,4 +110,23 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
       );
     }
   }
+
+  Future _payWhenReceive(BuildContext context) async {
+    final response = await cartsProvider.updateShoppingCart(
+      estado: 'Pendiente de pago',
+      payReference: 'No aplica'
+    );
+    if (response == true) {
+      Navigator.of(context).pushNamedAndRemoveUntil('finish', ModalRoute.withName('home'));
+    } else {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Algo salio mal, intente de nuevo más tarde'),
+          duration: new Duration(milliseconds: 3000),
+        ),
+      );
+    }
+  }
+
 }
