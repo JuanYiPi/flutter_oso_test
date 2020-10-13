@@ -99,6 +99,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
       await cartsProvider.updateShoppingCart(
         estado: 'Pagado'
       );
+      cartsProvider.getNumbOfItemOfCart();
       Navigator.of(context).pushNamedAndRemoveUntil('finish', ModalRoute.withName('home'));
     } else {
       Scaffold.of(context).showSnackBar(
@@ -117,6 +118,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
       payReference: 'No aplica'
     );
     if (response == true) {
+      cartsProvider.getNumbOfItemOfCart();
       Navigator.of(context).pushNamedAndRemoveUntil('finish', ModalRoute.withName('home'));
     } else {
       Scaffold.of(context).showSnackBar(

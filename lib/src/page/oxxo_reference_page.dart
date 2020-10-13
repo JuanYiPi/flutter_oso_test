@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/models/oxxo_pay_model.dart';
+import 'package:flutter_oso_test/src/providers/carts_provider.dart';
 
 import 'package:flutter_oso_test/src/services/conekta_service.dart';
 
@@ -26,6 +27,8 @@ class OxxoReferencePage extends StatelessWidget {
   Scaffold _buildScaffold(BuildContext context, Data content) {
 
     final data = content.paymentMethod;
+    final cartsProvider = CartsProvider();
+    cartsProvider.getNumbOfItemOfCart();
 
     return Scaffold(
       backgroundColor: Colors.green,
@@ -90,7 +93,7 @@ class OxxoReferencePage extends StatelessWidget {
   Container _ending() {
     return Container(
       child: Text(
-        'Tienes 48 horas para realizar el pago, despues de ese tiempo, el numero de referencia perdera su validez',
+        'Tienes 48 horas para realizar el pago, después de ese tiempo, el número de referencia perderá su validez',
       )
     );
   }
