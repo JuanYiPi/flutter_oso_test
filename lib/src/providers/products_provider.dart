@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_oso_test/src/models/comment_list.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
@@ -136,5 +137,42 @@ class ProductsProvider {
       print(err.toString());
       return null;
     }
+  }
+
+  Future<List<Comment>> getComments(String productId) async {
+
+    final url = Uri.https(authority, 'api/coments', {
+      'api_key'   : apiKey,
+      'product_id': productId
+    });
+   
+    final resp = await http.get(url);
+
+    try {
+      final lista = commentListFromJson(resp.body);
+      return lista.data;
+    } catch (err) {
+      print(err.toString());
+      return null;
+    }
+  }
+
+  Future<bool> addComment({int rating, String comment, int productId}) async {
+
+    final url = Uri.https(authority, 'api/coments', {
+      'api_key'   : apiKey,
+      'product_id': productId.toString(),
+      'user_id'   : prefs.idUsuario.toString(),
+      'rating'    : rating.toString(),
+      'coment'    : comment
+    });
+
+    final resp = await http.post(url);
+    if (resp.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 }

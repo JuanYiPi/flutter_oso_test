@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
@@ -13,6 +14,8 @@ class UsersProviders {
 
   String authority = DotEnv().env['OSO_BASE_URL'];
   String apiKey    = DotEnv().env['OSO_API_KEY'];
+
+  final prefs = UserPreferences();
 
   static Map<String, String> headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
@@ -124,14 +127,15 @@ class UsersProviders {
     }
   }
 
-  Future<dynamic> updateUser({String id, String name, String email}) async {
+  Future<dynamic> updateUser({String name, String email, String phone}) async {
 
     final Map <String, dynamic> body = {
-      'name'    : name,
-      'email'   : email,
+      if (name != null)  'name' : name,
+      if (email != null) 'email': email,
+      if (phone != null) 'phone': phone
     };
 
-    final url = Uri.https(authority, 'api/users/$id',{
+    final url = Uri.https(authority, 'api/users/${prefs.idUsuario}',{
       'api_key'               : apiKey,
     });
 

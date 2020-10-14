@@ -49,7 +49,7 @@ class BuySuccess extends StatelessWidget {
                   color: Color(0xFFB3396E),
                   child: Text('Ir a Inicio', style: TextStyle(color: Colors.white),),
                   onPressed: (){
-                    Navigator.pushReplacementNamed(context, 'home');
+                    Navigator.pop(context);
                   }
                 ),
               )

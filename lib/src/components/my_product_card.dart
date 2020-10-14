@@ -9,6 +9,7 @@ import 'package:flutter_oso_test/src/models/product_model.dart';
 
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 
 class MyProductCard extends StatefulWidget {
   
@@ -26,9 +27,10 @@ class MyProductCard extends StatefulWidget {
 }
 
 class _MyProductCardState extends State<MyProductCard> {
-  final productProvider = ProductsProvider();
 
+  final productProvider = ProductsProvider();
   final favsProvider = FavoritesProvider();
+  final prefs = UserPreferences();
 
   @override
   Widget build(BuildContext context) {
@@ -113,9 +115,9 @@ class _MyProductCardState extends State<MyProductCard> {
   Column _buildIcon(BuildContext context) {
     return Column(
       children: <Widget>[
-        FavoriteButton(
+        (prefs.idUsuario != 0) ? FavoriteButton(
           product: widget.product
-        )
+        ) : Container()
       ],
     );
   }
