@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_oso_test/src/constants/constants.dart';
+import 'package:flutter_oso_test/src/page/add_comment_page.dart';
+import 'package:flutter_oso_test/src/page/all_comments_page.dart';
 import 'package:flutter_oso_test/src/page/buy_success.dart';
 import 'package:flutter_oso_test/src/page/choose_address_page.dart';
+import 'package:flutter_oso_test/src/page/comment_done_page.dart';
 import 'package:flutter_oso_test/src/page/confirm_buy_page.dart';
 import 'package:flutter_oso_test/src/page/favorites_page.dart';
 import 'package:flutter_oso_test/src/page/image_zoom.dart';
@@ -83,6 +86,9 @@ class MyApp extends StatelessWidget {
           'favorites'          : ( BuildContext context ) => FavoritesPage(),
           'zoom'               : ( BuildContext context ) => ImageZoomPage(),
           'oxxo'               : ( BuildContext context ) => OxxoReferencePage(),
+          'comments'           : ( BuildContext context ) => AllCommentsPage(),
+          'add_comment'        : ( BuildContext context ) => AddCommentPage(),
+          'comment_done'       : ( BuildContext context ) => CommentDonePage(),
         },
         theme: ThemeData(
           primaryColor: kColorPrimario,

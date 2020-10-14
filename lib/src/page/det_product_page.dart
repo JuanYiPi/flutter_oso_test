@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_oso_test/src/components/cart_counter_beta.dart';
+import 'package:flutter_oso_test/src/components/comment_box.dart';
 import 'package:flutter_oso_test/src/components/favorite_button.dart';
 import 'package:flutter_oso_test/src/components/my_drawer.dart';
+import 'package:flutter_oso_test/src/components/question_box.dart';
 import 'package:flutter_oso_test/src/components/search_delegate.dart';
 import 'package:flutter_oso_test/src/components/server_image.dart';
 import 'package:flutter_oso_test/src/components/shopping_cart_button.dart';
+import 'package:flutter_oso_test/src/models/comment_list.dart';
 
 import 'package:flutter_oso_test/src/providers/favorites_provider.dart';
 import 'package:flutter_oso_test/src/providers/products_provider.dart';
@@ -114,6 +117,8 @@ class _DetProductPageState extends State<DetProductPage> {
           _productCuantity(product),
           _loadingIndicator(),
           _builPayCartButtons(context, product,),
+          _questionsBox(),
+          _commentBox(product.idProductoCodigo.toString()),
         ],
       ),
     );
@@ -301,5 +306,35 @@ class _DetProductPageState extends State<DetProductPage> {
       _mostrarSnackbar('No se pudo agregar al carrito :(', Colors.red);
       print('error al agregar');
     }
+  }
+
+  Widget _questionsBox() {
+    return QuestionBox();
+  }
+
+  Widget _commentBox(String productId) {
+
+    final productsProvider = ProductsProvider();
+
+    return FutureBuilder(
+      future: productsProvider.getComments(productId),
+      builder: (BuildContext context, AsyncSnapshot<List<Comment>> snapshot) {
+
+        if (!snapshot.hasData) {
+          return Container(
+            child: Center(
+              child: CircularProgressIndicator()
+            )
+          );
+        }
+
+        if (snapshot.data.length == 0) {
+          return CommentBox(comments: snapshot.data);
+        }
+
+        return CommentBox(comments: snapshot.data);
+
+      },
+    );
   }
 }

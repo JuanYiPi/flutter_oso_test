@@ -16,6 +16,7 @@ class PurchaseDetPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         centerTitle: true,
         title: Text('Detalle de compra'),
       ), 
@@ -96,7 +97,7 @@ class PurchaseDetPage extends StatelessWidget {
       elevation: 0.0,
       child: Container(
         padding: EdgeInsets.all(10.0),
-        height: 150.0,
+        height: 190.0,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -111,29 +112,17 @@ class PurchaseDetPage extends StatelessWidget {
                 errorImagePath: 'assets/img/no_disponible.jpg',
               ),
             ),
-            // Container(
-            //   clipBehavior: Clip.antiAlias,
-            //   decoration: BoxDecoration(shape: BoxShape.circle),
-            //   child: FadeInImage(
-            //     imageErrorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-            //       print('Error Handler');
-            //       return Container(
-            //         width: 60.0,
-            //         height: 60.0,
-            //         child: Image.asset('assets/img/no_disponible.jpg'),
-            //       );
-            //     },
-            //     placeholder: AssetImage('assets/img/loading.gif'), 
-            //     image: item.getImg() != null? NetworkImage(item.getImg()): AssetImage('assets/img/no_disponible.jpg'),
-            //     fit: BoxFit.cover,
-            //     height: 60.0,
-            //     width: 60.0,
-            //   ),
-            // ),
             SizedBox(height: 10.0,),
             Text(item.descripcion.toLowerCase()),
             SizedBox(height: 10.0,),
-            Text('Cantidad: ${item.cantidad}')
+            Text('Cantidad: ${item.cantidad}'),
+            Container(
+              child: FlatButton(
+                textColor: kColorPrimario,
+                onPressed: () => Navigator.pushNamed(context, 'add_comment', arguments: item), 
+                child: Text('Opinar sobre el producto')
+              ),
+            )
           ],
         ),
       ),
