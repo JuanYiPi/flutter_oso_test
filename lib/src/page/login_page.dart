@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
         Container(
           width: size.width * 0.85,
           margin: EdgeInsets.symmetric( vertical: kDefaultPaddin * 1.5 ),
-          padding: EdgeInsets.symmetric( vertical: kDefaultPaddin * 2.0 ),
+          padding: EdgeInsets.only( top: kDefaultPaddin * 2.0, bottom: 20.0 ),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10.0),
@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
 
           child: Column(
             children: <Widget>[
-              Text('Ingreso', style: TextStyle(fontSize: 20.0)),
+              Text('Inicia sesión', style: TextStyle(fontSize: 20.0)),
               SizedBox( height: kDefaultPaddin * 2.0 ),
               _crearEmail(context, bloc),
               SizedBox( height: kDefaultPaddin * 1.5 ),
@@ -101,17 +101,26 @@ class _LoginPageState extends State<LoginPage> {
               _crearCheckbox(),
               SizedBox( height: kDefaultPaddin * 1.5 ),
               _crearBoton(bloc),
+              _forgotPass(),
             ],
           ),
         ),
-        FlatButton(
-          child: Text( 'Crear una nueva cuenta' ),
-          onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
-        ),
+        _newAccount(context),
       ],
     ),
   );
  }
+
+  Container _newAccount(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10.0),
+      child: FlatButton(
+        textColor: kColorPrimario,
+        child: Text( 'Crear una nueva cuenta',  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0,) ),
+        onPressed: ()=> Navigator.pushReplacementNamed(context, 'registro'),
+      ),
+    );
+  }
 
   Widget _crearEmail(BuildContext context, Blocs bloc) {
 
@@ -275,8 +284,6 @@ class _LoginPageState extends State<LoginPage> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: <Color> [
-            // Color.fromRGBO(63, 63, 156, 1.0),
-            // Color.fromRGBO(90, 70, 178, 1.0),
             Theme.of(context).primaryColor,
             Theme.of(context).primaryColor.withOpacity(0.98)
           ]
@@ -353,5 +360,18 @@ class _LoginPageState extends State<LoginPage> {
         barrierDismissible: true,
       );
     }
+  }
+
+  Widget _forgotPass() {
+    return Container(
+      margin: EdgeInsets.only(top: 30.0),
+      child: FlatButton(
+        onPressed: () {
+          Navigator.pushNamed(context, 'change_pass');
+        }, 
+        textColor: kColorPrimario,
+        child: Text('Olvidé mi contraseña', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0,))
+      )
+    );
   }
 }

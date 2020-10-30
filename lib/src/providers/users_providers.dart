@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_oso_test/src/models/verification_code.dart';
 import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 import 'dart:convert';
 import 'dart:async';
@@ -127,12 +128,14 @@ class UsersProviders {
     }
   }
 
-  Future<dynamic> updateUser({String name, String email, String phone}) async {
+  Future<dynamic> updateUser({String name, String email, String phone, String pass}) async {
 
     final Map <String, dynamic> body = {
       if (name != null)  'name' : name,
       if (email != null) 'email': email,
-      if (phone != null) 'phone': phone
+      if (phone != null) 'phone': phone,
+      if (pass != null) 'password': pass,
+      if (pass != null) 'password_confirmation': pass
     };
 
     final url = Uri.https(authority, 'api/users/${prefs.idUsuario}',{
@@ -172,6 +175,26 @@ class UsersProviders {
       print('error: ${err.toString()}');
     }
     
+    return null;
+
+  }
+
+  Future<int> getVerificationCode(String email) async {
+
+    final url = Uri.https(authority, 'api/verificationcode', {
+      'api_key': apiKey,
+      'email': email
+    });
+
+    final resp = await http.get(url);
+
+    try {
+      final result = verificationCodeFromJson(resp.body);
+      prefs.idUsuario = result.id;
+      return result.verificationCode;
+    } catch (e) {
+      print(e.toString());
+    }
     return null;
 
   }

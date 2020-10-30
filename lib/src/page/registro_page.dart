@@ -133,7 +133,8 @@ class _RegistroPageState extends State<RegistroPage> {
           ),
 
           FlatButton(
-            child: Text( '¿Ya tienes cuenta? Ingresa aquí' ),
+            textColor: kColorPrimario,
+            child: Text( '¿Ya tienes cuenta? Ingresa aquí', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0,) ),
             onPressed: ()=> Navigator.pushReplacementNamed(context, 'login'),
           ),
 

@@ -6,6 +6,7 @@ import 'package:flutter_oso_test/src/constants/constants.dart';
 import 'package:flutter_oso_test/src/page/add_comment_page.dart';
 import 'package:flutter_oso_test/src/page/all_comments_page.dart';
 import 'package:flutter_oso_test/src/page/buy_success.dart';
+import 'package:flutter_oso_test/src/page/change_pass_page.dart';
 import 'package:flutter_oso_test/src/page/choose_address_page.dart';
 import 'package:flutter_oso_test/src/page/comment_done_page.dart';
 import 'package:flutter_oso_test/src/page/confirm_buy_page.dart';
@@ -14,6 +15,8 @@ import 'package:flutter_oso_test/src/page/image_zoom.dart';
 import 'package:flutter_oso_test/src/page/oxxo_reference_page.dart';
 import 'package:flutter_oso_test/src/page/payment_method_page.dart';
 import 'package:flutter_oso_test/src/page/purchase_det.dart';
+import 'package:flutter_oso_test/src/page/check_code_page.dart';
+import 'package:flutter_oso_test/src/page/set_new_pass_page.dart';
 import 'package:flutter_oso_test/src/page/shipping_method_page.dart';
 
 //Pages
@@ -89,6 +92,9 @@ class MyApp extends StatelessWidget {
           'comments'           : ( BuildContext context ) => AllCommentsPage(),
           'add_comment'        : ( BuildContext context ) => AddCommentPage(),
           'comment_done'       : ( BuildContext context ) => CommentDonePage(),
+          'change_pass'        : ( BuildContext context ) => ChangePassPage(),
+          'check_code'         : ( BuildContext context ) => CheckCodePage(),
+          'set_new_pass'       : ( BuildContext context ) => SetNewPassPage(),
         },
         theme: ThemeData(
           primaryColor: kColorPrimario,
