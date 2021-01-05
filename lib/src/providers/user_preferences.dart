@@ -95,4 +95,14 @@ class UserPreferences {
   set rutaAlmacen(String ruta) {
     _preferences.setString('rutaAlmacen', ruta);
   }
+
+  //get y set del nombre de la sucursal seleccionada
+
+  get nombreAlmacen {
+    return _preferences.getString('nombreAlmacen') ?? "";
+  }
+
+  set nombreAlmacen(String ruta) {
+    _preferences.setString('nombreAlmacen', ruta);
+  }
 }

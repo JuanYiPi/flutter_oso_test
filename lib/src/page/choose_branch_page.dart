@@ -12,6 +12,9 @@ class ChooseBranchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // final bool canPop = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Selecciona una tienda'),
@@ -46,11 +49,15 @@ class ChooseBranchPage extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       height: 60.0,
-      child: Text('Puedes cambiar la sucursal seleccionada después', style: texto, textAlign: TextAlign.center,),
+      child: userPrefs.nombreAlmacen == '' ? Text('Puedes cambiar la sucursal seleccionada después', style: texto, textAlign: TextAlign.center,):
+      Text('Los productos pueden variar entre sucursales', style: texto, textAlign: TextAlign.center,)
     );
   }
 
   Widget _buildBranches(BuildContext context, Branches branches) {
+
+    final bool canPop = ModalRoute.of(context).settings.arguments;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
@@ -63,8 +70,14 @@ class ChooseBranchPage extends StatelessWidget {
           onTap: (){
             userPrefs.idBranch = branch.idAlmacen;
             userPrefs.rutaAlmacen = branch.identificadorWeb;
+            userPrefs.nombreAlmacen = branch.nombreWeb;
             print(userPrefs.idBranch.toString());
             print(userPrefs.rutaAlmacen);
+            if (canPop == true) {
+              Navigator.of(context).pushNamedAndRemoveUntil('home', (Route<dynamic> route) => false);
+            } else {
+              Navigator.pushReplacementNamed(context, 'home');
+            }
           },
         )).toList()
       ),

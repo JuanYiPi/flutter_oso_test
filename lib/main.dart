@@ -23,7 +23,7 @@ import 'package:flutter_oso_test/src/page/shipping_method_page.dart';
 //Pages
 import 'package:flutter_oso_test/src/page/shopping_cart_page.dart';
 import 'src/page/categories_page.dart';
-import 'src/page/det_compra_page.dart';
+// import 'src/page/det_compra_page.dart';
 import 'src/page/det_product_page.dart';
 import 'src/page/addresses_page.dart';
 import 'src/page/login_page.dart';
@@ -64,8 +64,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Oso online',
         initialRoute: 
-        'choose_branch', 
-        // prefs.rememberMe? 'home' : 'login',
+        // 'choose_branch', 
+        prefs.rememberMe? 'home' : 'login',
         routes: {
           'login'              : ( BuildContext context ) => LoginPage(),
           'registro'           : ( BuildContext context ) => RegistroPage(),
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
           'shipping_addresses' : ( BuildContext context ) => AddressesPage(),
           'register_addresses' : ( BuildContext context ) => RegisterAddresses(),
           'my_shopping'        : ( BuildContext context ) => MyShoppingPage(),
-          'det_shopping'       : ( BuildContext context ) => DetCompraPage(),
+          // 'det_shopping'       : ( BuildContext context ) => DetCompraPage(),
           'shopping_cart'      : ( BuildContext context ) => ShoppingCartPage(),
           'shipping'           : ( BuildContext context ) => ShippingMethod(),
           'address'            : ( BuildContext context ) => ChooseAddress(),

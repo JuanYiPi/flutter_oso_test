@@ -20,6 +20,7 @@ class HomePage extends StatelessWidget {
   final catProvider = CategoriasProvider();
   final recentProductsProvider = RecentProductsProvider();
   final cartsProvider = CartsProvider();
+  final userPrefs = UserPreferences();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,6 @@ class HomePage extends StatelessWidget {
       children: [
         _categorias(),
         _listaCategorias(context),
-        // _productosRecientes(),
         _productosRecientesBeta(),
       ],
     );
@@ -123,8 +123,22 @@ class HomePage extends StatelessWidget {
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       title: Text('Inicio'),
+      bottom: PreferredSize(
+        child: Container(
+          child: 
+          FlatButton.icon(
+            textColor: Colors.white70,
+            icon: Icon(Icons.location_on, size: 18,), 
+            label: Text('Sucursal ' + userPrefs.nombreAlmacen),
+            onPressed: (){
+              Navigator.pushNamed(context, 'choose_branch', arguments: true);
+            }, 
+          ),
+          height: 35.0,
+        ), 
+        preferredSize: Size.fromHeight(35)
+      ),
       actions: <Widget>[
-
         IconButton(
           icon: Icon(Icons.search),
           onPressed: () {

@@ -349,7 +349,9 @@ class _LoginPageState extends State<LoginPage> {
       prefs.idUsuario = resp.id;
       prefs.userName  = resp.name;
       prefs.userEmail = resp.email;
-      Navigator.pushReplacementNamed(context, 'home');
+      prefs.rutaAlmacen != '' ?
+      Navigator.pushReplacementNamed(context, 'home') :
+      Navigator.pushReplacementNamed(context, 'choose_branch', arguments: false);
     } else {
       showDialog(
         context: context,
