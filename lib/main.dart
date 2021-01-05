@@ -8,6 +8,7 @@ import 'package:flutter_oso_test/src/page/all_comments_page.dart';
 import 'package:flutter_oso_test/src/page/buy_success.dart';
 import 'package:flutter_oso_test/src/page/change_pass_page.dart';
 import 'package:flutter_oso_test/src/page/choose_address_page.dart';
+import 'package:flutter_oso_test/src/page/choose_branch_page.dart';
 import 'package:flutter_oso_test/src/page/comment_done_page.dart';
 import 'package:flutter_oso_test/src/page/confirm_buy_page.dart';
 import 'package:flutter_oso_test/src/page/favorites_page.dart';
@@ -63,8 +64,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Oso online',
         initialRoute: 
-        // 'finish', 
-        prefs.rememberMe? 'home' : 'login',
+        'choose_branch', 
+        // prefs.rememberMe? 'home' : 'login',
         routes: {
           'login'              : ( BuildContext context ) => LoginPage(),
           'registro'           : ( BuildContext context ) => RegistroPage(),
@@ -95,6 +96,7 @@ class MyApp extends StatelessWidget {
           'change_pass'        : ( BuildContext context ) => ChangePassPage(),
           'check_code'         : ( BuildContext context ) => CheckCodePage(),
           'set_new_pass'       : ( BuildContext context ) => SetNewPassPage(),
+          'choose_branch'      : ( BuildContext context ) => ChooseBranchPage(),
         },
         theme: ThemeData(
           primaryColor: kColorPrimario,

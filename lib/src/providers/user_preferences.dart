@@ -76,4 +76,23 @@ class UserPreferences {
     _preferences.setInt('idActiveCart', value);
   }
 
+  //get y set de la sucursal seleccionada
+
+  get idBranch {
+    return _preferences.getInt('idBranch') ?? 21; //matriz por defecto
+  }
+
+  set idBranch(int value) {
+    _preferences.setInt('idBranch', value);
+  }
+
+  //get y set de la ruta para la sucursal seleccionada
+
+  get rutaAlmacen {
+    return _preferences.getString('rutaAlmacen') ?? "";
+  }
+
+  set rutaAlmacen(String ruta) {
+    _preferences.setString('rutaAlmacen', ruta);
+  }
 }
