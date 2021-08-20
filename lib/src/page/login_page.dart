@@ -102,10 +102,13 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox( height: kDefaultPaddin * 1.5 ),
               _crearBoton(bloc),
               _forgotPass(),
+              _newAccount(context),
             ],
           ),
         ),
-        _newAccount(context),
+
+        Container(height: 45.0,)
+
       ],
     ),
   );
@@ -113,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Container _newAccount(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 10.0),
+      // margin: EdgeInsets.only(bottom: 1.0),
       child: FlatButton(
         textColor: kColorPrimario,
         child: Text( 'Crear una nueva cuenta',  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0,) ),
@@ -349,7 +352,9 @@ class _LoginPageState extends State<LoginPage> {
       prefs.idUsuario = resp.id;
       prefs.userName  = resp.name;
       prefs.userEmail = resp.email;
-      Navigator.pushReplacementNamed(context, 'home');
+      prefs.rutaAlmacen != '' ?
+      Navigator.pushReplacementNamed(context, 'home') :
+      Navigator.pushReplacementNamed(context, 'choose_branch', arguments: false);
     } else {
       showDialog(
         context: context,

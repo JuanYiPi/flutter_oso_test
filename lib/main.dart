@@ -8,6 +8,7 @@ import 'package:flutter_oso_test/src/page/all_comments_page.dart';
 import 'package:flutter_oso_test/src/page/buy_success.dart';
 import 'package:flutter_oso_test/src/page/change_pass_page.dart';
 import 'package:flutter_oso_test/src/page/choose_address_page.dart';
+import 'package:flutter_oso_test/src/page/choose_branch_page.dart';
 import 'package:flutter_oso_test/src/page/comment_done_page.dart';
 import 'package:flutter_oso_test/src/page/confirm_buy_page.dart';
 import 'package:flutter_oso_test/src/page/favorites_page.dart';
@@ -22,7 +23,7 @@ import 'package:flutter_oso_test/src/page/shipping_method_page.dart';
 //Pages
 import 'package:flutter_oso_test/src/page/shopping_cart_page.dart';
 import 'src/page/categories_page.dart';
-import 'src/page/det_compra_page.dart';
+// import 'src/page/det_compra_page.dart';
 import 'src/page/det_product_page.dart';
 import 'src/page/addresses_page.dart';
 import 'src/page/login_page.dart';
@@ -63,7 +64,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Oso online',
         initialRoute: 
-        // 'finish', 
+        // 'choose_branch', 
         prefs.rememberMe? 'home' : 'login',
         routes: {
           'login'              : ( BuildContext context ) => LoginPage(),
@@ -77,7 +78,7 @@ class MyApp extends StatelessWidget {
           'shipping_addresses' : ( BuildContext context ) => AddressesPage(),
           'register_addresses' : ( BuildContext context ) => RegisterAddresses(),
           'my_shopping'        : ( BuildContext context ) => MyShoppingPage(),
-          'det_shopping'       : ( BuildContext context ) => DetCompraPage(),
+          // 'det_shopping'       : ( BuildContext context ) => DetCompraPage(),
           'shopping_cart'      : ( BuildContext context ) => ShoppingCartPage(),
           'shipping'           : ( BuildContext context ) => ShippingMethod(),
           'address'            : ( BuildContext context ) => ChooseAddress(),
@@ -95,6 +96,7 @@ class MyApp extends StatelessWidget {
           'change_pass'        : ( BuildContext context ) => ChangePassPage(),
           'check_code'         : ( BuildContext context ) => CheckCodePage(),
           'set_new_pass'       : ( BuildContext context ) => SetNewPassPage(),
+          'choose_branch'      : ( BuildContext context ) => ChooseBranchPage(),
         },
         theme: ThemeData(
           primaryColor: kColorPrimario,

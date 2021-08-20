@@ -36,7 +36,7 @@ class ProductsProvider {
     _productPage++;
     print("page: $_productPage");
 
-    final url = Uri.https(authority, 'api/categories/${prefs.idCategoria}/products',{
+    final url = Uri.https(authority, '/${prefs.rutaAlmacen}api/api/categories/${prefs.idCategoria}/products',{
       'api_key'               : apiKey,
       'page': _productPage.toString(),
       'rows': '20',
