@@ -28,7 +28,7 @@ class DetProductPage extends StatefulWidget {
 class _DetProductPageState extends State<DetProductPage> {
 
   final cartsProvider = CartsProvider();
-  final productsProvider = ProductsProvider();
+  // final productsProvider = ProductsProvider();
   final favProvider = FavoritesProvider();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final prefs = UserPreferences();
@@ -158,7 +158,7 @@ class _DetProductPageState extends State<DetProductPage> {
         child: ServerImage(
           width: screenSize.width * 0.9, 
           heigt: screenSize.width * 0.9, 
-          imageUrl: product.getImg()
+          imageUrl: product.getFullImg()
         ),
       ),
       onTap: () => Navigator.pushNamed(context, 'zoom', arguments: product),

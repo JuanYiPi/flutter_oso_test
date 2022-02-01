@@ -36,7 +36,7 @@ class ProductsProvider {
     _productPage++;
     print("page: $_productPage");
 
-    final url = Uri.https(authority, '/${prefs.rutaAlmacen}api/api/categories/${prefs.idCategoria}/products',{
+    final url = Uri.https(authority, '${prefs.rutaAlmacen}api/api/categories/${prefs.idCategoria}/products',{
       'api_key'               : apiKey,
       'page': _productPage.toString(),
       'rows': '20',
@@ -64,49 +64,49 @@ class ProductsProvider {
     return null;
   }
 
-  Future<List<Product>> getAllProducts() async {
+  // Future<List<Product>> getAllProducts() async {
 
-    final url = Uri.https(authority, 'api/products', {
-      'api_key'               : apiKey,
-    });
-    try {
-      final resp = await http.get(url);
-      final decodedData = json.decode(resp.body);
-      final allProducts = new Products.fromJsonList(decodedData['data']);
-      print(decodedData['data']);
-      return allProducts.items;
-    } catch (err) {
-      print(err.toString());
-      print('error');
-    }
-    return null;
-  }
+  //   final url = Uri.https(authority, 'api/products', {
+  //     'api_key'               : apiKey,
+  //   });
+  //   try {
+  //     final resp = await http.get(url);
+  //     final decodedData = json.decode(resp.body);
+  //     final allProducts = new Products.fromJsonList(decodedData['data']);
+  //     print(decodedData['data']);
+  //     return allProducts.items;
+  //   } catch (err) {
+  //     print(err.toString());
+  //     print('error');
+  //   }
+  //   return null;
+  // }
 
-  Future<List<Product>> getAllProductsByCategoryID(String id) async {
+  // Future<List<Product>> getAllProductsByCategoryID(String id) async {
 
-    final url = Uri.https(authority, 'api/categories/$id/products',{
-      'api_key'               : apiKey,
-      'page': '1',
-      'rows': '20',
-      'user_id': prefs.idUsuario.toString()
-    });
+  //   final url = Uri.https(authority, 'api/categories/$id/products',{
+  //     'api_key'               : apiKey,
+  //     'page': '1',
+  //     'rows': '20',
+  //     'user_id': prefs.idUsuario.toString()
+  //   });
 
-    try {
-      final resp = await http.get(url);
-      final decodedData = json.decode(resp.body);
-      final allProducts = new Products.fromJsonList(decodedData['data']);
-      print(decodedData['data']);
-      return allProducts.items;
-    } catch (err) {
-      print(err.toString());
-      print('error');
-    }
-    return null;
-  }
+  //   try {
+  //     final resp = await http.get(url);
+  //     final decodedData = json.decode(resp.body);
+  //     final allProducts = new Products.fromJsonList(decodedData['data']);
+  //     print(decodedData['data']);
+  //     return allProducts.items;
+  //   } catch (err) {
+  //     print(err.toString());
+  //     print('error');
+  //   }
+  //   return null;
+  // }
 
   Future<Product> getProductById(String id) async {
     
-    final url = Uri.https(authority, 'api/products/$id');
+    final url = Uri.https(authority, '${prefs.rutaAlmacen}api/api/products/$id');
     try {
       final resp = await http.get(url);
       final decodedData = json.decode(resp.body);
@@ -120,7 +120,7 @@ class ProductsProvider {
   }
 
   Future<List<Product>> searchProduct(String query) async {
-    final url = Uri.https(authority, 'api/products',{
+    final url = Uri.https(authority, '${prefs.rutaAlmacen}api/api/products',{
       'api_key': apiKey,
       'query'  : query,
       'user_id': prefs.idUsuario.toString()
@@ -141,7 +141,7 @@ class ProductsProvider {
 
   Future<List<Comment>> getComments(String productId) async {
 
-    final url = Uri.https(authority, 'api/coments', {
+    final url = Uri.https(authority, '${prefs.rutaAlmacen}api/api/coments', {
       'api_key'   : apiKey,
       'product_id': productId
     });
@@ -159,7 +159,7 @@ class ProductsProvider {
 
   Future<bool> addComment({int rating, String comment, int productId}) async {
 
-    final url = Uri.https(authority, 'api/coments', {
+    final url = Uri.https(authority, '${prefs.rutaAlmacen}api/api/coments', {
       'api_key'   : apiKey,
       'product_id': productId.toString(),
       'user_id'   : prefs.idUsuario.toString(),

@@ -64,8 +64,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Oso online',
         initialRoute: 
-        // 'choose_branch', 
-        prefs.rememberMe? 'home' : 'login',
+        // 'choose_branch',
+        prefs.rememberMe? (prefs.rutaAlmacen == ""? 'choose_branch' : 'home') : 'login',
+        
         routes: {
           'login'              : ( BuildContext context ) => LoginPage(),
           'registro'           : ( BuildContext context ) => RegistroPage(),
