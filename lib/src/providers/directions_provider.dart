@@ -36,6 +36,7 @@ class DirectionsProvider {
   }
   //STREAM
 
+
   Future<List<Direction>> getAllDirections() async {
 
     final url = Uri.https(authority, 'api/directions', {

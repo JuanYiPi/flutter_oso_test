@@ -21,8 +21,8 @@ class ImageZoomPage extends StatelessWidget {
         child: PhotoView(
           minScale: 0.5,
           maxScale: 2.0,
-          imageProvider: ( product.getImg() != null ) 
-          ? NetworkImage(product.getImg())
+          imageProvider: ( product.getFullImg() != null ) 
+          ? NetworkImage(product.getFullImg())
           : Image.asset('assets/img/no_disponible.jpg')
         )
       ),

@@ -92,8 +92,8 @@ class UserPreferences {
     return _preferences.getString('rutaAlmacen') ?? "";
   }
 
-  set rutaAlmacen(String ruta) {
-    _preferences.setString('rutaAlmacen', ruta);
+  set rutaAlmacen(String value) {
+    _preferences.setString('rutaAlmacen', value);
   }
 
   //get y set del nombre de la sucursal seleccionada
@@ -102,7 +102,7 @@ class UserPreferences {
     return _preferences.getString('nombreAlmacen') ?? "";
   }
 
-  set nombreAlmacen(String ruta) {
-    _preferences.setString('nombreAlmacen', ruta);
+  set nombreAlmacen(String value) {
+    _preferences.setString('nombreAlmacen', value);
   }
 }

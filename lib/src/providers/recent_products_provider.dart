@@ -35,7 +35,7 @@ class RecentProductsProvider {
 
   getRecentProducts() async {
 
-    final url = Uri.https(authority, 'marinaapi/api/recentproducts', {
+    final url = Uri.https(authority, '${prefs.rutaAlmacen}api/api/recentproducts', {
       'api_key': apiKey,
       'user_id': prefs.idUsuario.toString()
     });

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_oso_test/src/providers/user_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter_oso_test/src/models/categories_model.dart';
@@ -10,9 +11,11 @@ class CategoriasProvider {
   String authority = DotEnv().env['OSO_BASE_URL'];
   String apiKey    = DotEnv().env['OSO_API_KEY'];
 
+  final prefs = new UserPreferences();
+
   Future<List<Categoria>> getAllCategorias() async {
 
-    final url = Uri.https(authority, 'api/categories', {
+    final url = Uri.https(authority, '${prefs.rutaAlmacen}api/api/categories', {
       'api_key'               : apiKey,
     });
     try {
